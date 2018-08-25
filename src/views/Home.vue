@@ -1,5 +1,7 @@
 <template>
-  <div class="home">
+  <div id="home">
+    <router-link to="/signup">signup</router-link>
+    <router-link to="/login">login</router-link>
   </div>
 </template>
 
@@ -12,3 +14,10 @@ export default {
 }
 }
 </script>
+
+<style lang="scss" scoped>
+#home{
+height: 100vh;
+}
+</style>
+
