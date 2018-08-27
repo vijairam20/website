@@ -27,7 +27,7 @@
 <div class="field">
   <label class="label">Username</label>
   <div class="control has-icons-left has-icons-right">
-    <input v-model.trim="username" class="input " type="text" placeholder="Text input" >
+    <input v-model.trim="username" class="input " type="text" placeholder="username" >
     <span class="icon is-small is-left">
       <i class="fas fa-user"></i>
     </span>
@@ -80,6 +80,8 @@
 <script>
 import firebase from 'firebase'
 import chat from '../chat.js'
+import user from '../user.js'
+
 export default {
     name:'signup',
     data:function(){
@@ -93,18 +95,25 @@ export default {
     },
     methods:{
       register: function(){
-        chat.createUser(this.username,this.name)
+        //firebase create user
         firebase.auth().createUserWithEmailAndPassword(this.email,this.password).then(
           function(user){
             console.log('account created')
-            chat.addUser(this.username)
           }).catch(err=>{
-            this.printerr=err
+            this.printerr=err.message
           })
-        }
-      }
+        
+         //chatkit create user 
+         //TODO:fix error handling
+        chat.createUser(this.username,this.name)
+          
+        //add to firestore and vuex
+        console.log(this.username)
+        user.addUser(this.name,this.username,this.email,this.password,(Math.ceil(Math.random()+1)*100))
+        
     }
-
+}
+}
 </script>
 
 <style lang="scss" scoped>

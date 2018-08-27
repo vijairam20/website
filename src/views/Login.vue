@@ -44,6 +44,7 @@
     <button @click.prevent = "signin" class="button is-link">Submit</button>
   </div>
 </div>
+<h1>{{printerr}}</h1>
 </form>
        
     </div>
@@ -52,14 +53,16 @@
 <script>
 import firebase from 'firebase'
 import chat from '../chat.js'
+import user from '../user.js'
 
 export default {
 name:'login',
-data:{
-  return:{
+data:function(){
+  return{
   email:'',
   password:'',
-  username:''
+  username:'',
+  printerr:''
   }
 },
 methods:{
@@ -68,24 +71,26 @@ methods:{
     chat.authenticateUser(this.username)
     firebase.auth()
           .signInWithEmailAndPassword(this.email, this.password)
-          .then( user => { this.$router.replace("dashboard"); },
-          error => { alert(error.message); }); 
+          .then( user => { this.$router.replace("dashboard"); },).catch(
+          error => {this.printerr=error.message})
+
    },
-  siginGoogle:function(){
-var provider = new firebase.auth.GoogleAuthProvider();
-      provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-      firebase.auth().signInWithPopup(provider).then(function(result) {
-  var token = result.credential.accessToken;
-  var user = result.user;
-  console.log(user)
-  this.$router.replace("dashboard")
-}).catch(function(error) {
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  var email = error.email;
-  var credential = error.credential;
-});
-  }
+
+//   siginGoogle:function(){
+// var provider = new firebase.auth.GoogleAuthProvider();
+//       provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+//       firebase.auth().signInWithPopup(provider).then(function(result) {
+//   var token = result.credential.accessToken;
+//   var user = result.user;
+//   console.log(user)
+//   this.$router.replace("dashboard")
+// }).catch(function(error) {
+//   var errorCode = error.code;
+//   var errorMessage = error.message;
+//   var email = error.email;
+//   var credential = error.credential;
+// });
+//   }
 }
 }
 </script>
