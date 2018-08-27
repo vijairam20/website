@@ -68,12 +68,11 @@ data:function(){
 methods:{
   signin:function()
   {
-    chat.authenticateUser(this.username)
     firebase.auth()
           .signInWithEmailAndPassword(this.email, this.password)
           .then( user => { this.$router.replace("dashboard"); },).catch(
           error => {this.printerr=error.message})
-
+    
    },
 
 //   siginGoogle:function(){
