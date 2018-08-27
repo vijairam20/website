@@ -7,14 +7,27 @@
         <div class="field">
   <label class="label">Name</label>
   <div class="control">
-    <input class="input" type="text" placeholder="Text input">
+    <input  v-model.trim="name" class="input" type="text" placeholder="Text input">
   </div>
 </div>
 
 <div class="field">
+  <label class="label">Email</label>
+  <div class="control has-icons-left has-icons-right">
+    <input v-model.trim ="email" class="input" type="email" placeholder="Email input" >
+    <span class="icon is-small is-left">
+      <i class="fas fa-envelope"></i>
+    </span>
+    <span class="icon is-small is-right">
+      <i class="fas fa-exclamation-triangle"></i>
+    </span>
+  </div>
+  
+
+<div class="field">
   <label class="label">Username</label>
   <div class="control has-icons-left has-icons-right">
-    <input class="input " type="text" placeholder="Text input" >
+    <input v-model.trim="username" class="input " type="text" placeholder="Text input" >
     <span class="icon is-small is-left">
       <i class="fas fa-user"></i>
     </span>
@@ -26,7 +39,7 @@
 <div class="field">
   <label class="label">Password</label>
   <div class="control has-icons-left has-icons-right">
-    <input class="input " type="password" placeholder="password" >
+    <input v-model.trim="password" class="input " type="password" placeholder="password" >
     <span class="icon is-small is-left">
       <i class="fas fa-user"></i>
     </span>
@@ -36,18 +49,6 @@
   </div>
 </div>
 
-<div class="field">
-  <label class="label">Email</label>
-  <div class="control has-icons-left has-icons-right">
-    <input class="input" type="email" placeholder="Email input" >
-    <span class="icon is-small is-left">
-      <i class="fas fa-envelope"></i>
-    </span>
-    <span class="icon is-small is-right">
-      <i class="fas fa-exclamation-triangle"></i>
-    </span>
-  </div>
-  
 </div>
 </div>
 <div class="field">
@@ -63,21 +64,47 @@
 
 <div class="field is-grouped">
   <div class="control">
-    <button class="button is-link">Submit</button>
+    <button @click.prevent="register" class="button is-link">Submit</button>
   </div>
   <div class="control">
-    <button class="button is-text">Cancel</button>
+    <router-link tag=button class = "button is-text" to="/">Cancel</router-link>
   </div>
 </div>
+
+<h1>{{printerr}}</h1>
 </form>
 
     </div>
 </template>
 
 <script>
+import firebase from 'firebase'
+import chat from '../chat.js'
 export default {
-    
-}
+    name:'signup',
+    data:function(){
+      return{
+        email:'',
+        password:'',
+        username:'',
+        printerr:'',
+        name:''
+      }
+    },
+    methods:{
+      register: function(){
+        chat.createUser(this.username,this.name)
+        firebase.auth().createUserWithEmailAndPassword(this.email,this.password).then(
+          function(user){
+            console.log('account created')
+            chat.addUser(this.username)
+          }).catch(err=>{
+            this.printerr=err
+          })
+        }
+      }
+    }
+
 </script>
 
 <style lang="scss" scoped>
@@ -96,5 +123,7 @@ form{
 
 #signhero{
     background: url('../assets/signup.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 </style>

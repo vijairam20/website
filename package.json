@@ -7,6 +7,9 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@pusher/chatkit": "^0.7.17",
+    "@pusher/chatkit-server": "^0.12.2",
+    "axios": "^0.18.0",
     "bulma": "^0.7.1",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
