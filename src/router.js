@@ -47,7 +47,7 @@ const router = new Router({
   ]
 })
 export default  router
-
+if(false){
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
   const currentUser = firebase.auth().currentUser
@@ -60,3 +60,4 @@ router.beforeEach((to, from, next) => {
       next()
   }
 })
+}

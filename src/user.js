@@ -55,6 +55,19 @@ const addCurrentUser = function(email){
       console.log('Error getting document', err);
     });
 }
+const users = db.collection('users')
+
+const getAllUsers = function(){
+    let userslist 
+    users.get()
+    .then(snapshot => {
+      userslist = snapshot
+    })
+    .catch(err => {
+      console.log('Error getting documents', err);
+    });
+        return userslist
+}
 export default {
-sigin , createUser ,addUser , addCurrentUser
+sigin , createUser ,addUser , addCurrentUser , users , getAllUsers
 }
