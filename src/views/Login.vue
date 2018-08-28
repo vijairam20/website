@@ -16,7 +16,7 @@
 
   <label class="label">Email</label>
   <div class="control has-icons-left has-icons-right">
-    <input v-model= "email" class="input " type="email" placeholder="email" >
+    <input v-model.trim= "email" class="input " type="email" placeholder="email" >
     <span class="icon is-small is-left">
       <i class="fas fa-user"></i>
     </span>
@@ -68,11 +68,14 @@ data:function(){
 methods:{
   signin:function()
   {
+    //Firebase sigin 
     firebase.auth()
           .signInWithEmailAndPassword(this.email, this.password)
           .then( user => { this.$router.replace("dashboard"); },).catch(
           error => {this.printerr=error.message})
-    
+
+    //store current user in vuex store
+    user.addCurrentUser(this.email)    
    },
 
 //   siginGoogle:function(){

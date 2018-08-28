@@ -40,6 +40,21 @@ const addUser = function(newname,newusername,newemail,newpassword, newid){
         })
 
 }
+
+const addCurrentUser = function(email){
+    db.collection('users').doc(email).get()
+    .then(doc=>{
+        if(!doc.exists){
+            console.log("Doc does not exist")
+        }
+        else{
+            store.commit('setUser',doc.data())
+        }
+    })
+    .catch(err => {
+      console.log('Error getting document', err);
+    });
+}
 export default {
-sigin , createUser ,addUser
+sigin , createUser ,addUser , addCurrentUser
 }
