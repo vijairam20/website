@@ -17,9 +17,16 @@ Vue.config.productionTip = false
   };
   firebase.initializeApp(config);
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
 
+
+let app;
+firebase.auth().onAuthStateChanged(function(user) {
+  if (!app) {
+    /* eslint-disable no-new */
+    app = new Vue({
+      router,
+      store,
+      render: h => h(App)
+    }).$mount('#app')
+  }
+});
