@@ -2,47 +2,31 @@
     <div id="login">
         <div id="loginimg"></div>
         <form>
-           <div class="field">
-  <label class="label">Username</label>
-  <div class="control has-icons-left has-icons-right">
-    <input v-model= "username" class="input " type="text" placeholder="username" >
-    <span class="icon is-small is-left">
-      <i class="fas fa-user"></i>
-    </span>
-    <span class="icon is-small is-right">
-      <i class="fas fa-check"></i>
-    </span>
-  </div>
-
-  <label class="label">Email</label>
-  <div class="control has-icons-left has-icons-right">
-    <input v-model.trim= "email" class="input " type="email" placeholder="email" >
-    <span class="icon is-small is-left">
-      <i class="fas fa-user"></i>
-    </span>
-    <span class="icon is-small is-right">
-      <i class="fas fa-check"></i>
-    </span>
-  </div>
-
 <div class="field">
-  <label class="label">Password</label>
-  <div class="control has-icons-left has-icons-right">
-    <input v-model="password" class="input " type="password" placeholder="password" >
+  <p class="control has-icons-left has-icons-right">
+    <input v-model="email" class="input" type="email" placeholder="Email">
     <span class="icon is-small is-left">
-      <i class="fas fa-user"></i>
+      <i class="fas fa-envelope"></i>
     </span>
     <span class="icon is-small is-right">
       <i class="fas fa-check"></i>
     </span>
-  </div>
-</div> 
-           </div>
-
-           <div class="field is-grouped">
-  <div class="control">
-    <button @click.prevent = "signin" class="button is-link">Submit</button>
-  </div>
+  </p>
+</div>
+<div class="field">
+  <p class="control has-icons-left">
+    <input v-model="password" class="input" type="password" placeholder="Password">
+    <span class="icon is-small is-left">
+      <i class="fas fa-lock"></i>
+    </span>
+  </p>
+</div>
+<div class="field">
+  <p class="control">
+    <button @click.prevent="signin" class="button is-success">
+      Login
+    </button>
+  </p>
 </div>
 <h1>{{printerr}}</h1>
 </form>
@@ -61,7 +45,6 @@ data:function(){
   return{
   email:'',
   password:'',
-  username:'',
   printerr:''
   }
 },
@@ -71,11 +54,13 @@ methods:{
     //Firebase sigin 
     firebase.auth()
           .signInWithEmailAndPassword(this.email, this.password)
-          .then( user => { this.$router.replace("dashboard"); },).catch(
-          error => {this.printerr=error.message})
+          .then( user => { 
+            this.$router.replace("dashboard"); 
+                //store current user in vuex store
 
-    //store current user in vuex store
-    user.addCurrentUser(this.email)    
+            user.addCurrentUser(this.email)
+          },).catch(
+          error => {this.printerr=error.message})        
    },
 
 //   siginGoogle:function(){
@@ -106,6 +91,10 @@ methods:{
 
 form{
     padding: 100px;
+h1{
+  color: red;
+  
+}
 }
 
 #loginimg{
