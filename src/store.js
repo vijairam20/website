@@ -13,8 +13,7 @@ export default new Vuex.Store({
         password : '' ,
         id : 0 
       }
-      ,errormsg : '' ,
-      currentUser: Object 
+      ,errormsg : ''
   },
   mutations: {
         setUser(state,newuser)
@@ -24,9 +23,6 @@ export default new Vuex.Store({
         ,
         setError(state,errmsg){
           state.errormsg = errmsg 
-        },
-        setCurrentUser(state,user){
-          state.currentUser = user 
         }
   },
   actions: {
@@ -38,9 +34,6 @@ export default new Vuex.Store({
     },
     getErrormsg : state =>{
       return state.errormsg
-    },
-    getCurrentUser : state =>{
-        return state.currentUser
     } 
   }
 })

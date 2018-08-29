@@ -34,23 +34,6 @@ const authenticateUser = function(username){
   })
 }
 
-const connect =function(name){
-  // create chatmanager instance
-  const chatManager = new ChatManager({
-    instanceLocator: 'v1:us1:9aeb69cb-d766-4077-a17f-7dd5d2af01a7',
-    userId: name,
-    tokenProvider: new TokenProvider({ url: 'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/9aeb69cb-d766-4077-a17f-7dd5d2af01a7/token' })
-  })
-
-  chatManager.connect()
-  .then(currentUser => {
-    console.log('Successful connection', currentUser)
-    store.commit('setCurrentUser' , currentUser)
-  })
-  .catch(err => {
-    console.log('Error on connection', err)
-  })
-}
 export default  {
     createUser,authenticateUser
 }
