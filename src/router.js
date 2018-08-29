@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import Chat from './views/Chat.vue'
 import firebase from 'firebase'
 import Search from './views/Search.vue'
 Vue.use(Router)
@@ -29,7 +28,7 @@ const router = new Router({
       name: 'dashboard',
       component: ()=>import('./views/Dashboard.vue'),
       children:[{
-            name:chat,
+            name:'chat',
             path:'chat',
             component: ()=>import('./views/Chat.vue')
            },
