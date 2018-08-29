@@ -79,9 +79,8 @@
 
 <script>
 import firebase from 'firebase'
-import chat from '../chat.js'
-import user from '../user.js'
-
+import {createUser}from '../chat.js'
+import {addUser} from '../user.js'
 export default {
     name:'signup',
     data:function(){
@@ -105,11 +104,11 @@ export default {
         
          //chatkit create user 
          //TODO:fix error handling
-        chat.createUser(this.username,this.name)
+        createUser(this.username,this.name)
           
         //add to firestore and vuex
         console.log(this.username)
-        user.addUser(this.name,this.username,this.email,this.password,(Math.ceil(Math.random()+1)*100))
+        addUser(this.name,this.username,this.email,this.password,(Math.ceil(Math.random()+1)*100))
         
     }
 }

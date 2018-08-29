@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Chat from './views/Chat.vue'
 import firebase from 'firebase'
-import chat from './chat';
 import Search from './views/Search.vue'
 Vue.use(Router)
 const router = new Router({

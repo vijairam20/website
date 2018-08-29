@@ -36,9 +36,7 @@
 
 <script>
 import firebase from 'firebase'
-import chat from '../chat.js'
-import user from '../user.js'
-
+import {addCurrentUser} from '../user.js'
 export default {
 name:'login',
 data:function(){
@@ -57,10 +55,13 @@ methods:{
           .then( user => { 
             this.$router.replace("dashboard"); 
                 //store current user in vuex store
-
-            user.addCurrentUser(this.email)
+            
+            addCurrentUser(this.email)
           },).catch(
-          error => {this.printerr=error.message})        
+          error => {
+            this.printerr=error.message
+            console.log(err.message)
+          })        
    },
 
 //   siginGoogle:function(){

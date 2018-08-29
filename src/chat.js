@@ -7,7 +7,7 @@ const chatkit = new Chatkit.default({
     ,
   })
 
-const createUser = function(username , name){
+export const createUser = function(username , name){
     chatkit.createUser({
         id: name,
         name: username,
@@ -34,6 +34,6 @@ const authenticateUser = function(username){
   })
 }
 
-export default  {
-    createUser,authenticateUser
-}
+// export default  {
+//     createUser,authenticateUser
+// }
