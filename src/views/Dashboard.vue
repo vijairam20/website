@@ -4,7 +4,7 @@
             <router-link to="/dashboard/chat"><i class="fas fa-comment fa-3x"></i></router-link>
             <router-link to="/dashboard/search"><i class="fas fa-search fa-3x"></i></router-link>
             <router-link to="/dashboard/settings"><i class="fas fa-cog fa-3x"></i></router-link>
-            <router-link to="/login"><i class="fas fa-sign-out-alt fa-3x"></i></router-link>
+            <router-link to="/login" @click.native="logout"><i class="fas fa-sign-out-alt fa-3x"></i></router-link>
         </nav>
         <div>
             <router-view></router-view>
@@ -13,10 +13,13 @@
 </template>
 
 <script>
-
+import {signout} from '../user.js'
 export default {
-created : function(){
-  //  this.$router.replace('dasboard/chat')
+name:'Dashboard',
+methods:{
+    logout:function(){
+        signout()
+    }
 }
 }
 </script>
@@ -24,7 +27,7 @@ created : function(){
 <style lang="scss" scoped>
 #dashboard{
     display: grid;
-    grid-template-columns: 5% 90% ;
+    grid-template-columns: 5% 95% ;
     height: 100%;
     width: 100% ;
 }

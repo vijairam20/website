@@ -55,6 +55,14 @@ const addCurrentUser = function(email){
       console.log('Error getting document', err);
     });
 }
+
+export const signout = function(){
+    firebase.auth().signOut().then(function() {
+        console.log("Signed out")
+    }).catch(function(error) {
+        // An error happened.
+      });
+}
 export default {
-sigin , createUser ,addUser , addCurrentUser
+sigin , createUser ,addUser , addCurrentUser , signout 
 }
