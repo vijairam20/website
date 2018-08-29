@@ -32,12 +32,17 @@ const router = new Router({
       children:[{
             name:chat,
             path:'chat',
-            component: Chat 
+            component: ()=>import('./views/Chat.vue')
            },
           {
             name:'search',
             path:'search',
-            component:Search
+            component:()=>import('./views/Search.vue')
+          },
+          {
+            name:'settings',
+            path:'settings',
+            component:()=>import('./views/Settings.vue')
           },
     ],
       meta:{
