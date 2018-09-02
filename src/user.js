@@ -38,16 +38,31 @@ export const signout = function(){
       });
 }
 
-export const getUserByID = function(id){
-    let user 
-        users.get().then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
-                // doc.data() is never undefined for query doc snapshots
-                if(doc.data().id == id){
-                    user = doc.data()
-                }
-                console.log(doc.id, " => ", doc.data());
-            });
+export const getAllUsers =function(){
+    db.collection("users").get().then(function(querySnapshot) {
+        setTimeout()
+        store.commit('setUsersList',querySnapshot)
+    });
+    
+}
+
+export const getUserByID = function(reqid){
+    let flag = false 
+    users.where("id", "==", reqid )
+    .get()
+    .then(function(querySnapshot) {
+        if(querySnapshot.empty){
+            store.commit('setResult',"nan")
+        }else{
+        querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            
+            store.commit('setResult',doc.data())
+            console.log("test") 
         });
-        return user
+    }
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
 }

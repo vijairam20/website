@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { Z_STREAM_ERROR } from 'zlib';
+import { getAllUsers } from './user';
 
 Vue.use(Vuex)
 
@@ -13,7 +14,8 @@ export default new Vuex.Store({
         password : '' ,
         id : 0 
       }
-      ,errormsg : ''
+      ,errormsg : '',
+      result : ' '
   },
   mutations: {
         setUser(state,newuser)
@@ -23,6 +25,14 @@ export default new Vuex.Store({
         ,
         setError(state,errmsg){
           state.errormsg = errmsg 
+        }
+        ,
+        setUsersList(state,users){
+          state.usersList = users
+        }
+        ,
+        setResult(state,user){
+            state.result = user 
         }
   },
   actions: {
@@ -35,5 +45,9 @@ export default new Vuex.Store({
     getErrormsg : state =>{
       return state.errormsg
     } 
+    ,
+    getResult : state=>{
+      return state.result
+    }
   }
 })

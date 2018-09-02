@@ -1,22 +1,38 @@
 <template>
     <div id="search">
         <h1>Search</h1>
-        <input class="input is-rounded" type="search">
-        <button @click="searchUser" class="button">Button</button>
-
+        <div id="cta">
+        <input v-model.number="id" class="input is-rounded" type="search">
+        <button @click="searchUser" class="button is-success">Search</button>
+        </div>        
         <h1>{{result}}</h1>
 
     </div>
 </template>
 
 <script>
-import {getUserById} from '../user.js'
+import {getUserByID} from '../user.js'
+import { setTimeout } from 'timers';
 export default {
     name : 'Search',
     data:function(){
         return{
-        results: '' ,
-        userid: 0 ,
+            id:0,
+            result : '',
+        }
+    },
+    methods:{
+        searchUser : function(){
+                getUserByID(this.id)
+              let res = this.$store.state.result
+                    setTimeout(console.log(""),500)
+                    if(!(res=="nan")){
+                    this.result = res.name
+                    }else{
+                        this.result = "NAN"
+                    }
+           
+            
         }
     }
 }
@@ -43,8 +59,14 @@ export default {
 input{
     
     width : 350px;
-    display: block;
-    top: 10% ;
-    margin : 0 auto;
+    
+}
+button{
+margin-left: 0.5em;
+}
+#cta{
+    margin-top: 3em;
+  display: flex;
+  justify-content:center;
 }
 </style>
