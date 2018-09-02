@@ -21,12 +21,14 @@
     </span>
   </p>
 </div>
-<div class="field">
-  <p class="control">
-    <button @click.prevent="signin" class="button is-success">
-      Login
-    </button>
-  </p>
+
+<div class="field is-grouped">
+  <div class="control">
+    <button @click.prevent="signin" class="button is-link">Login</button>
+  </div>
+  <div class="control">
+    <router-link tag=button class = "button is-text" to="/">Cancel</router-link>
+  </div>
 </div>
 <h1>{{printerr}}</h1>
 </form>
@@ -36,7 +38,7 @@
 
 <script>
 import firebase from 'firebase'
-import {addCurrentUser} from '../user.js'
+import {addCurrentUser,getAllUsers} from '../user.js'
 export default {
 name:'login',
 data:function(){
@@ -57,6 +59,8 @@ methods:{
                 //store current user in vuex store
             
             addCurrentUser(this.email)
+
+            getAllUsers()
           },).catch(
           error => {
             this.printerr=error.message

@@ -104,12 +104,12 @@ export default {
         
          //chatkit create user 
          //TODO:fix error handling
-        createUser(this.username,this.name)
+       // createUser(this.username,this.name)
           
         //add to firestore and vuex
         console.log(this.username)
         addUser(this.name,this.username,this.email,this.password,(Math.ceil(Math.random()+1)*100))
-        
+        this.$router.replace("dashboard"); 
     }
 }
 }
