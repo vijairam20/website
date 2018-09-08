@@ -2,24 +2,19 @@
   <div id="home">
     <div id="navbar">
       <span class = "focus-in-contract-bck">Quanta<sup class = "focus-in-contract-bck-spec">TM</sup></span>
-      <div id="DIV_1">
-	      <div id="DIV_2">
-	      	<router-link id="P_3" class="button is-link" to="/">
-	  	    	<b>HOME</b>
-	  	    </router-link>
-          <router-link id="P_3" class="button is-link" to="/about">
-            <b></b>
-          </router-link>
-	      </div>
-      </div>
+      <nav class="cl-effect-11 a" id="cl-effect-11">
+					<a href="#cl-effect-11 a" data-hover="Home">Home</a>
+					<a href="#cl-effect-11 a" data-hover="About">About</a>
+					
+				</nav>
     </div>
     <div id="content">
     <div id="cta">
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit architecto consequatur, cumque dicta eos, 
         odio veniam doloribus ipsum quasi facilis ullam. Odit minima fuga velit. Esse reprehenderit error voluptatibus 
         atque!</p>
-      <router-link id = "btn" class="button is-link" to="/signup">Sign Up</router-link>
-      <router-link id = "btn" class="button is-link" to="/login">Login</router-link>
+      <router-link class = "btn btn-3 btn-3e icon-arrow-right button is-link" to="/signup">SignUp</router-link>
+      <router-link class = "btn btn-3 btn-3e icon-arrow-right button is-link" to="/login">Login</router-link>
     </div>
     <div id="isohero">
     </div>
@@ -69,6 +64,7 @@ height: 90vh;
     animation: isohero 7s infinite alternate-reverse both;
 }
 
+/*
 #btn {
     bottom: 0px;
     color: rgb(255, 255, 255);
@@ -94,8 +90,9 @@ height: 90vh;
     overflow: hidden;
     padding: 25px 120px 25px 60px;
     transition: all 1.5s ease 0s;
-}/*#BUTTON_1**/
+}/*#BUTTON_1*/
 
+ /*
 #btn:after {
     bottom: -64px;
     box-sizing: border-box;
@@ -126,6 +123,7 @@ height: 90vh;
     transition: all 1.5s ease 0s;
 }/*#BUTTON_1:after*/
 
+/*
 #btn:before {
     bottom: 0px;
     box-sizing: border-box;
@@ -336,6 +334,79 @@ height: 90vh;
     padding-right:20px;
 }/*#P_3:before*/
 
+*, ::after, ::before {
+    box-sizing: border-box; }
+
+.btn {
+    border: none; 
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+    font-size: 3em; 
+    color: whitesmoke; 
+    background: none; 
+    cursor: pointer; 
+    padding: 20px 80px; 
+    display: inline-block; 
+    margin: 15px 30px; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; font-weight: 200;
+    outline: none;
+    position: relative;
+    transition: all 0.3s ease 0.2s;
+    }
+    
+.btn::after { 
+    content: "->"; 
+    position: absolute; 
+    z-index: -1; 
+    transition: all 0.3s ease 0.2s; }
+    
+.btn::before, .icon-heart::after, .icon-star::after, .icon-plus::after, .icon-file::before {
+     font-family: icomoon; 
+     speak: none; 
+     font-style: normal;
+     font-weight: normal;
+     font-variant: normal;
+     text-transform: none; line-height: 1;
+     position: relative; 
+     -webkit-font-smoothing: antialiased; }
+
+.btn-6 { 
+    color: rgb(255, 255, 255); 
+    background: rgb(197, 175, 49); 
+    transition: none 0s ease 0s; }
+    
+.btn-6:active { 
+    top: 2px; }
+    
+.btn-6b { 
+    border: 4px solid rgb(197, 175, 49); 
+    border-radius: 15px; 
+}
+
+.btn-6b:hover { background: transparent; color: goldenrod; }*,
+::after, ::before { box-sizing: border-box; }
+.btn { border: none; font-family: inherit; font-size: inherit; color: inherit; background: none; cursor: pointer; padding: 25px 80px; display: inline-block; margin: 15px 30px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; outline: none; position: relative; transition: all 0.3s ease 0s; }
+.btn::after { content: ""; position: absolute; z-index: -1; transition: all 0.3s ease 0s; }
+.btn::before, 
+.icon-heart::after, 
+.icon-star::after, 
+.icon-plus::after,
+.icon-file::before { font-family: icomoon; speak: none; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; line-height: 1; position: relative; -webkit-font-smoothing: antialiased; }
+.btn-6
+{ color: rgb(255, 255, 255); background: goldenrod; transition: none 0s ease 0s; }
+.btn-6:active { top: 2px; }
+.btn-6b { border: 4px solid goldenrod; border-radius: 15px; }
+.btn-6b:hover { background: goldenrod; color: goldenrod; }
+.icon-arrow-right::before {content: ""; }
+.btn-3 { background: rgb(252, 173, 38); color: rgb(255, 255, 255); }
+.btn-3:hover { background: rgb(242, 158, 13); }
+.btn-3:active { background: rgb(245, 133, 0); top: 20px; }
+.btn-3::before { position: relative; height: 100%; left: 0px; top: 0px; line-height: 3; font-size: 90%; width: 60px; text-align: center;}
+.btn-3e { padding-top: 1px; padding-left: 20mm; padding-bottom: 2px; padding-right: 30mm; overflow: hidden; }
+.btn-3e::before { left: auto; right: 10px; z-index: 2; }
+.btn-3e::after { width: 30%; height: 200%; background: rgba(255, 255, 255, 0.1); z-index: 1; right: 0px; top: 0px; margin: -5px 0px 0px -5px; transform-origin: 0px 0px 0px; transform: rotate(-20deg); }
+.btn-3e:hover::after { width: 40%; }
+
 .focus-in-contract-bck {
     font-size: 5.5em;
   font-family: 'Reem Kufi', sans-serif;
@@ -408,6 +479,75 @@ height: 90vh;
   }
 }
 
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+  display: block;
+}
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+a:focus {
+  outline: dotted thin;
+}
+a:active,
+a:hover {
+  outline: 0px;
+}
+a {
+  text-decoration: none;
+}
+nav a {
+  position: relative;
+  display: inline-block;
+  margin: 15px 25px;
+  outline: none;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 400;
+  text-shadow: rgba(255, 255, 255, 0.3) 0px 0px 1px;
+  font-size: 1.35em;
+}
+nav a:hover,
+nav a:focus {
+  outline: none;
+}
+.cl-effect-11 a {
+  padding: 10px 0px;
+  border-top: 2px solid rgb(9, 114, 180);
+  color: rgb(9, 114, 180);
+  text-shadow: none;
+}
+.cl-effect-11 a::before {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+  padding: 10px 0px;
+  max-width: 0px;
+  border-bottom: 2px solid rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  content: attr(data-hover);
+  transition: max-width 0.5s ease 0s;
+}
+.cl-effect-11 a:hover::before,
+.cl-effect-11 a:focus::before {
+  max-width: 100%;
+}
+
 
 .logo{
   font-size: 5.5em;
@@ -415,4 +555,3 @@ height: 90vh;
   color: rgb(188, 188, 253);
 }
 </style>
-
