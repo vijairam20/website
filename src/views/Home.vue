@@ -39,12 +39,15 @@ background-color: #eeeeee;
 }
 #navbar{
   overflow: hidden;
-  height: 18vh;
+  height: 10vh;
   width:100%;
   text-align: left;
-  padding-left : 20px;
+  padding-left : 1.5em;
   background-color: rgb(24, 19, 19);
   position:fixed;
+  display: flex;
+  justify-content: space-around;
+  z-index: 1;
 }
 #content{
 display: grid;
@@ -62,6 +65,13 @@ height: 90vh;
 #isohero{
     -webkit-animation: isohero 7s infinite alternate-reverse both;
     animation: isohero 7s infinite alternate-reverse both;
+}
+
+.logo{
+  font-size: 5.5em;
+  font-family: 'Reem Kufi', sans-serif;
+  color: rgb(188, 188, 253);
+  margin-bottom: 2em;
 }
 
 /*
@@ -549,9 +559,5 @@ nav a:focus {
 }
 
 
-.logo{
-  font-size: 5.5em;
-  font-family: 'Reem Kufi', sans-serif;
-  color: rgb(188, 188, 253);
-}
+
 </style>
