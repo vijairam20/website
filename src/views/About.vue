@@ -10,7 +10,6 @@
 export default {
 name: 'about',
 components :{
-    
 }
 }
 </script>
@@ -102,6 +101,5 @@ background-color: #eeeeee;
     background-color: indigo;
   }
 }
-
 </style>
 
