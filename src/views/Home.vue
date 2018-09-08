@@ -5,8 +5,11 @@
       <div id="DIV_1">
 	      <div id="DIV_2">
 	      	<router-link id="P_3" class="button is-link" to="/home">
-	  	    	HOME
+	  	    	<b>HOME</b>
 	  	    </router-link>
+          <router-link id="P_3" class="button is-link" to="/about">
+            <b>ABOUT</b>
+          </router-link>
 	      </div>
       </div>
     </div>
@@ -35,25 +38,28 @@ export default {
 
 <style lang="scss" scoped>
 #home{
-height: 100vh;
+height: 180vh;
 background-color: #eeeeee;
 
 }
 #navbar{
+  overflow: hidden;
   height: 18vh;
+  width:100%;
   text-align: left;
   padding-left : 20px;
   background-color: rgb(24, 19, 19);
+  position:fixed;
 }
 #content{
 display: grid;
 grid-template-columns: 50% 50% ;
-height: 40vh;
+height: 90vh;
 }
 #cta{
   width: 100%;
   text-align: center;
-  padding: 50px;
+  padding: 150px;
   padding-bottom: 80px;
   font-size: 2em;
 }
@@ -79,7 +85,7 @@ height: 40vh;
     perspective-origin: 137.656px 34.5px;
     transform-origin: 137.656px 34.5px;
     caret-color: rgb(255, 255, 255);
-    background: rgb(108, 108, 109) none repeat scroll 0% 0% / auto padding-box border-box;
+    background: rgb(197, 175, 49) none repeat scroll 0% 0% / auto padding-box border-box;
     border: 0px none rgb(255, 255, 255);
     font: normal normal 700 normal 16px / normal Lato, Calibri, Arial, sans-serif;
     margin: 15px 30px;
@@ -166,8 +172,9 @@ height: 40vh;
     font: normal normal 400 normal 15px / 21px raleway, sans-serif;
     list-style: none outside none;
     outline: rgb(0, 0, 238) none 0px;
-    position:absolute;
-    right:10px;
+    padding: 30px;
+    padding-right:30px;
+    float: right;
 }/*#DIV_1*/
 
 #DIV_1:after {
@@ -182,8 +189,9 @@ height: 40vh;
     font: normal normal 400 normal 15px / 21px raleway, sans-serif;
     list-style: none outside none;
     outline: rgb(0, 0, 238) none 0px;
-    position:absolute;
-    right:10px;
+    padding:20px;
+    padding-right:20px;
+    float: right;
 }/*#DIV_1:after*/
 
 #DIV_1:before {
@@ -199,8 +207,9 @@ height: 40vh;
     font: normal normal 400 normal 15px / 21px raleway, sans-serif;
     list-style: none outside none;
     outline: rgb(0, 0, 238) none 0px;
-    position:absolute;
-    right:10px;
+    padding:20px;
+    padding-right:20px;
+    float: right;
 }/*#DIV_1:before*/
 
 #DIV_2 {
@@ -222,8 +231,9 @@ height: 40vh;
     font: normal normal 400 normal 15px / 21px raleway, sans-serif;
     list-style: none outside none;
     outline: rgb(0, 0, 238) none 0px;
-    position:absolute;
-    right:10px;
+    padding:20px;
+    padding-right:20px;
+    float: right;
 }/*#DIV_2*/
 
 #DIV_2:after {
@@ -239,8 +249,9 @@ height: 40vh;
     font: normal normal 400 normal 15px / 21px raleway, sans-serif;
     list-style: none outside none;
     outline: rgb(0, 0, 238) none 0px;
-    position:absolute;
-    right:10px;
+    padding:20px;
+    padding-right:20px;
+    float: right;
 }/*#DIV_2:after*/
 
 #DIV_2:before {
@@ -256,8 +267,9 @@ height: 40vh;
     font: normal normal 400 normal 15px / 21px raleway, sans-serif;
     list-style: none outside none;
     outline: rgb(0, 0, 238) none 0px;
-    position:absolute;
-    right:10px;
+    padding:20px;
+    padding-right:20px;
+    float: right;
 }/*#DIV_2:before*/
 
 #P_3 {
@@ -282,8 +294,9 @@ height: 40vh;
     margin: 0px;
     outline: rgb(42, 159, 255) none 0px;
     padding: 5px 8px 8px;
-    position:absolute;
-    right:10px;
+    padding:20px;
+    padding-right:20px;
+    float: right;
 }/*#P_3*/
 
 #P_3:after {
@@ -299,8 +312,9 @@ height: 40vh;
     font: normal normal 400 normal 15px / 23px raleway, sans-serif;
     list-style: none outside none;
     outline: rgb(42, 159, 255) none 0px;
-    position:absolute;
-    right:10px;
+    padding:20px;
+    padding-right:20px;
+    float: right;
 }/*#P_3:after*/
 
 #P_3:before {
@@ -316,8 +330,9 @@ height: 40vh;
     font: normal normal 400 normal 15px / 23px raleway, sans-serif;
     list-style: none outside none;
     outline: rgb(42, 159, 255) none 0px;
-    position:absolute;
-    right:10px;
+    float: right;
+    padding:20px;
+    padding-right:20px;
 }/*#P_3:before*/
 
 
