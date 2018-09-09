@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { Z_STREAM_ERROR } from 'zlib';
-import { getAllUsers } from './user';
 
 Vue.use(Vuex)
 
@@ -14,7 +12,7 @@ export default new Vuex.Store({
         password : '' ,
         id : 0 
       }
-      ,errormsg : '',
+      ,usersList : '' ,
       result : ' '
   },
   mutations: {
@@ -42,8 +40,8 @@ export default new Vuex.Store({
     getUser : state =>{
       return state.user
     },
-    getErrormsg : state =>{
-      return state.errormsg
+    getUserList : state =>{
+      return state.usersList
     } 
     ,
     getResult : state=>{

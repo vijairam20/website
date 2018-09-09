@@ -7,16 +7,19 @@ const chatkit = new Chatkit.default({
     ,
   })
 
-export const createUser = function(username , name){
+export const createUser = function(username , name , newemail , newkey){
     chatkit.createUser({
-        id: name,
-        name: username,
+        id: username,
+        name: name,
+        customData : {
+          email: newemail,
+          key : newkey
+        }
       })
         .then(() => {
           console.log('User created successfully');
         }).catch((err) => {
           console.log(err);
-          store.commit('setError',err.message)
         });
 }
 
@@ -34,6 +37,13 @@ const authenticateUser = function(username){
   })
 }
 
-// export default  {
-//     createUser,authenticateUser
-// }
+export const getAllUsers =function(){
+  chatkit.getUsers()
+  .then((res) => {
+    console.log(res);
+    store.commit('setUsersList',res)
+
+  }).catch((err) => {
+    console.log(err);
+  });
+}

@@ -1,20 +1,6 @@
 import {users,db,auth} from './firebaseConfig'
 import  store from './store'
 
-
-export const addUser = function(newname,newusername,newemail,newpassword, newid){
-    store.commit('setUser',{name:newname,username:newusername,email:newemail,password:newpassword,id:newid})
-
-        users.doc(newemail).set({
-            name : newname ,
-            username : newusername ,
-            email : newemail ,
-            password : newpassword ,
-            id : newid
-        })
-
-}
-
 export const addCurrentUser = function(email){
     users.doc(email).get()
     .then(doc=>{
@@ -38,31 +24,12 @@ export const signout = function(){
       });
 }
 
-export const getAllUsers =function(){
-    db.collection("users").get().then(function(querySnapshot) {
-        setTimeout()
-        store.commit('setUsersList',querySnapshot)
-    });
-    
-}
-
 export const getUserByID = function(reqid){
-    let flag = false 
-    users.where("id", "==", reqid )
-    .get()
-    .then(function(querySnapshot) {
-        if(querySnapshot.empty){
-            store.commit('setResult',"nan")
-        }else{
-        querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            
-            store.commit('setResult',doc.data())
-            console.log("test") 
-        });
+    let users = store.state.usersList
+    for(let user of users){
+        if(user.custom_data.key == reqid){
+            return user.custom_data.email
+        } 
     }
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });
+    return 'none'
 }

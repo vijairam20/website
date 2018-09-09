@@ -23,16 +23,12 @@ export default {
     },
     methods:{
         searchUser : function(){
-                getUserByID(this.id)
-              let res = this.$store.state.result
-                    setTimeout(console.log(""),500)
-                    if(!(res=="nan")){
-                    this.result = res.name
-                    }else{
-                        this.result = "NAN"
-                    }
-           
-            
+            let userid = getUserByID(this.id)
+            if(userid === 'none'){
+                this.result = 'none'
+            }else{
+            this.result = userid 
+            }
         }
     }
 }

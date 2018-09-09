@@ -101,15 +101,10 @@ export default {
           }).catch(err=>{
             this.printerr=err.message
           })
-        
-         //chatkit create user 
-         //TODO:fix error handling
-       // createUser(this.username,this.name)
-          
+         
         //add to firestore and vuex
-        console.log(this.username)
-        addUser(this.name,this.username,this.email,this.password,(Math.ceil(Math.random()+1)*100))
-        this.$router.replace("dashboard"); 
+        createUser(this.username,this.name,this.email,Math.ceil(Math.random()*100)+1)
+        this.$router.replace("login"); 
     }
 }
 }

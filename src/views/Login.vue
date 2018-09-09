@@ -38,7 +38,8 @@
 
 <script>
 import firebase from 'firebase'
-import {addCurrentUser,getAllUsers} from '../user.js'
+import {addCurrentUser} from '../user.js'
+import {getAllUsers} from '../chat.js'
 export default {
 name:'login',
 data:function(){
@@ -57,10 +58,10 @@ methods:{
           .then( user => { 
             this.$router.replace("dashboard"); 
                 //store current user in vuex store
-            
-            addCurrentUser(this.email)
-
             getAllUsers()
+
+            addCurrentUser(this.email)
+            
           },).catch(
           error => {
             this.printerr=error.message
@@ -68,21 +69,6 @@ methods:{
           })        
    },
 
-//   siginGoogle:function(){
-// var provider = new firebase.auth.GoogleAuthProvider();
-//       provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-//       firebase.auth().signInWithPopup(provider).then(function(result) {
-//   var token = result.credential.accessToken;
-//   var user = result.user;
-//   console.log(user)
-//   this.$router.replace("dashboard")
-// }).catch(function(error) {
-//   var errorCode = error.code;
-//   var errorMessage = error.message;
-//   var email = error.email;
-//   var credential = error.credential;
-// });
-//   }
 }
 }
 </script>
