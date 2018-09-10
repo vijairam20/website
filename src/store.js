@@ -5,47 +5,27 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-      user : {
-        name : '' ,
-        username :'' ,
-        email : '' ,
-        password : '' ,
-        id : 0 
-      }
+      currentUser :''
       ,usersList : '' ,
-      result : ' '
+      currentUserDetails:''
   },
   mutations: {
-        setUser(state,newuser)
+        setCurrentUserDetails(state,userDetails)
         {
-          state.user = newuser 
-        }
-        ,
-        setError(state,errmsg){
-          state.errormsg = errmsg 
+          state.currentUserDetails = userDetails 
         }
         ,
         setUsersList(state,users){
           state.usersList = users
         }
-        ,
-        setResult(state,user){
-            state.result = user 
+        ,setCurrentUser(state,user){
+          state.currentUser = user ;
         }
   },
   actions: {
 
   },
   getters:{
-    getUser : state =>{
-      return state.user
-    },
-    getUserList : state =>{
-      return state.usersList
-    } 
-    ,
-    getResult : state=>{
-      return state.result
-    }
+    
   }
 })

@@ -39,7 +39,7 @@
 <script>
 import firebase from 'firebase'
 import {addCurrentUser} from '../user.js'
-import {getAllUsers} from '../chat.js'
+import {getAllUsers , chatSignin} from '../chat.js'
 export default {
 name:'login',
 data:function(){
@@ -56,17 +56,20 @@ methods:{
     firebase.auth()
           .signInWithEmailAndPassword(this.email, this.password)
           .then( user => { 
-            this.$router.replace("dashboard"); 
+            
                 //store current user in vuex store
             getAllUsers()
 
-            addCurrentUser(this.email)
+            chatSignin(this.email)
             
+             this.$router.replace("dashboard"); 
           },).catch(
           error => {
             this.printerr=error.message
-            console.log(err.message)
-          })        
+            console.log(error.message)
+          })
+          
+         
    },
 
 }

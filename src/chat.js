@@ -1,4 +1,5 @@
 const Chatkit = require('@pusher/chatkit-server');
+import { ChatManager, TokenProvider } from '@pusher/chatkit'
 const axios = require('axios');
 import store from './store'
 const chatkit = new Chatkit.default({
@@ -23,6 +24,34 @@ export const createUser = function(username , name , newemail , newkey){
         });
 }
 
+export const chatSignin =function(newemail){
+  let users = store.state.usersList
+    
+    for(let user of users){
+        console.log(user.custom_data.email)
+        if(user.custom_data.email === newemail){
+            console.log("current user added")
+            store.commit("setCurrentUserDetails",user)
+        } 
+    }
+
+  const chatManager = new ChatManager({
+    instanceLocator: 'v1:us1:9aeb69cb-d766-4077-a17f-7dd5d2af01a7',
+    userId: store.state.currentUserDetails.id,
+    tokenProvider: new TokenProvider({ url: 'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/9aeb69cb-d766-4077-a17f-7dd5d2af01a7/token' })
+  })
+
+  chatManager.connect()
+  .then(currentUser => {
+    console.log('Successful connection', currentUser)
+    store.commit('setCurrentUser',currentUser)
+  })
+  .catch(err => {
+    console.log('Error on connection', err)
+  })
+}
+
+
 const authenticateUser = function(username){
   axios.post('https://us1.pusherplatform.io/services/chatkit_token_provider/v1/9aeb69cb-d766-4077-a17f-7dd5d2af01a7/token',{
     
@@ -40,7 +69,6 @@ const authenticateUser = function(username){
 export const getAllUsers =function(){
   chatkit.getUsers()
   .then((res) => {
-    console.log(res);
     store.commit('setUsersList',res)
 
   }).catch((err) => {
