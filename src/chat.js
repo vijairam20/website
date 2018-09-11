@@ -75,3 +75,16 @@ export const getAllUsers =function(){
     console.log(err);
   });
 }
+
+export const addFriend =function(friend){
+  store.state.currentUser.createRoom({
+    name: `${store.state.currentUserDetails.id+friend}`,
+    private: true,
+    addUserIds: [friend]
+  }).then(room => {
+    console.log(`Created room called ${room.name}`)
+  })
+  .catch(err => {
+    console.log(`Error creating room ${err}`)
+  })
+}

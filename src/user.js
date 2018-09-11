@@ -12,7 +12,7 @@ export const getUserByID = function(reqid){
     let users = store.state.usersList
     for(let user of users){
         if(user.custom_data.key == reqid){
-            return user.custom_data.email
+            return [user.custom_data.email,user.id]
         } 
     }
     return 'none'
