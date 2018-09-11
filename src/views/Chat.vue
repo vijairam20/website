@@ -1,6 +1,6 @@
 <template>
-    <div id="chat">
-        <h1>checks out</h1>
+    <div>
+        <h1>Your chats will appear here.</h1>
     </div>
 </template>
 
