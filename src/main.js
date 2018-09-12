@@ -2,7 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import './../node_modules/bulma/css/bulma.css';
+import Buefy from 'buefy'
+import 'buefy/dist/buefy.css'
 const firebase = require('./firebaseConfig.js')
 
 Vue.config.productionTip = false
@@ -10,7 +11,8 @@ Vue.config.productionTip = false
   // Initialize Firebase
   
 
-
+  
+  Vue.use(Buefy)
 
 let app;
 firebase.auth.onAuthStateChanged(function(user) {
