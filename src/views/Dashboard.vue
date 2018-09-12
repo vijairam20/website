@@ -30,6 +30,10 @@ methods:{
     grid-template-columns: 5% 95% ;
     height: 100%;
     width: 100% ;
+    min-width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient(to left, #1f0c43, #26062d, #22031c, #18010d, #000000);
+    text-align: center;
 }
 
 nav{
@@ -39,6 +43,17 @@ nav{
     background-color: black;
     justify-content: space-around;
     color: white!important;
+}
+
+#back-settings{ 
+    min-width: 100vw;
+    height: 100vh;
+    //background-image: radial-gradient(circle, #1f0c43, #2d062f, #2c071f, #260b14, #1c0f0f);
+    //background-image: linear-gradient(to left top, #1f0c43, #26062d, #22031c, #18010d, #000000);
+    //background-color: darken($color: rgba(0, 0, 0, 0.90), $amount: 80%);
+   //background-color: white;
+   background-image: linear-gradient(to left, #1f0c43, #26062d, #22031c, #18010d, #000000);
+   text-align: center;
 }
 
 </style>

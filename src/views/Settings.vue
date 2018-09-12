@@ -1,6 +1,6 @@
 <template>
-    <div id="settings">
-            <h1>Settings</h1>
+    <div>
+            <b>This is the settings screen.</b>
     </div>
 </template>
 
@@ -27,5 +27,6 @@ $bg : white;
     background-color: $bg;
     height: 100vh;
 }
+
 </style>
 

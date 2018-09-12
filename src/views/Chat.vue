@@ -6,7 +6,7 @@
         <div id="chatArea" style="background-color:grey">
 
         </div>
-    </div>
+
 </template>
 
 <script>
