@@ -88,3 +88,20 @@ export const addFriend =function(friend){
     console.log(`Error creating room ${err}`)
   })
 }
+
+export const isNotCurrentUser = function(){
+  if(user.id == store.state.currentUser.id){
+    return false
+  }
+  return true
+}
+export const getFriends = function(friend){
+  chatkit.getUserRooms({
+    userId: friend,
+  })
+    .then((res) => {
+      store.commit("setFriends",res.member_userids)
+    }).catch((err) => {
+      console.log(err);
+    });
+}
