@@ -8,11 +8,7 @@ const firebase = require('./firebaseConfig.js')
 
 Vue.config.productionTip = false
 
-  // Initialize Firebase
-  
-
-  
-  Vue.use(Buefy)
+Vue.use(Buefy)
 
 let app;
 firebase.auth.onAuthStateChanged(function(user) {
