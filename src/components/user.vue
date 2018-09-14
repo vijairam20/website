@@ -38,4 +38,8 @@ h1{
     font-size: 1em;
     font-weight: bold;
 }
+
+#user:active{
+    background-color: lightslategray;
+}
 </style>

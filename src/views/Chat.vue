@@ -1,12 +1,14 @@
 <template>
-    <div id="chat">
-        <div id="users">
-            <user username=friend></user>
-        </div>
-        <div id="chatArea" style="background-color:grey">
-
-        </div>
-    </div>
+<div v-if="loading" id="chat">
+   <div id="users">
+  <section class="hero is-dark">
+  <h1>Friends</h1>
+  </section>
+  <user @click.native="loadChat" :name="friend"></user>
+    
+  </div>
+<div id="chatrarea"></div>
+</div>
 </template>
 
 <script>
@@ -17,24 +19,47 @@ components:{
     user
 },
 created:function(){
-    getFriends(this.$store.state.currentUser.id)
-    this.friends = this.$store.state.friends[0]
-    console.log(this.friends)
+    this.loading = true 
+
 },
 data:function(){
     return{
-        friends : ''
+        loading : false 
+    }
+},
+methods:{
+    loadChat : function(){
+        console.log("check")
+    }
+},
+computed:{
+    friend:function(){
+        return this.$store.state.friends
     }
 }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     #chat{
         display: grid;
-        grid-template-areas: 30% 70%;
+        grid-template-columns: 30% 70%;
         min-width: 100%;
-        min-width: 100vh;
+        height: 100% ;
+    //    min-height: 100vh ;        
+  //      background-color: white;
     }
-    
+    #users{
+        background-color: white;
+        height: 100%;
+    }
+
+    h1{
+        font-size: 2em;
+    }
+
+    button{
+        background-color: transparent;
+        border: 0 ;
+    }
 </style>

@@ -100,7 +100,7 @@ export const getFriends = function(friend){
     userId: friend,
   })
     .then((res) => {
-      store.commit("setFriends",res.member_userids)
+      store.commit("setFriends",res)
     }).catch((err) => {
       console.log(err);
     });

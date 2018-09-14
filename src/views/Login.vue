@@ -39,7 +39,7 @@
 <script>
 import firebase from 'firebase'
 import {addCurrentUser} from '../user.js'
-import {chatSignin , getAllUsers} from '../chat.js'
+import {chatSignin , getAllUsers ,getFriends} from '../chat.js'
 export default {
 name:'login',
 data:function(){
@@ -58,7 +58,7 @@ methods:{
           .then( user => { 
                         
             chatSignin(this.email)
-            
+            getFriends(this.$store.state.currentUser.id)
              this.$router.replace("dashboard"); 
           },).catch(
           error => {

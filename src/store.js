@@ -23,8 +23,7 @@ export default new Vuex.Store({
           state.currentUser = user 
         },
         setFriends(state,friends){
-          state.friends = friends
-           
+          state.friends = friends[0].member_user_ids[0]
         }
   },
   actions: {
