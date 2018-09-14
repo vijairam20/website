@@ -4,10 +4,9 @@
   <section class="hero is-dark">
   <h1>Friends</h1>
   </section>
-  <user @click.native="loadChat" :name="friend"></user>
-    
+    <user v-for="friend in friends" :key="friend" :name="friend" @click.native="loadChat"></user>
   </div>
-<div id="chatrarea"></div>
+<!-- <router-view></router-view> -->
 </div>
 </template>
 
@@ -33,8 +32,24 @@ methods:{
     }
 },
 computed:{
-    friend:function(){
-        return this.$store.state.friends
+    friends:function(){
+       let rooms = this.$store.state.friends
+       let friendsList = []
+       
+       for(var i = 0 ; i < rooms.length ; i++){
+           
+           for(var j = 0 ; j < rooms[i].member_user_ids.length ; j++){
+               let cont = rooms[i].member_user_ids[j]
+                if(!(cont === this.$store.state.currentUser.id))
+                {
+                    console.log(cont)
+                    friendsList.push(cont)
+                }
+           }
+           
+       }
+       console.log(friendsList)
+       return friendsList
     }
 }
 }

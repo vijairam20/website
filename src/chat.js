@@ -26,9 +26,8 @@ export const createUser = function(username , name , newemail , newkey){
 
 export const chatSignin =function(newemail){
   let users = store.state.usersList
-    
+
     for(let user of users){
-        console.log(user.custom_data.email)
         if(user.custom_data.email === newemail){
             console.log("current user added")
             store.commit("setCurrentUserDetails",user)
@@ -45,6 +44,14 @@ export const chatSignin =function(newemail){
   .then(currentUser => {
     console.log('Successful connection', currentUser)
     store.commit('setCurrentUser',currentUser)
+    chatkit.getUserRooms({
+      userId: currentUser.id,
+    })
+      .then((res) => {
+        store.commit("setFriends",res);
+      }).catch((err) => {
+        console.log(err);
+      });
   })
   .catch(err => {
     console.log('Error on connection', err)
@@ -83,6 +90,7 @@ export const addFriend =function(friend){
     addUserIds: [friend]
   }).then(room => {
     console.log(`Created room called ${room.name}`)
+    getFriends()
   })
   .catch(err => {
     console.log(`Error creating room ${err}`)
@@ -95,12 +103,12 @@ export const isNotCurrentUser = function(){
   }
   return true
 }
-export const getFriends = function(friend){
+export const getFriends = function(){
   chatkit.getUserRooms({
-    userId: friend,
+    userId: store.state.currentUser.id,
   })
     .then((res) => {
-      store.commit("setFriends",res)
+      store.commit("setFriends",res);
     }).catch((err) => {
       console.log(err);
     });

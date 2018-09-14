@@ -24,7 +24,7 @@
 
 <div class="field is-grouped">
   <div class="control">
-    <button @click.prevent="signin" class="button is-link">Login</button>
+    <button @click.prevent="signin" :class="styleButton">Login</button>
   </div>
   <div class="control">
     <router-link tag=button class = "button is-text" to="/">Cancel</router-link>
@@ -46,7 +46,13 @@ data:function(){
   return{
   email:'',
   password:'',
-  printerr:''
+  printerr:'',
+  flag:false,
+  styleButton:{
+    button : true,
+    'is-link' : true,
+    'is-loading' : false 
+  }
   }
 },
 methods:{
@@ -56,9 +62,9 @@ methods:{
     firebase.auth()
           .signInWithEmailAndPassword(this.email, this.password)
           .then( user => { 
-                        
+            this.flag = true             
             chatSignin(this.email)
-            getFriends(this.$store.state.currentUser.id)
+            this.flag = false
              this.$router.replace("dashboard"); 
           },).catch(
           error => {
@@ -72,7 +78,8 @@ methods:{
 },
 created: function(){
   getAllUsers()
-}
+},
+
 }
 </script>
 
