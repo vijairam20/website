@@ -113,3 +113,18 @@ export const getFriends = function(){
       console.log(err);
     });
 }
+
+export const getRoom = function(friend){
+  let requiredRoom 
+  let rooms = store.state.friends
+  for(var i = 0 ;  i < rooms.length ; i++){
+    for(var j = 0 ; j < rooms[i].member_user_ids.length ; j++){
+      if(friend === rooms[i].member_user_ids[j]){
+        requiredRoom = rooms[i]
+        console.log(requiredRoom)
+        break;
+      }
+    }
+  }
+  return requiredRoom
+}
