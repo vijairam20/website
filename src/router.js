@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import firebase from 'firebase'
-import Search from './views/Search.vue'
 Vue.use(Router)
 const router = new Router({
   mode: 'history',
@@ -35,7 +34,13 @@ const router = new Router({
       children:[{
             name:'chat',
             path:'chat',
-            component: ()=>import('./views/Chat.vue')
+            component: ()=>import('./views/Chat.vue'),
+            children:[{
+              name:'chatarea',
+              path:'chatarea/:id',
+              component : ()=>import('./views/ChatArea.vue'),
+              alias:'chat',
+            }],
            },
           {
             name:'search',

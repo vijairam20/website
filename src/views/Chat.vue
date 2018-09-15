@@ -4,9 +4,11 @@
   <section class="hero is-dark">
   <h1>Friends</h1>
   </section>
-    <user v-for="friend in friends" :key="friend" :name="friend" @click.native="loadChat"></user>
+    <user v-for="friend in friends" :key="friend" :name="friend" @click.native="loadChat(friend)"></user>
   </div>
-<!-- <router-view></router-view> -->
+<div>
+<router-view/>
+</div>
 </div>
 </template>
 
@@ -27,8 +29,9 @@ data:function(){
     }
 },
 methods:{
-    loadChat : function(){
+    loadChat : function(friend){
         console.log("check")
+        this.$router.push({ name: 'chatarea', params: { id: friend }})
     }
 },
 computed:{
