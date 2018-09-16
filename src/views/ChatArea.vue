@@ -5,12 +5,13 @@
        </div>
        <div id="area">
            <ul>
-               <li v-for="message in messages" :key="message">{{message}}</li>
+               <!-- <li v-for="message in messages" :key="message">{{message}}</li> -->
+               <messagec v-for="message in messages" :key="message.text" :text="message.text" :sender="message.sender.id"></messagec>
            </ul>
        </div>
        <div id="cta">
         <b-field grouped>
-            <b-input v-model="message" placeholder="Chat..."  expanded rounded></b-input>
+            <b-input v-model="message" placeholder="Chat..." expanded rounded></b-input>
             <p class="control">
                 <button @click="sendMessage" class="button is-link">Send</button>
             </p>
@@ -22,6 +23,7 @@
 <script>
 import {getRoom} from '../chat.js'
 import user from '@/components/user.vue'
+import messagec from '@/components/message.vue'
 export default {
 name:'chatArea',
 beforeRouteUpdate (to, from, next) {
@@ -34,12 +36,12 @@ created:function(){
 data:function(){
     return{
     roomId:'',
-    messages:[''],
+    messages:[],
     message:''
     }
 },
 components:{
-    user
+    user,messagec
 },computed:{
   username:function(){
      return this.$route.params.id;
@@ -53,7 +55,6 @@ components:{
     roomId: myRoom.id
 })
 .then(messageId => {
-  console.log(`Added message to ${myRoom.name}`)
 }).catch(err => {
   console.log(`Error adding message to ${myRoom.name}: ${err}`)
 })
@@ -70,9 +71,7 @@ currentUser.subscribeToRoom({
   roomId: room.id,
   hooks: {
     onNewMessage: message => {
-    this.messages.push(message.text)
-      console.log(this.messages)
-      console.log(`Received new message ${message.text}`)
+    this.messages.push(message)
 }
   },
   messageLimit: 20
@@ -92,7 +91,7 @@ currentUser.subscribeToRoom({
     grid-template-rows: 5% 90% 5% ;
 }
 #cta{
-    padding: 0em 1em ;
+    padding: 0em 2em ;
     min-width: 100%;
 }
 
@@ -102,6 +101,6 @@ currentUser.subscribeToRoom({
 }
 
 #area{
-    text-align: left;
+padding: 2em;
 }
 </style>
