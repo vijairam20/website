@@ -1,16 +1,16 @@
 <template>
     <div>
-        <span class = >This is your search screen !</span>
-        <p>Simply enter the User ID of your friend to get started.</p> 
+        <h1>Search</h1>
+        <span class="fontin">This is your search screen !</span>
+        <p class="fontin">Simply enter the User ID of your friend to get started.</p> 
         <div id="cta">
-        <input v-model.number="id" placeholder="id" class="input is-rounded" type="search">
+        <input v-model.number="id" placeholder="user id" class="input is-rounded" type="search">
         <button @click="searchUser" class="btn btn-6 btn-6f">Search</button>
         </div> 
         <!--TODO:replace with v-if-->  
-        <div v-show=toshow class="cta">
+        <div v-show=toshow class="cta2">
         <user class="result" :name=result></user>
         <button @click="addUser" class="button"><i class = "fas fa-plus"></i></button>
-
         </div>     
     </div>
 </template>
@@ -26,7 +26,7 @@ export default {
     },
     data:function(){
         return{
-            id:0,
+            id:'',
             result : '',
             friend : '',
             toshow : false,
@@ -44,8 +44,12 @@ export default {
             }
         },
         addUser: function(){
+            //TODO:Add Validation
             //TODO: update in production  
             //addFriend(this.friend)
+            this.$toast.open({message:`User ${this.friend} added to frineds list`,type:'is-success'})
+            this.friend =''
+            this.toshow = false
         }
     }
     ,
@@ -59,10 +63,18 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 @import url('');
 
-.fontin{
-    font-size: 200%;
+h1{
+    //TODO:Change Font Family
+      font-family: 'Reem Kufi', sans-serif;
+      color: white;
+      font-size: 3em;
 }
-
+.fontin{
+    font-size: 2em;
+}
+#cta2{
+    display: inline-block;
+}
 #back-settings{ 
     min-width: 100vw;
     height: 100vh;
@@ -82,6 +94,7 @@ export default {
         font-size: 4em;
         font-weight: 600;
         text-align: center;
+        margin: 0;
     }
 }
 
@@ -96,16 +109,11 @@ margin-left: 0.5em;
 #cta{
     margin-top: 3em;
   display: flex;
+  flex-direction: row;
   justify-content:center;
 }
 
-#cta2{
-    display: flex;
-    position: absolute;
-    justify-content: center;
-    flex-direction: row;
-    color: #eeeeee;
-}
+
 
 
 .btn {
