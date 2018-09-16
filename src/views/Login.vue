@@ -24,7 +24,7 @@
 
 <div class="field is-grouped">
   <div class="control">
-    <button @click.prevent="signin" :class="styleButton">Login</button>
+    <button @click.prevent="signin":class="styleButton">Login</button>
   </div>
   <div class="control">
     <router-link tag=button class = "button is-text" to="/">Cancel</router-link>
@@ -62,14 +62,17 @@ methods:{
     firebase.auth()
           .signInWithEmailAndPassword(this.email, this.password)
           .then( user => { 
+            //open();
             this.flag = true             
             chatSignin(this.email)
             this.flag = false
-             this.$router.replace("dashboard"); 
+             this.$router.replace("dashboard");
+             close(); 
           },).catch(
           error => {
             this.printerr=error.message
             console.log(error.message)
+            //close();
           })
           
          
@@ -78,6 +81,13 @@ methods:{
 },
 created: function(){
   getAllUsers()
+},
+
+ open()
+ {
+    const loadingComponent = this.$loading.open( {container: this.isFullPage} );
+    setTimeout(() => loadingComponent.close(), 3 * 1000)
+            
 },
 
 }
