@@ -86,7 +86,8 @@ created: function(){
  open()
  {
     const loadingComponent = this.$loading.open( {container: this.isFullPage} );
-    setTimeout(() => loadingComponent.close(), 3 * 1000)
+    setTimeout(() => loadingComponent.close(), 3 * 1000);
+    close();
             
 },
 
