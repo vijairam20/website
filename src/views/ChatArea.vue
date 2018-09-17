@@ -2,15 +2,17 @@
    <div id="chatarea">
        <div id="status">
        <h1><user :name="username"></user></h1>
+       <h1>{{status}}</h1>
        </div>
        <div id="area">
            <ul>
-               <li v-for="message in messages" :key="message">{{message}}</li>
+               <!-- <li v-for="message in messages" :key="message">{{message}}</li> -->
+               <messagec v-for="message in messages" :key="message.id" :text="message.text" :sender="message.sender.id"></messagec>
            </ul>
        </div>
        <div id="cta">
         <b-field grouped>
-            <b-input v-model="message" placeholder="Chat..."  expanded rounded></b-input>
+            <b-input v-model="message" placeholder="Chat..." expanded rounded></b-input>
             <p class="control">
                 <button @click="sendMessage" class="button is-link">Send</button>
             </p>
@@ -20,8 +22,10 @@
 </template>
 
 <script>
-import {getRoom} from '../chat.js'
+import {getRoomByFriend} from '../chat.js'
 import user from '@/components/user.vue'
+import messagec from '@/components/message.vue'
+import { stat } from 'fs';
 export default {
 name:'chatArea',
 beforeRouteUpdate (to, from, next) {
@@ -34,12 +38,13 @@ created:function(){
 data:function(){
     return{
     roomId:'',
-    messages:[''],
-    message:''
+    messages:[],
+    message:'',
+    status:''
     }
 },
 components:{
-    user
+    user,messagec
 },computed:{
   username:function(){
      return this.$route.params.id;
@@ -47,13 +52,12 @@ components:{
 },methods:{
     sendMessage:function(){
         let currentUser = this.$store.state.currentUser
-        let myRoom = getRoom(this.$route.params.id)
+        let myRoom = getRoomByFriend(this.$route.params.id)
         currentUser.sendMessage({
     text: this.message,
     roomId: myRoom.id
 })
 .then(messageId => {
-  console.log(`Added message to ${myRoom.name}`)
 }).catch(err => {
   console.log(`Error adding message to ${myRoom.name}: ${err}`)
 })
@@ -64,16 +68,15 @@ components:{
         this.messages=[]
         this.message=''
         this.roomId=0 
-    let room = getRoom(id)
+    let room = getRoomByFriend(id)
     let currentUser = this.$store.state.currentUser
 currentUser.subscribeToRoom({
   roomId: room.id,
   hooks: {
     onNewMessage: message => {
-    this.messages.push(message.text)
-      console.log(this.messages)
-      console.log(`Received new message ${message.text}`)
-}
+    this.messages.push(message)
+},
+
   },
   messageLimit: 20
 })
@@ -92,7 +95,7 @@ currentUser.subscribeToRoom({
     grid-template-rows: 5% 90% 5% ;
 }
 #cta{
-    padding: 0em 1em ;
+    padding: 0em 2em ;
     min-width: 100%;
 }
 
@@ -102,6 +105,7 @@ currentUser.subscribeToRoom({
 }
 
 #area{
-    text-align: left;
+padding: 3em;
+margin-right: 2em;
 }
 </style>

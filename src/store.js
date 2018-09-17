@@ -8,7 +8,8 @@ export default new Vuex.Store({
       currentUser :''
       ,usersList : '' ,
       currentUserDetails:'',
-      friends:'',
+      rooms:'',
+      friends:''
   },
   mutations: {
         setCurrentUserDetails(state,userDetails)
@@ -22,8 +23,11 @@ export default new Vuex.Store({
         ,setCurrentUser(state,user){
           state.currentUser = user 
         },
-        setFriends(state,rooms){
-          state.friends = rooms
+        setFriends(state,friends){
+          state.friends = friends
+        },
+        setRooms(state,rooms){
+          state.rooms = rooms
         }
   },
   actions: {
