@@ -36,23 +36,7 @@ methods:{
 },
 computed:{
     friends:function(){
-       let rooms = this.$store.state.friends
-       let friendsList = []
-       
-       for(var i = 0 ; i < rooms.length ; i++){
-           
-           for(var j = 0 ; j < rooms[i].member_user_ids.length ; j++){
-               let cont = rooms[i].member_user_ids[j]
-                if(!(cont === this.$store.state.currentUser.id))
-                {
-                    console.log(cont)
-                    friendsList.push(cont)
-                }
-           }
-           
-       }
-       console.log(friendsList)
-       return friendsList
+       return this.$store.state.friends
     }
 }
 }

@@ -48,7 +48,8 @@ export const chatSignin =function(newemail){
       userId: currentUser.id,
     })
       .then((res) => {
-        store.commit("setFriends",res);
+        store.commit("setRooms",res);
+        getFriends()
       }).catch((err) => {
         console.log(err);
       });
@@ -90,7 +91,7 @@ export const addFriend =function(friend){
     addUserIds: [friend]
   }).then(room => {
     console.log(`Created room called ${room.name}`)
-    getFriends()
+    getRooms()
   })
   .catch(err => {
     console.log(`Error creating room ${err}`)
@@ -103,20 +104,20 @@ export const isNotCurrentUser = function(){
   }
   return true
 }
-export const getFriends = function(){
+export const getRooms = function(){
   chatkit.getUserRooms({
     userId: store.state.currentUser.id,
   })
     .then((res) => {
-      store.commit("setFriends",res);
+      store.commit("setRooms",res);
     }).catch((err) => {
       console.log(err);
     });
 }
 
-export const getRoom = function(friend){
+export const getRoomByFriend = function(friend){
   let requiredRoom 
-  let rooms = store.state.friends
+  let rooms = store.state.rooms
   for(var i = 0 ;  i < rooms.length ; i++){
     for(var j = 0 ; j < rooms[i].member_user_ids.length ; j++){
       if(friend === rooms[i].member_user_ids[j]){
@@ -127,4 +128,22 @@ export const getRoom = function(friend){
     }
   }
   return requiredRoom
+}
+
+export const getFriends =function(){
+  let rooms = store.state.rooms
+  let friendsList = []
+  
+  for(var i = 0 ; i < rooms.length ; i++){
+      
+      for(var j = 0 ; j < rooms[i].member_user_ids.length ; j++){
+          let cont = rooms[i].member_user_ids[j]
+           if(!(cont === store.state.currentUser.id))
+           {
+               friendsList.push(cont)
+           }
+      }
+      
+  }
+  store.commit("setFriends",friendsList)
 }
