@@ -2,13 +2,11 @@
     <div>
           <b id="Head">This is the settings screen.</b>
     <div>
-     <b-field class="options">Toggle Options
-        <b-switch v-model="isSwitchedCustom" , class="Toggle",
-          true-value="Yes",
-          false-value="No",
-          {{isSwitchedCustom}}>
+     <b-field class="options">Toggle Options-->
+        <b-switch v-model="isSwitchedCustom"  class="Toggle"  true-value="Yes"  false-value="No" > 
+            {{isSwitchedCustom}}
         </b-switch>
-        </b-field>
+        </b-field> 
     </div>
     </div>
 </template>
@@ -17,9 +15,7 @@
 export default {
     data() {
             return {
-                
-                isSwitchedCustom : 'Yes',
-                   
+                isSwitchedCustom : 'Yes',   
             }
         },
 
