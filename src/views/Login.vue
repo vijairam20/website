@@ -24,7 +24,7 @@
 
 <div class="field is-grouped">
   <div class="control">
-    <button @click.prevent="signin":class="styleButton">Login</button>
+    <button @click.prevent="signin":class="styleButton" @click="openLoading">Login</button>
   </div>
   <div class="control">
     <router-link tag=button class = "button is-text" to="/">Cancel</router-link>
@@ -48,6 +48,7 @@ data:function(){
   password:'',
   printerr:'',
   flag:false,
+  isFullPage: true,
   styleButton:{
     button : true,
     'is-link' : true,
@@ -56,9 +57,24 @@ data:function(){
   }
 },
 methods:{
+
+openLo:function()
+ {
+    const loadingComponent = this.$loading.open( {container: true} );
+    setTimeout(() => loadingComponent.close(), 3 * 1000);
+            
+},
+
+openLoading() {
+                this.isLoading = true
+                setTimeout(() => {
+                    this.isLoading = false
+                }, 1000 * 1000)
+            },
+
   signin:function()
   {
-    //Firebase sigin 
+    //Firebase sigin
     firebase.auth()
           .signInWithEmailAndPassword(this.email, this.password)
           .then( user => { 
@@ -67,12 +83,10 @@ methods:{
             chatSignin(this.email)
             this.flag = false
              this.$router.replace("dashboard");
-             close(); 
           },).catch(
           error => {
             this.printerr=error.message
             console.log(error.message)
-            //close();
           })
           
          
@@ -81,14 +95,6 @@ methods:{
 },
 created: function(){
   getAllUsers()
-},
-
- open()
- {
-    const loadingComponent = this.$loading.open( {container: this.isFullPage} );
-    setTimeout(() => loadingComponent.close(), 3 * 1000);
-    close();
-            
 },
 
 }
