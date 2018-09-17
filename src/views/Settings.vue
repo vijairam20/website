@@ -5,7 +5,7 @@
      <b-field class="options">Toggle Options
         <b-switch v-model="isSwitchedCustom", class="Toggle",
           true-value="Yes",
-          false-value="No"
+          false-value="No",
           {{isSwitchedCustom}}>
         </b-switch>
         </b-field>
@@ -17,9 +17,9 @@
 export default {
     data() {
             return {
-                Toggle:{
+                
                 isSwitchedCustom : 'Yes',
-                }   
+                   
             }
         },
 
