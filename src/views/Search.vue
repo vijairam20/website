@@ -9,8 +9,13 @@
         </div> 
         <!--TODO:replace with v-if-->  
         <div v-show=toshow class="cta2">
+        <div v-if="isresult" class="result">
         <user class="result" :name=result></user>
         <button @click="addUser" class="button"><i class = "fas fa-plus"></i></button>
+        </div>
+        <div v-else>
+            <h1>No User exists by that ID</h1>
+        </div>
         </div>     
     </div>
 </template>
@@ -19,6 +24,7 @@
 import {getUserByID} from '../user.js'
 import {getAllUsers ,addFriend} from '../chat.js'
 import user from "@/components/user.vue"
+import { setTimeout } from 'timers';
 export default {
     name : 'Search',
     components:{
@@ -30,6 +36,7 @@ export default {
             result : '',
             friend : '',
             toshow : false,
+            isresult:false
         }
     },
     methods:{
@@ -37,10 +44,15 @@ export default {
             let userid = getUserByID(this.id)
             if(userid == 'none'){
                 this.result = 'none'
+                this.isresult = false ; 
+                setTimeout(100,()=>{
+                    this.toshow = false
+                })
             }else{
             this.result = userid[0]
             this.friend = userid[1]
             this.toshow = true 
+            this.isresult = true
             }
         },
         addUser: function(){
@@ -50,6 +62,7 @@ export default {
             this.$toast.open({message:`User ${this.friend} added to frineds list`,type:'is-success'})
             this.friend =''
             this.toshow = false
+            this.result = false 
         }
     }
     ,
