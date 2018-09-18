@@ -61,7 +61,7 @@ methods:{
 openLo:function()
  {
     const loadingComponent = this.$loading.open( {container: true} );
-    setTimeout(() => loadingComponent.close(), 3 * 1000);
+    setTimeout(() => loadingComponent.close(), 1 * 500);
             
 },
 
@@ -69,7 +69,7 @@ openLoading() {
                 this.isLoading = true
                 setTimeout(() => {
                     this.isLoading = false
-                }, 1000 * 1000)
+                }, 1 * 500)
             },
 
   signin:function()
@@ -96,7 +96,7 @@ open() {
                 const loadingComponent = this.$loading.open({
                     container: this.isFullPage ? null : this.$refs.element.$el
                 })
-                setTimeout(() => loadingComponent.close(), 1000)
+                setTimeout(() => loadingComponent.close(), 1* 500)
             }
         }
 ,
