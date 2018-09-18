@@ -5,10 +5,10 @@
        <h1>{{status}}</h1>
        </div>
        <div id="area">
-           <ul>
-               <!-- <li v-for="message in messages" :key="message">{{message}}</li> -->
+           
                <messagec v-for="message in messages" :key="message.id" :text="message.text" :sender="message.sender.id"></messagec>
-           </ul>
+           
+
        </div>
        <div id="cta">
         <b-field grouped>
@@ -78,7 +78,7 @@ currentUser.subscribeToRoom({
 },
 
   },
-  messageLimit: 20
+  messageLimit: 40
 })
     }
 }

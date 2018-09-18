@@ -9,7 +9,8 @@ export default new Vuex.Store({
       ,usersList : '' ,
       currentUserDetails:'',
       rooms:'',
-      friends:''
+      friends:'',
+      firebaseUser:''
   },
   mutations: {
         setCurrentUserDetails(state,userDetails)
@@ -28,6 +29,9 @@ export default new Vuex.Store({
         },
         setRooms(state,rooms){
           state.rooms = rooms
+        },
+        setFirebaseUser(state,user){
+          state.firebaseUser = user 
         }
   },
   actions: {

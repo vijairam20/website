@@ -24,7 +24,7 @@
 
 <div class="field is-grouped">
   <div class="control">
-    <button @click.prevent="signin":class="styleButton">Login</button>
+    <button @click.prevent="signin" :class="styleButton">Login</button>
   </div>
   <div class="control">
     <router-link tag=button class = "button is-text" to="/">Cancel</router-link>
@@ -52,7 +52,7 @@ data:function(){
     button : true,
     'is-link' : true,
     'is-loading' : false 
-  }
+  }, isFullPage: true,
   }
 },
 methods:{
@@ -62,12 +62,12 @@ methods:{
     firebase.auth()
           .signInWithEmailAndPassword(this.email, this.password)
           .then( user => { 
-            //open();
+            this.open();
             this.flag = true             
             chatSignin(this.email)
             this.flag = false
+            this.$store.commit("setFirebaseUser",user)
              this.$router.replace("dashboard");
-             close(); 
           },).catch(
           error => {
             this.printerr=error.message
@@ -77,20 +77,17 @@ methods:{
           
          
    },
-
-},
+open() {
+                const loadingComponent = this.$loading.open({
+                    container: this.isFullPage ? null : this.$refs.element.$el
+                })
+                setTimeout(() => loadingComponent.close(), 1000)
+            }
+        }
+,
 created: function(){
   getAllUsers()
 },
-
- open()
- {
-    const loadingComponent = this.$loading.open( {container: this.isFullPage} );
-    setTimeout(() => loadingComponent.close(), 3 * 1000);
-    close();
-            
-},
-
 }
 </script>
 
