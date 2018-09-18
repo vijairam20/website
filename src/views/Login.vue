@@ -48,6 +48,7 @@ data:function(){
   password:'',
   printerr:'',
   flag:false,
+  isFullPage: true,
   styleButton:{
     button : true,
     'is-link' : true,
@@ -56,9 +57,24 @@ data:function(){
   }
 },
 methods:{
+
+openLo:function()
+ {
+    const loadingComponent = this.$loading.open( {container: true} );
+    setTimeout(() => loadingComponent.close(), 3 * 1000);
+            
+},
+
+openLoading() {
+                this.isLoading = true
+                setTimeout(() => {
+                    this.isLoading = false
+                }, 1000 * 1000)
+            },
+
   signin:function()
   {
-    //Firebase sigin 
+    //Firebase sigin
     firebase.auth()
           .signInWithEmailAndPassword(this.email, this.password)
           .then( user => { 
@@ -72,7 +88,6 @@ methods:{
           error => {
             this.printerr=error.message
             console.log(error.message)
-            //close();
           })
           
          
@@ -88,6 +103,7 @@ open() {
 created: function(){
   getAllUsers()
 },
+
 }
 </script>
 

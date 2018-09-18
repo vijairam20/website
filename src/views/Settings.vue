@@ -6,7 +6,52 @@
         <b-switch v-model="isSwitchedCustom"  class="Toggle"  true-value="Yes"  false-value="No" > 
             {{isSwitchedCustom}}
         </b-switch>
-        </b-field> 
+        </b-field>
+        <b-dropdown v-model="isPublic">
+        <button class="button is-primary" type="button" slot="trigger">
+            <template v-if="isPublic">
+                <b-icon icon="earth"></b-icon>
+                <span>Public</span>
+            </template>
+            <template v-else>
+                <b-icon icon="account-multiple"></b-icon>
+                <span>Friends</span>
+            </template>
+            <b-icon icon="menu-down"></b-icon>
+        </button>
+
+        <b-dropdown-item :value="true">
+            <div class="media">
+                <b-icon class="media-left" icon="earth"></b-icon>
+                <div class="media-content">
+                    <h3>Public</h3>
+                    <small>Everyone can see</small>
+                </div>
+            </div>
+        </b-dropdown-item>
+
+        <b-dropdown-item :value="false">
+            <div class="media">
+                <b-icon class="media-left" icon="account-multiple"></b-icon>
+                <div class="media-content">
+                    <h3>Friends</h3>
+                    <small>Only friends can see</small>
+                </div>
+            </div>
+        </b-dropdown-item>
+    </b-dropdown>
+
+     <b-dropdown hoverable>
+            <button class="button is-info" slot="trigger">
+                <span>Hover me!</span>
+                <b-icon icon="menu-down"></b-icon>
+            </button>
+
+            <b-dropdown-item>Action</b-dropdown-item>
+            <b-dropdown-item>Another action</b-dropdown-item>
+            <b-dropdown-item>Something else</b-dropdown-item>
+        </b-dropdown>
+
     </div>
     </div>
 </template>
@@ -15,7 +60,8 @@
 export default {
     data() {
             return {
-                isSwitchedCustom : 'Yes',   
+                isSwitchedCustom : 'Yes',
+                isPublic: true,  
             }
         },
 
@@ -53,5 +99,9 @@ $bg : white;
     font-weight: 600;
 
 }
+
+ .tag {
+        cursor: pointer;
+    }
 </style>
 
