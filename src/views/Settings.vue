@@ -1,21 +1,26 @@
 <template>
     <div>
           <b id="Head">This is the settings screen.</b>
-    <div>
-     <b-field class="options">Toggle Options-->
-        <b-switch v-model="isSwitchedCustom"  class="Toggle"  true-value="Yes"  false-value="No" > 
+    <div class="options">
+        <br><br>
+        <b-tooltip label="Discoverable Mode lets other users find you.">
+     <b-field>Discoverable Mode
+        <b-switch v-model="isSwitchedCustom"  class="Toggle" size="is-medium" true-value="On"  false-value="Off" > 
             {{isSwitchedCustom}}
         </b-switch>
         </b-field>
-        <b-dropdown v-model="isPublic">
+     </b-tooltip>
+        <br><br>Choose Your Theme :
+        <b-tooltip label="Pick your theme. More on their way !" position="is-right">
+        <b-dropdown v-model="isPublic" hoverable>
         <button class="button is-primary" type="button" slot="trigger">
             <template v-if="isPublic">
                 <b-icon icon="earth"></b-icon>
-                <span>Public</span>
+                <span>Dark</span>
             </template>
             <template v-else>
                 <b-icon icon="account-multiple"></b-icon>
-                <span>Friends</span>
+                <span>Light</span>
             </template>
             <b-icon icon="menu-down"></b-icon>
         </button>
@@ -24,8 +29,8 @@
             <div class="media">
                 <b-icon class="media-left" icon="earth"></b-icon>
                 <div class="media-content">
-                    <h3>Public</h3>
-                    <small>Everyone can see</small>
+                    <h3>Dark</h3>
+                    <small>Comfortable on the eyes for long usage. [Violet,Black]</small>
                 </div>
             </div>
         </b-dropdown-item>
@@ -34,13 +39,14 @@
             <div class="media">
                 <b-icon class="media-left" icon="account-multiple"></b-icon>
                 <div class="media-content">
-                    <h3>Friends</h3>
-                    <small>Only friends can see</small>
+                    <h3>Light</h3>
+                    <small>Makes it easy to read text and is lively. [White,Green]</small>
                 </div>
             </div>
         </b-dropdown-item>
-    </b-dropdown>
-
+        </b-dropdown>
+     </b-tooltip>
+        <br><br><br><br>
      <b-dropdown hoverable>
             <button class="button is-info" slot="trigger">
                 <span>Hover me!</span>
@@ -53,6 +59,7 @@
         </b-dropdown>
 
     </div>
+
     </div>
 </template>
 
@@ -60,7 +67,7 @@
 export default {
     data() {
             return {
-                isSwitchedCustom : 'Yes',
+                isSwitchedCustom : 'On',
                 isPublic: true,  
             }
         },

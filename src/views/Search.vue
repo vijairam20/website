@@ -4,14 +4,14 @@
         <span class="fontin">This is your search screen !</span>
         <p class="fontin">Simply enter the User ID of your friend to get started.</p> 
         <div id="cta">
-        <input v-model.number="id" placeholder="user id" class="input is-rounded" type="search">
+        <input v-model.number="id" placeholder="User Id..." class="input is-rounded" v-on:keyup.13="searchUser" type="search">
         <button @click="searchUser" class="btn btn-6 btn-6f">Search</button>
         </div> 
         <!--TODO:replace with v-if-->  
         <div v-show=toshow class="cta2">
         <div v-if="isresult" class="result">
         <user class="result" :name=result></user>
-        <button @click="addUser" class="button"><i class = "fas fa-plus"></i></button>
+        <button @click="addUser" class="btn btn-6 btn-6f"><i class = "fas fa-plus"></i></button>
         </div>
         <div v-else>
             <h1>No User exists by that ID</h1>
