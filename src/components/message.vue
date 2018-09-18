@@ -35,7 +35,9 @@ props:{
 
 <style>
 
-   
+   h1{
+       margin: 0.5em 0em ;
+   }
 .receiver
 {
 text-align: left;

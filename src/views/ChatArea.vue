@@ -4,25 +4,21 @@
        <h1><user :name="username"></user></h1>
        <h1>{{status}}</h1>
        </div>
-       <div id="tabs">
-        <b-tabs type="is-toggle" expanded>
-        <b-tab-item label="Chat"></b-tab-item>
-        <b-tab-item label="Photos/Media"></b-tab-item>
-        <b-tab-item label="Documents"></b-tab-item>
-    </b-tabs>
-       </div>
        <div id="area">
-           
+          
+           <ul>
                <messagec v-for="message in messages" :key="message.id" :text="message.text" :sender="message.sender.id"></messagec>
-           
-
-       </div>
+            </ul>
+        </div>
        <div id="cta">
-        <b-field grouped>
-            <input v-model="message" v-on:keyup.13="sendMessage" placeholder="Chat..." class="search"> </input>
-            <p class="control">
-                <button @click="sendMessage" class="button is-link "><i class="fas fa-location-arrow"></i></button>
-            </p>
+        <b-field grouped>	   
+            <b-input v-model="message" placeholder="Chat..." expanded rounded></b-input>	           
+            <p class="control">	            
+                <button @click="sendMessage" class="button is-link"><b-icon
+                icon="send"
+                size="is-small">
+            </b-icon></button>	 
+            </p>          
         </b-field>
        </div>
    </div>
@@ -61,6 +57,7 @@ components:{
    
 
     sendMessage:function(){
+        if(this.message.length > 0){
         let currentUser = this.$store.state.currentUser
         let myRoom = getRoomByFriend(this.$route.params.id)
         currentUser.sendMessage({
@@ -71,6 +68,7 @@ components:{
 }).catch(err => {
   console.log(`Error adding message to ${myRoom.name}: ${err}`)
 })
+}
     this.message=""
     },
 
