@@ -20,6 +20,14 @@ methods:{
     logout:function(){
         signout()
     }
+},
+mounted:function(){
+// if(this.$store.firebaseUser.additionalUserInfo.isNewUser){
+//       this.$toast.open({
+//                     message: `Your User ID is ${this.$store.state.currentUserDetails.custom_data.key}`,
+//                     type: 'is-info'
+//                 })
+// }
 }
 }
 </script>

@@ -5,6 +5,12 @@
   <h1>Friends</h1>
   </section>
     <user v-for="friend in friends" :key="friend" :name="friend" @click.native="loadChat(friend)"></user>
+    <div v-show="nofriends">
+        <p>
+            Let's find you some friends 
+            Go to search
+        </p>
+    </div>
   </div>
 <div>
 <router-view/>
@@ -25,7 +31,8 @@ created:function(){
 },
 data:function(){
     return{
-        loading : false 
+        loading : false ,
+        nofriends:false
     }
 },
 methods:{
@@ -36,6 +43,9 @@ methods:{
 },
 computed:{
     friends:function(){
+        if(this.$store.state.friends.length == 0){
+            this.nofriends = true  
+        }
        return this.$store.state.friends
     }
 }

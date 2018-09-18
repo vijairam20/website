@@ -1,6 +1,33 @@
 <template>
     <div>
-          <b id="Head">This is the settings screen.</b>
+        <h1>Settings</h1>
+    <nav class="level">
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Your User ID</p>
+      <p class="title">{{this.$store.state.currentUserDetails.custom_data.key}}</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Email</p>
+      <p class="title">{{this.$store.state.currentUserDetails.custom_data.email}}</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Username</p>
+      <p class="title">{{this.$store.state.currentUser.id}}</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Friends</p>
+      <p class="title">{{this.$store.state.friends.length}}</p>
+    </div>
+  </div>
+  
+</nav>
     <div class="options">
         <br><br>
         <b-tooltip label="Discoverable Mode lets other users find you.">
@@ -76,7 +103,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+h1,p{
+    //TODO:Change Font Family
+      font-family: 'Reem Kufi', sans-serif;
+      color: white;
+      font-size: 3em;
+}
 #Head
 {
     font-size: 2.5em;

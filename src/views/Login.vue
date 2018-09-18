@@ -78,12 +78,13 @@ openLoading() {
     firebase.auth()
           .signInWithEmailAndPassword(this.email, this.password)
           .then( user => { 
-            this.open();
+            
             this.flag = true             
             chatSignin(this.email)
             this.flag = false
             this.$store.commit("setFirebaseUser",user)
-             this.$router.replace("dashboard");
+            this.open();
+             this.$router.replace("dashboard/settings");
           },).catch(
           error => {
             this.printerr=error.message

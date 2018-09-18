@@ -94,7 +94,7 @@ export default {
     },
     methods:{
       register: function(){
-        //firebase create user
+       // firebase create user
         firebase.auth().createUserWithEmailAndPassword(this.email,this.password).then(
           function(user){
             console.log('account created')
@@ -104,8 +104,15 @@ export default {
          
         //add to firestore and vuex
         createUser(this.username,this.name,this.email,Math.ceil(Math.random()*100)+1)
+        this.success()
         this.$router.replace("login"); 
-    }
+    },
+  success() {
+                this.$toast.open({
+                    message: 'User Created Successfuly' ,
+                    type: 'is-success'
+                })
+            },
 }
 }
 </script>
