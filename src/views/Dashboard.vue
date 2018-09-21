@@ -21,6 +21,16 @@ methods:{
         signout()
     }
 },
+confirmSignOut() {
+                this.$dialog.confirm({
+                    title: 'Sign Out',
+                    message: 'Are you sure you want to <b>sign out</b> from this account?',
+                    confirmText: 'Sign Out',
+                    type: 'is-danger',
+                    hasIcon: true,
+                    onConfirm: () => this.$toast.open('Signed Out From Your Account!')
+                })
+},
 mounted:function(){
 // if(this.$store.firebaseUser.additionalUserInfo.isNewUser){
 //       this.$toast.open({
@@ -36,12 +46,12 @@ mounted:function(){
 #dashboard{
     display: grid;
     grid-template-columns: 5% 95% ;
-    height: 100%;
+    height: 100vh;
     width: 100% ;
     min-width: 100vw;
-    height: 100vh;
     background-image: linear-gradient(to left, #1f0c43, #26062d, #22031c, #18010d, #000000);
     text-align: center;
+    position: absolute;
 }
 
 nav{

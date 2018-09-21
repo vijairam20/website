@@ -40,15 +40,15 @@
         <br><br>
         <b-tooltip label="Discoverable Mode lets other users find you.">
      <b-field>Discoverable Mode
-        <b-switch v-model="isSwitchedCustom"  class="Toggle" size="is-medium" true-value="On"  false-value="Off" > 
+        <b-switch v-model="isSwitchedCustom"  class="Toggle" type="is-info" size="is-medium" true-value="On"  false-value="Off" > 
             {{isSwitchedCustom}}
         </b-switch>
         </b-field>
      </b-tooltip>
         <br><br>Choose Your Theme :
         <b-tooltip label="Pick your theme. More on their way !" position="is-right">
-        <b-dropdown v-model="isPublic" hoverable>
-        <button class="button is-primary" type="button" slot="trigger">
+        <b-dropdown v-model="isPublic" hoverable type="is-info">
+        <button class="button is-primary is-info" type="button" slot="trigger">
             <template v-if="isPublic">
                 <b-icon icon="earth"></b-icon>
                 <span>Dark</span>
@@ -92,6 +92,7 @@
             <b-dropdown-item>Another action</b-dropdown-item>
             <b-dropdown-item>Something else</b-dropdown-item>
         </b-dropdown>
+        <a href="#" @click="confirmSignOut">Some</a>
 
     </div>
 
@@ -106,6 +107,19 @@ export default {
                 isPublic: true,  
             }
         },
+        methods:{
+
+        confirmSignOut() {
+                this.$dialog.confirm({
+                    title: 'Sign Out',
+                    message: 'Are you sure you want to <b>sign out</b> from this account?',
+                    confirmText: 'Sign Out',
+                    type: 'is-danger',
+                    hasIcon: true,
+                    onConfirm: () => this.$toast.open('Signed Out From Your Account!')
+                })
+},
+}
 
 }
 </script>

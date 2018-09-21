@@ -1,18 +1,30 @@
 <template>
    <div id="chatarea"  class="slide-right">
        <div id="status">
+           <div class="al">
+        <b-dropdown>
+            <a slot="trigger">
+                <i class="fas fa-bars al"></i>
+            </a>
+
+            <b-dropdown-item>Action</b-dropdown-item>
+            <b-dropdown-item>Another action</b-dropdown-item>
+            <b-dropdown-item>Something else</b-dropdown-item>
+        </b-dropdown>
+        </div>
        <h1><user :name="username"></user></h1>
        <h1>{{status}}</h1>
+       
        </div>
        <div id="area">
           
            <ul>
-               <messagec v-for="message in messages" :key="message.id" :text="message.text" :sender="message.sender.id"></messagec>
+               <messagec class="message" v-for="message in messages" :key="message.id" :text="message.text" :sender="message.sender.id"></messagec>
             </ul>
         </div>
        <div id="cta">
         <b-field grouped>	   
-            <b-input v-model="message" placeholder="Chat..." expanded rounded></b-input>	           
+            <input v-model="message" placeholder="Chat..." class="input is-rounded" type = "search" v-on:keyup.13="sendMessage"></input>	           
             <p class="control">	            
                 <button @click="sendMessage" class="button is-link"><b-icon
                 icon="send"
@@ -97,7 +109,7 @@ currentUser.subscribeToRoom({
 <style lang="scss" scoped>
 #chatarea{
     display: grid;
-    background-color: white;
+    background-image: linear-gradient(to left, #1f0c43, #26062d, #22031c, #18010d, #000000);
     min-width: 100%;
     height: 100%;
     grid-template-rows: 5% 90% 5% ;
@@ -111,7 +123,10 @@ currentUser.subscribeToRoom({
 
 #status{
    display: flex;
+   color: white;
    justify-content: center;
+   height: 5em;
+   background-color: rgb(73, 73, 73);
 }
 
 #area{
@@ -125,6 +140,15 @@ margin-right: 2em;
     font-size-adjust: 1.5em;
 }
 
+.message
+{
+    border-radius: 0.8em;
+    padding: 0.5em 0.5em;
+    background-color: #eeeeee;
+    align-content: inherit;
+    width: 40%;
+}
+
 .search
 {
     width:80%;
@@ -136,6 +160,13 @@ margin-right: 2em;
     padding-right: 1em;
     margin-right:1em;
     position: absolute;
+}
+
+.al
+{
+    position: left;
+    backface-visibility: 100%;
+    margin-right: 10px;
 }
 
 .slide-right {
