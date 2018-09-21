@@ -11,7 +11,7 @@
     </div>
     <div id="content">
     <div id="cta">
-      <p>Welcome to Quanta : The Chat App of the Future<br> With Quanta, a top of the line chatting app, we would like to bring to you a plethora of options, customizability and most importantly responsiveness. Chat at the speed of your thoughts. Never will Chatting be the same !</p><p> :) </p>
+      <p>Welcome to Quanta : The Chat App of the Future.<br><br> With Quanta, a top of the line chatting app, we would like to bring to you a highly customizable and responsive app. Chat at the speed of your thoughts. Never will Chatting be the same !</p><p> :) </p>
       <router-link class = "btn btn-3 btn-3e icon-arrow-right " to="/signup">SignUp</router-link>
       <router-link class = "btn btn-3 btn-3e icon-arrow-right " to="/login">Login</router-link>
     </div>

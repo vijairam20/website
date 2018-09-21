@@ -4,26 +4,34 @@
     <nav class="level">
   <div class="level-item has-text-centered">
     <div>
-      <p class="heading">Your User ID</p>
-      <p class="title">{{this.$store.state.currentUserDetails.custom_data.key}}</p>
+      <b-taglist attached class="true">
+          <b-tag type = "is-dark" size = "is-large">UserID</b-tag>
+          <b-tag type = "is-info" size = "is-large">{{this.$store.state.currentUserDetails.custom_data.key}}</b-tag>
+      </b-taglist>
     </div>
   </div>
   <div class="level-item has-text-centered">
     <div>
-      <p class="heading">Email</p>
-      <p class="title">{{this.$store.state.currentUserDetails.custom_data.email}}</p>
+    <b-taglist attached class="true">
+          <b-tag type = "is-dark" size = "is-large">E-mail</b-tag>
+          <b-tag type = "is-info" size = "is-large">{{this.$store.state.currentUserDetails.custom_data.email}}</b-tag>
+      </b-taglist>
     </div>
   </div>
   <div class="level-item has-text-centered">
     <div>
-      <p class="heading">Username</p>
-      <p class="title">{{this.$store.state.currentUser.id}}</p>
+        <b-taglist attached class="true">
+          <b-tag type = "is-dark" size = "is-large">UserName</b-tag>
+          <b-tag type = "is-info" size = "is-large">{{this.$store.state.currentUser.id}}</b-tag>
+      </b-taglist>
     </div>
   </div>
   <div class="level-item has-text-centered">
     <div>
-      <p class="heading">Friends</p>
-      <p class="title">{{this.$store.state.friends.length}}</p>
+        <b-taglist attached class="true">
+          <b-tag type = "is-dark" size = "is-large">Friends</b-tag>
+          <b-tag type = "is-info" size = "is-large">{{this.$store.state.friends.length}}</b-tag>
+      </b-taglist>
     </div>
   </div>
   
