@@ -92,8 +92,6 @@
             <b-dropdown-item>Another action</b-dropdown-item>
             <b-dropdown-item>Something else</b-dropdown-item>
         </b-dropdown>
-        <a href="#" @click="confirmSignOut">Some</a>
-
     </div>
 
     </div>
@@ -107,20 +105,7 @@ export default {
                 isPublic: true,  
             }
         },
-        methods:{
-
-        confirmSignOut() {
-                this.$dialog.confirm({
-                    title: 'Sign Out',
-                    message: 'Are you sure you want to <b>sign out</b> from this account?',
-                    confirmText: 'Sign Out',
-                    type: 'is-danger',
-                    hasIcon: true,
-                    onConfirm: () => this.$toast.open('Signed Out From Your Account!')
-                })
-},
-}
-
+       
 }
 </script>
 

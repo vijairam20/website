@@ -4,7 +4,7 @@
             <router-link to="/dashboard/chat"><i class="fas fa-comment fa-3x"></i></router-link>
             <router-link to="/dashboard/search"><i class="fas fa-search fa-3x"></i></router-link>
             <router-link to="/dashboard/settings"><i class="fas fa-cog fa-3x"></i></router-link>
-            <router-link to="/login" @click.native="logout"><i class="fas fa-sign-out-alt fa-3x"></i></router-link>
+            <router-link to="" @click.native="confirmSignOut"><i class="fas fa-sign-out-alt fa-3x"></i></router-link>
         </nav>
         <div>
             <router-view></router-view>
@@ -18,19 +18,23 @@ export default {
 name:'Dashboard',
 methods:{
     logout:function(){
+        this.$toast.open('Signed Out From Your Account!')
         signout()
+        this.$router.push('/login')
     }
-},
-confirmSignOut() {
+    ,
+    confirmSignOut :function() {
                 this.$dialog.confirm({
                     title: 'Sign Out',
                     message: 'Are you sure you want to <b>sign out</b> from this account?',
                     confirmText: 'Sign Out',
                     type: 'is-danger',
                     hasIcon: true,
-                    onConfirm: () => this.$toast.open('Signed Out From Your Account!')
+                    onConfirm: () => this.logout()
                 })
 },
+},
+
 mounted:function(){
 // if(this.$store.firebaseUser.additionalUserInfo.isNewUser){
 //       this.$toast.open({
@@ -39,6 +43,7 @@ mounted:function(){
 //                 })
 // }
 }
+
 }
 </script>
 
