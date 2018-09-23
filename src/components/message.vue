@@ -1,5 +1,12 @@
 <template>
-    <h1 :class="styleText">{{text}}</h1>
+    <div class="message" :class="styleText">
+    <div class="text">
+    <h1>{{text}}</h1>
+    <div class="attachment" v-if = "isAttachment">
+        <button><i class="fas fa-download"></i></button>
+    </div>
+    </div>
+    </div>
 </template>
 
 <script>
@@ -7,10 +14,24 @@ export default {
 name:'message',
 props:{
     text:String,
-    sender:String
+    sender:String,
+    attachment:[Object,String]
 },data:function(){
     return{
-        
+        link:''
+    }
+},
+mounted:function(){
+if(!(this.attachment === "none")){
+  let currentUser = this.$store.state.currentUser
+  currentUser.fetchAttachment({ url: this.attachment.link })
+  .then(url => {
+    console.log(url)
+    this.link = url 
+  })
+  .catch(err => {
+    console.log('Error fetching attachment:', err)
+  })
     }
 },computed:{
     styleText:function(){
@@ -27,6 +48,12 @@ props:{
             receiver: receiverflag,
             sender:   senderflag,
         }    
+    },
+    isAttachment:function(){
+        if(!(this.attachment === "none")){
+            return true 
+        }
+        return false
     }
 }
 }
@@ -40,14 +67,28 @@ props:{
    }
 .receiver
 {
-text-align: left;
-
+justify-content: flex-start;
 color:blue;
 }
 .sender
 {
-text-align: right;
-color: red;
 
+justify-content: flex-end;
+color: red;
+}
+
+.text{
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.8em;
+    padding: 0.5em 0.5em;
+    background-color: #eeeeee;
+    align-content: inherit;
+    width: 40%;
+}
+
+.message{
+    display: flex;
+    background-color: transparent;
 }
 </style>
