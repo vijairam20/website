@@ -43,7 +43,7 @@ methods:{
 },
 computed:{
     friends:function(){
-        if(this.$store.state.friends.length == 0){
+        if(this.$store.state.friends.length <= 0){
             this.nofriends = true  
         }
        return this.$store.state.friends

@@ -19,17 +19,19 @@
        <div id="area">
           
            <ul>
-               <messagec class="message" v-for="message in messages" :key="message.id" :text="message.text" :sender="message.sender.id"></messagec>
+               <messagec v-for="message in messages" :key="message.id" :text="message.text" :sender="message.sender.id" :attachment="message.attachment"></messagec>
             </ul>
+            <img src="https://chatkit-file-service-us1.s3.amazonaws.com/9aeb69cb-d766-4077-a17f-7dd5d2af01a7/15918312/desktop.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIARUOGSD3OWVXD3DJB%2F20180922%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20180922T163044Z&X-Amz-Expires=60&X-Amz-Security-Token=FQoGZXIvYXdzEAEaDIJ7bIFdlj2OMvkuVyK3A63%2FKr4jAG9d9CO6%2F3OFuJfCa0m%2Bw83E%2FzLPyTa%2FbiodkQobzmrs%2FKYZu9ARTjgvSIWJ%2FRr%2BEU2jXsd16Pc2vZ5aTtOHTF%2FD5xAyLk%2F1ULnlZHgySgfUYOFVh1KqY7RFw1oOeg72sZm8uOymoTQUOLPQC1%2Fj2lKkBPT6woCjSpR0QLMZ%2FgYVhjdhs2URMzqlrppXzKLFgC7vArwSg%2BNcdlaeKCAu1OmU0wDnNT6kJYJ01aPVbXJ0veaL54UovN0OtggD58blr7Jgddk6i89KI0I0GWEKIUCCkFzVx8%2FJxHz30bcT3p1E7IgTwKi8mjE%2Bq4gDtyQqpbevxpFJ5y5FgJhlNHU0lbkYN0jFUyBlGFsKQ1hzhjJDwEzgYCNybExet%2FF%2FQ9ygQv2KO0bxUAzWd5Q1QLK7YGIvugoZPSeBPz5q3H3muANYhgnNATDJE%2Fkg1q9FhiyKzNBK%2BDoU74xt1fsnUqHO9qrKmYqKEZck3%2Fp3%2FOs8uhtXxrPMiiHRC9diFIbrUPe6byMn86KZcwTNuBIDzeRW%2BNUxmY%2FifNLtyNPkKAzzH7Y%2BnZcWb4KNZvlrKR7XIKoqVX4ozriZ3QU%3D&X-Amz-SignedHeaders=host&X-Amz-Signature=0ea27622ec73dc17d9350c5c68e10386e77694bec38d72a8b9d7010f2ae33e18"/>
         </div>
        <div id="cta">
         <b-field grouped>	   
-            <input v-model="message" placeholder="Chat..." class="input is-rounded" type = "search" v-on:keyup.13="sendMessage"></input>	           
+            <input v-model="message" placeholder="Chat..." class="input is-rounded" type = "search" v-on:keyup.13="sendMessage"/>	           
             <p class="control">	            
                 <button @click="sendMessage" class="button is-link"><b-icon
                 icon="send"
                 size="is-small">
             </b-icon></button>	 
+            <previewimage/>
             </p>          
         </b-field>
        </div>
@@ -37,9 +39,10 @@
 </template>
 
 <script>
-import {getRoomByFriend} from '../chat.js'
+import {getRoomByFriend , findAttachment} from '../chat.js'
 import user from '@/components/user.vue'
 import messagec from '@/components/message.vue'
+import previewimage from '@/components/previewimage.vue'
 import { stat } from 'fs';
 export default {
 name:'chatArea',
@@ -59,7 +62,7 @@ data:function(){
     }
 },
 components:{
-    user,messagec
+    user,messagec,previewimage
 },computed:{
   username:function(){
      return this.$route.params.id;
@@ -94,7 +97,10 @@ currentUser.subscribeToRoom({
   roomId: room.id,
   hooks: {
     onNewMessage: message => {
-    this.messages.push(message)
+        if(!(message.attachment)){
+            message.attachment="none"
+        }
+    this.messages.push(message)  
 },
 
   },
@@ -103,7 +109,7 @@ currentUser.subscribeToRoom({
     }
 }
 }
-
+//https://jsfiddle.net/mani04/5zyozvx8/ image
 </script>
 
 <style lang="scss" scoped>
@@ -140,14 +146,7 @@ margin-right: 2em;
     font-size-adjust: 1.5em;
 }
 
-.message
-{
-    border-radius: 0.8em;
-    padding: 0.5em 0.5em;
-    background-color: #eeeeee;
-    align-content: inherit;
-    width: 40%;
-}
+
 
 .search
 {
