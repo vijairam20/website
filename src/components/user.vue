@@ -1,9 +1,10 @@
 <template>
 <div id="user">
     <avatar :username=name></avatar>
-    <div id="data">
     <h1>{{name}}</h1>
-    </div>
+    <!-- <div id="data">
+    <h1>{{name}}</h1>
+    </div> -->
 </div>
 </template>
 
@@ -27,14 +28,13 @@ data:function(){
 <style style="scss" scoped>
 #user{
     display: flex;
+    flex-direction: row;
     padding: 0.5em;
-}
-#data{
-    
-    padding: 1em;
+    margin-bottom: 1em;
 }
 
 h1{
+    margin: auto 0.5em ;
     font-size: 1em;
     font-weight: bold;
 }

@@ -49,6 +49,7 @@ mounted:function(){
 
 <style lang="scss" scoped>
 #dashboard{
+    overflow-y: hidden ;
     display: grid;
     grid-template-columns: 5% 95% ;
     height: 100vh;
@@ -56,16 +57,17 @@ mounted:function(){
     min-width: 100vw;
     background-image: linear-gradient(to left, #1f0c43, #26062d, #22031c, #18010d, #000000);
     text-align: center;
-    position: absolute;
+    
 }
 
 nav{
+    height: 100vh;
     padding: 0.5em;
     display: flex;
     flex-direction: column;
     background-color: black;
     justify-content: space-around;
-    color: white!important;
+    color: rgb(145, 53, 53)!important;
 }
 
 #back-settings{ 
