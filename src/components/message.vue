@@ -3,7 +3,8 @@
     <div class="text">
     <h1>{{text}}</h1>
     <div class="attachment" v-if = "isAttachment">
-        <button><i class="fas fa-download"></i></button>
+        <h1>{{this.link.file.name}}</h1>
+        <button @click = "openInNewTab"><i class="fas fa-arrow-circle-down"></i></button>
     </div>
     </div>
     </div>
@@ -55,6 +56,12 @@ if(!(this.attachment === "none")){
         }
         return false
     }
+},methods:{
+    openInNewTab :function() {
+        console.log(`${this.link} on click event`)
+  var win = window.open(this.link.link, '_blank');
+  win.focus();
+}
 }
 }
 
