@@ -1,5 +1,5 @@
 <template>
-    <div class="message" :class="styleText">
+    <li class="message" :class="styleText">
     <div class="text">
     <h1>{{text}}</h1>
     <div class="attachment" v-if = "isAttachment">
@@ -7,7 +7,7 @@
         <button @click = "openInNewTab"><i class="fas fa-arrow-circle-down"></i></button>
     </div>
     </div>
-    </div>
+    </li>
 </template>
 
 <script>

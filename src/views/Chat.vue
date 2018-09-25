@@ -4,12 +4,14 @@
   <section class="hero is-dark">
   <h1>Friends</h1>
   </section>
-    <user v-for="friend in friends" :key="friend" :name="friend" @click.native="loadChat(friend)"></user>
-    <div v-show="nofriends">
+    <div v-if="nofriends">
         <p>
             Let's find you some friends 
             Go to search
         </p>
+    </div>
+    <div v-else>
+    <user v-for="friend in friends" :key="friend" :name="friend" @click.native="loadChat(friend)"></user>
     </div>
   </div>
 <div>
@@ -32,7 +34,6 @@ created:function(){
 data:function(){
     return{
         loading : false ,
-        nofriends:false
     }
 },
 methods:{
@@ -43,10 +44,15 @@ methods:{
 },
 computed:{
     friends:function(){
-        if(this.$store.state.friends.length <= 0){
-            this.nofriends = true  
-        }
        return this.$store.state.friends
+    }
+    ,
+    nofriends:function(){
+        let flag = false
+        if(this.$store.state.friends === 0){
+            flag = true 
+        }
+        return flag
     }
 }
 }
@@ -64,6 +70,8 @@ computed:{
     #users{
         background-color: white;
         height: 100%;
+        display: grid;
+        grid-template-rows: 10% 
     }
 
     h1{
