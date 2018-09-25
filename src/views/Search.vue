@@ -13,6 +13,9 @@
         <user class="result" :name=result></user>
         <button @click="addUser" class="btn btn-6 btn-6f"><i class = "fas fa-plus"></i></button>
         </div>
+        <div v-else-if="isFriend">
+            <h1>User is already friend</h1>
+        </div>
         <div v-else>
             <h1>No User exists by that ID</h1>
         </div>
@@ -22,9 +25,8 @@
 
 <script>
 import {getUserByID} from '../user.js'
-import {getAllUsers ,addFriend} from '../chat.js'
+import {getAllUsers ,addFriend ,isFriend, getFriends} from '../chat.js'
 import user from "@/components/user.vue"
-import { setTimeout } from 'timers';
 export default {
     name : 'Search',
     components:{
@@ -36,7 +38,8 @@ export default {
             result : '',
             friend : '',
             toshow : false,
-            isresult:false
+            isresult:false,
+            isFriend:false
         }
     },
     methods:{
@@ -44,11 +47,10 @@ export default {
             let userid = getUserByID(this.id)
             if(userid == 'none'){
                 this.result = 'none'
+                this.toshow = true ;
                 this.isresult = false ; 
-                setTimeout(100,()=>{
-                    this.toshow = false
-                })
-            }else{
+             }
+            else{
             this.result = userid[0]
             this.friend = userid[1]
             this.toshow = true 
@@ -57,12 +59,20 @@ export default {
         },
         addUser: function(){
             //TODO:Add Validation
-            //TODO: update in production  
-            //addFriend(this.friend)
-            this.$toast.open({message:`User ${this.friend} added to frineds list`,type:'is-success'})
-            this.friend =''
+            //TODO: update in production
+            console.log(this.friend)
+            console.log(isFriend(this.friend)) 
+            if(isFriend(this.friend)){
+                this.$toast.open({message:`User is already a friend`,type:'is-danger'})
+            }
+            else{
+          //  addFriend(this.friend)
+            this.$toast.open({message:`User ${this.friend} added to friends list`,type:'is-success'})
+            getFriends()
+            }
             this.toshow = false
             this.result = false 
+            this.friend=''
         }
     }
     ,

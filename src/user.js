@@ -11,7 +11,7 @@ export const signout = function(){
 export const getUserByID = function(reqid){
     let users = store.state.usersList
     for(let user of users){
-        if(user.custom_data.key == reqid){
+        if(user.custom_data.key == reqid && user.custom_data.key != store.state.currentUser.customData.key){
             return [user.custom_data.email,user.id]
         } 
     }
