@@ -10,7 +10,7 @@
                 <i class="fas fa-bars al fa-3x"></i>
             </a>
 
-            <b-dropdown-item>Action</b-dropdown-item>
+            <b-dropdown-item @click.native="deleteroom">Delete</b-dropdown-item>
             <b-dropdown-item>Another action</b-dropdown-item>
             <b-dropdown-item>Something else</b-dropdown-item>
         </b-dropdown>
@@ -18,7 +18,7 @@
        </div>
        <div id="area">
           
-           <ul>
+           <ul id="chatmessages">
                <messagec v-for="message in messages" :key="message.id" :text="message.text" :sender="message.sender.id" :attachment="message.attachment"></messagec>
             </ul>
         </div>
@@ -31,8 +31,11 @@
                 size="is-small">
             </b-icon></button>	
             </p>
+            <!-- <p class="control">
+                <p-attachment/>
+            </p> -->
             <p class="control">
-                <previewimage/>
+                <button class="button is-link" @click="upload"><i class="fas fa-paperclip"></i></button>
             </p>
           	
                         
@@ -43,11 +46,12 @@
 </template>
 
 <script>
-import { getRoomByFriend, findAttachment } from "../chat.js";
+import { getRoomByFriend, findAttachment, deleteRoom } from "../chat.js";
 import user from "@/components/user.vue";
 import messagec from "@/components/message.vue";
-import previewimage from "@/components/previewimage.vue";
+import pattachment from "@/components/p-attachment.vue";
 import { stat } from "fs";
+import { getUserByID } from '../user.js';
 export default {
   name: "chatArea",
   beforeRouteUpdate(to, from, next) {
@@ -59,16 +63,18 @@ export default {
   },
   data: function() {
     return {
+      friend:'',
       roomId: "",
       messages: [],
       message: "",
-      status: ""
+      status: "",
+      currentRoom: ""
     };
   },
   components: {
     user,
     messagec,
-    previewimage
+    'p-attachment' : pattachment
   },
   computed: {
     username: function() {
@@ -92,12 +98,19 @@ export default {
       }
       this.message = "";
     },
-
+    scrollToEnd: function() {
+      var container = this.$el.querySelector("#chatmessages");
+      container.scrollTop = container.clientHeight;
+    },
     initialize: function(id) {
       this.messages = [];
       this.message = "";
       this.roomId = 0;
+  
       let room = getRoomByFriend(id);
+      this.friend = room.users
+      console.log(this.friend)
+      this.currentRoom = room;
       let currentUser = this.$store.state.currentUser;
       currentUser.subscribeToRoom({
         roomId: room.id,
@@ -107,18 +120,38 @@ export default {
               message.attachment = "none";
             }
             this.messages.push(message);
+          },
+          onUserCameOnline: user => {
+            this.status ="ONLINE"
+            console.log(`User ${user.name} came online`);
+          },
+          onUserWentOffline: user => {
+            this.status ="OFFLINE"
+            console.log(`User ${user.name} went offline`);
           }
         },
         messageLimit: 40
       });
+    },
+    deleteroom: function() {
+      deleteRoom(this.currentRoom);
+    },
+    upload : function(){
+       this.$modal.open({
+                    parent: this,
+                    component: pattachment ,
+                    hasModalCard: false
+                })
     }
+  },
+  updated: function() {
+    this.scrollToEnd();
   }
 };
 //https://jsfiddle.net/mani04/5zyozvx8/ image
 </script>
 
 <style lang="scss" scoped>
-
 #chatarea {
   display: grid;
   background-image: linear-gradient(
@@ -136,11 +169,11 @@ export default {
 }
 #cta {
   padding: 1em 2em;
+ 
   float: bottom;
   min-width: 100%;
   font-size: 1.05em;
 }
-
 .al {
   display: flex;
   justify-content: center;
@@ -152,24 +185,21 @@ export default {
   color: white;
   justify-content: space-around;
   background-color: rgb(73, 73, 73);
-  
 }
 
 #area {
-    display: block;
-  max-height: 85vh ;
+  display: block;
+  max-height: 85vh;
   padding: 3em;
   padding-top: 0.5em;
   margin-right: 2em;
   overflow-y: auto;
 }
-
 #tabs {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 700;
   font-size-adjust: 1.5em;
 }
-
 .search {
   width: 80%;
   font-family: Arial, Helvetica, sans-serif;
@@ -181,18 +211,15 @@ export default {
   margin-right: 1em;
   position: absolute;
 }
-
 .al {
   position: left;
   backface-visibility: 100%;
   margin-right: 10px;
 }
-
 .slide-right {
   -webkit-animation: slide-right 0.8s both;
   animation: slide-right 0.8s both;
 }
-
 @-webkit-keyframes slide-right {
   0% {
     -webkit-transform: translateX(0);

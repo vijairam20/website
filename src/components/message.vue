@@ -19,7 +19,7 @@ props:{
     attachment:[Object,String]
 },data:function(){
     return{
-        link:''
+        link:Object
     }
 },
 mounted:function(){
@@ -55,6 +55,9 @@ if(!(this.attachment === "none")){
             return true 
         }
         return false
+    },
+    filename:function(){
+        return this.link.file.name
     }
 },methods:{
     openInNewTab :function() {
