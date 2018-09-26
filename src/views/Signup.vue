@@ -7,7 +7,7 @@
         <div class="field">
   <label class="label">Name</label>
   <div class="control">
-    <input  v-model.trim="name" class="input" type="text" placeholder="Text input">
+    <input  v-model.trim="name" class="input" type="text" placeholder="name">
   </div>
 </div>
 
@@ -78,39 +78,50 @@
 </template>
 
 <script>
-import firebase from 'firebase'
-import {createUser}from '../chat.js'
-import {addUser} from '../user.js'
+import firebase from "firebase";
+import { createUser } from "../chat.js";
+import { addUser } from "../user.js";
 export default {
-    name:'signup',
-    data:function(){
-      return{
-        email:'',
-        password:'',
-        username:'',
-        printerr:'',
-        name:''
-      }
-    },
-    methods:{
-      register: function(){
-       // firebase create user
-        firebase.auth().createUserWithEmailAndPassword(this.email,this.password).then(
-          function(user){
-            console.log('account created')
-          }).catch(err=>{
-            this.printerr=err.message
-          })
-         
-        //add to firestore and vuex
-        createUser(this.username,this.name,this.email,Math.ceil(Math.random()*100)+1)
-        this.success()
-        this.$router.replace("login"); 
+  name: "signup",
+  data: function() {
+    return {
+      email: "",
+      password: "",
+      username: "",
+      printerr: "",
+      name: "",
+      isFullPage: true
+    };
+  },
+  methods: {
+    register: function() {
+      // firebase create user
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then(function(user) {
+          console.log("account created");
+        })
+        .catch(err => {
+          this.printerr = err.message;
+        });
+
+      //add to firestore and vuex
+      createUser(
+        this.username,
+        this.name,
+        this.email,
+        Math.ceil(Math.random() * 100) + 1
+      );
+      this.success();
+      this.open();
+
+      this.$router.replace("login");
     },
     confirmCustom() {
-                this.$dialog.confirm({
-                    title: 'Privacy Politics',
-                    message: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      this.$dialog.confirm({
+        title: "Privacy Politics",
+        message: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         Fusce id fermentum quam. Proin sagittis,
                         nibh id hendrerit imperdiet, elit sapien laoreet elit,
                         ac scelerisque diam velit in nisl. Nunc maximus ex non
@@ -130,39 +141,46 @@ export default {
                         In hac habitasse platea dictumst.
                         Pellentesque habitant morbi tristique senectus
                         et netus et malesuada fames ac turpis egestas.`,
-                    cancelText: 'Disagree',
-                    confirmText: 'Agree',
-                    type: 'is-success',
-                    onConfirm: () => this.$toast.open('Check the relevant option to continue.')
-                })
-            },
-  success() {
-                this.$toast.open({
-                    message: 'User Created Successfuly' ,
-                    type: 'is-success'
-                })
-            },
-}
-}
+        cancelText: "Disagree",
+        confirmText: "Agree",
+        type: "is-success",
+        onConfirm: () =>
+          this.$toast.open("Check the relevant option to continue.")
+      });
+    },
+    success() {
+      this.$toast.open({
+        message: "User Created Successfuly",
+        type: "is-success"
+      });
+    },
+    open() {
+      const loadingComponent = this.$loading.open({
+        container: this.isFullPage ? null : this.$refs.element.$el
+      });
+      setTimeout(() => loadingComponent.close(), 1000);
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-form{
-    float: left;
-    padding: 100px;
-    //width: 30%;
+form {
+  float: left;
+  padding: 100px;
+  //width: 30%;
 }
-#signup{
-    //padding: 100px 500px 100px 500px;
-    height: 100vh;
-    display: grid;
-    grid-template-columns: 60% 40%;
-   // width: 30%
+#signup {
+  //padding: 100px 500px 100px 500px;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  // width: 30%
 }
 
-#signhero{
-    background: url('../assets/signup.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+#signhero {
+  background: url("../assets/signup.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 </style>

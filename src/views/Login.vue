@@ -53,24 +53,10 @@ data:function(){
     button : true,
     'is-link' : true,
     'is-loading' : false 
-  }, isFullPage: true,
+  }
   }
 },
 methods:{
-
-openLo:function()
- {
-    const loadingComponent = this.$loading.open( {container: true} );
-    setTimeout(() => loadingComponent.close(), 1 * 500);
-            
-},
-
-openLoading() {
-                this.isLoading = true
-                setTimeout(() => {
-                    this.isLoading = false
-                }, 1 * 500)
-            },
 
   signin:function()
   {
