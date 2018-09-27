@@ -56,6 +56,10 @@ data:function(){
   }
   }
 },
+ beforeRouteEnter(to, from, next) {
+    getAllUsers()
+    next();
+  },
 methods:{
 
   signin:function()
@@ -64,7 +68,6 @@ methods:{
     firebase.auth()
           .signInWithEmailAndPassword(this.email, this.password)
           .then( user => { 
-            
             this.flag = true             
             chatSignin(this.email)
             this.flag = false
@@ -83,13 +86,10 @@ open() {
                 const loadingComponent = this.$loading.open({
                     container: this.isFullPage ? null : this.$refs.element.$el
                 })
-                setTimeout(() => loadingComponent.close(), 1* 500)
+                setTimeout(() => loadingComponent.close(), 1000)
             }
         }
 ,
-created: function(){
-  getAllUsers()
-},
 
 }
 </script>

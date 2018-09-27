@@ -112,7 +112,7 @@ export default {
 <style lang="scss" scoped>
 h1,p{
     //TODO:Change Font Family
-      font-family: 'Reem Kufi', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       color: white;
       font-size: 3em;
 }
@@ -127,8 +127,7 @@ $bg : white;
     h1{
         color: $fc;
         text-align: center;
-        //TODO: change font-family 
-        font-family: 'Reem Kufi', sans-serif;
+        font-family: 'Montserrat', sans-serif;
         font-weight: 600;
         font-size: 2em;
     }

@@ -1,13 +1,14 @@
 <template>
     <div>
+        <!--TODO:Fix placement-->
         <h1>Search</h1>
         <span class="fontin">This is your search screen !</span>
         <p class="fontin">Simply enter the User ID of your friend to get started.</p> 
         <div id="cta">
         <input v-model.number="id" placeholder="User Id..." class="input is-rounded" v-on:keyup.13="searchUser" type="search">
         <button @click="searchUser" class="btn btn-6 btn-6f"><i class="fas fa-search"></i> Search</button>
+        <!-- <button v-show="isresult" @click="addUser" class="btn btn-6 btn-6f"><i class = "fas fa-plus"></i></button> -->
         </div> 
-        <!--TODO:replace with v-if-->  
         <div v-show=toshow class="cta2">
         <div v-if="isresult" class="result">
         <user class="result" :name=result></user>
@@ -58,15 +59,18 @@ export default {
             }
         },
         addUser: function(){
-            //TODO:Add Validation
-            //TODO: update in production
+            
             console.log(this.friend)
             console.log(isFriend(this.friend)) 
             if(isFriend(this.friend)){
                 this.$toast.open({message:`User is already a friend`,type:'is-danger'})
             }
+            //TODO:Possible easter
+            // else if(this.friend === this.$store.state.currentUser.id){
+            //     this.$toast.open({message:`WHY WHY WHY`,type:'is-danger'})
+            // }
             else{
-          //  addFriend(this.friend)
+            addFriend(this.friend)
             this.$toast.open({message:`User ${this.friend} added to friends list`,type:'is-success'})
             getFriends()
             }
@@ -88,7 +92,7 @@ export default {
 
 h1{
     //TODO:Change Font Family
-      font-family: 'Reem Kufi', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       color: white;
       font-size: 3em;
 }

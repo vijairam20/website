@@ -51,7 +51,7 @@ import user from "@/components/user.vue";
 import messagec from "@/components/message.vue";
 import pattachment from "@/components/p-attachment.vue";
 import { stat } from "fs";
-import { getUserByID } from '../user.js';
+import { getUserByID } from "../user.js";
 export default {
   name: "chatArea",
   beforeRouteUpdate(to, from, next) {
@@ -63,7 +63,7 @@ export default {
   },
   data: function() {
     return {
-      friend:'',
+      friend: "",
       roomId: "",
       messages: [],
       message: "",
@@ -71,10 +71,11 @@ export default {
       currentRoom: ""
     };
   },
+  watch: {},
   components: {
     user,
     messagec,
-    'p-attachment' : pattachment
+    "p-attachment": pattachment
   },
   computed: {
     username: function() {
@@ -99,17 +100,17 @@ export default {
       this.message = "";
     },
     scrollToEnd: function() {
-      var container = this.$el.querySelector("#chatmessages");
-      container.scrollTop = container.clientHeight;
+      var messageDisplay = this.$el.querySelector("#area");
+      messageDisplay.scrollTop = messageDisplay.scrollHeight;
     },
     initialize: function(id) {
       this.messages = [];
       this.message = "";
       this.roomId = 0;
-  
+
       let room = getRoomByFriend(id);
-      this.friend = room.users
-      console.log(this.friend)
+      this.friend = this.$route.params.id;
+      console.log(this.friend);
       this.currentRoom = room;
       let currentUser = this.$store.state.currentUser;
       currentUser.subscribeToRoom({
@@ -119,14 +120,16 @@ export default {
             if (!message.attachment) {
               message.attachment = "none";
             }
+
             this.messages.push(message);
+            this.scrollToEnd();
           },
           onUserCameOnline: user => {
-            this.status ="ONLINE"
+            this.status = "ONLINE";
             console.log(`User ${user.name} came online`);
           },
           onUserWentOffline: user => {
-            this.status ="OFFLINE"
+            this.status = "OFFLINE";
             console.log(`User ${user.name} went offline`);
           }
         },
@@ -136,19 +139,18 @@ export default {
     deleteroom: function() {
       deleteRoom(this.currentRoom);
     },
-    upload : function(){
-       this.$modal.open({
-                    parent: this,
-                    component: pattachment ,
-                    hasModalCard: false
-                })
+    upload: function() {
+      this.$modal.open({
+        parent: this,
+        component: pattachment,
+        hasModalCard: false
+      });
     }
   },
   updated: function() {
     this.scrollToEnd();
   }
 };
-//https://jsfiddle.net/mani04/5zyozvx8/ image
 </script>
 
 <style lang="scss" scoped>
@@ -169,7 +171,6 @@ export default {
 }
 #cta {
   padding: 1em 2em;
- 
   float: bottom;
   min-width: 100%;
   font-size: 1.05em;
@@ -186,7 +187,6 @@ export default {
   justify-content: space-around;
   background-color: rgb(73, 73, 73);
 }
-
 #area {
   display: block;
   max-height: 85vh;
@@ -239,5 +239,8 @@ export default {
     -webkit-transform: translateX(0px);
     transform: translateX(0px);
   }
+}
+button:not(:nth-child(2)) {
+  margin-left: 0.5em;
 }
 </style>

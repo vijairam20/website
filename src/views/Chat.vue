@@ -27,6 +27,10 @@ export default {
 components:{
     user
 },
+beforeRouteEnter (to, from, next) {
+    getFriends()
+    next()
+    },
 created:function(){
     this.loading = true 
 
