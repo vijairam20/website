@@ -169,3 +169,14 @@ export const deleteRoom = function (room) {
       console.log(`Error deleted room ${room.id}: ${err}`)
     })
 }
+
+export const signin = function(email){
+  chatkit.getUsers()
+  .then((res) => {
+    store.commit('setUsersList', res)
+    chatSignin(email)
+
+  }).catch((err) => {
+    console.log(err);
+  });
+}

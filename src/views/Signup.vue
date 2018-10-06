@@ -4,53 +4,33 @@
 
         </div>
     <form>
-        <div class="field">
-  <label class="label">Name</label>
-  <div class="control">
-    <input  v-model.trim="name" class="input" type="text" placeholder="name">
-  </div>
-</div>
+       
 
-<div class="field">
-  <label class="label">Email</label>
-  <div class="control has-icons-left has-icons-right">
-    <input v-model.trim ="email" class="input" type="email" placeholder="Email input" >
-    <span class="icon is-small is-left">
-      <i class="fas fa-envelope"></i>
-    </span>
-    <span class="icon is-small is-right">
-      <i class="fas fa-exclamation-triangle"></i>
-    </span>
-  </div>
-  
+        <b-field label="Username">
+            <b-input  v-model.trim="name" value="name" icon-pack="fas"  icon ="user" placeholder="Username"></b-input>
+        </b-field>
+        
+        <b-field label="Name">
+            <b-input  v-model.trim="username" value="name"   icon ="face" placeholder="Name"></b-input>
+        </b-field>
 
-<div class="field">
-  <label class="label">Username</label>
-  <div class="control has-icons-left has-icons-right">
-    <input v-model.trim="username" class="input " type="text" placeholder="username" >
-    <span class="icon is-small is-left">
-      <i class="fas fa-user"></i>
-    </span>
-    <span class="icon is-small is-right">
-      <i class="fas fa-check"></i>
-    </span>
-  </div>
+        <b-field label="Email">
+            <b-input v-model.trim ="email" placeholder="Email"
+                type="email"
+                icon="email">
+            </b-input>
+        </b-field>
 
-<div class="field">
-  <label class="label">Password</label>
-  <div class="control has-icons-left has-icons-right">
-    <input v-model.trim="password" class="input " type="password" placeholder="password" >
-    <span class="icon is-small is-left">
-      <i class="fas fa-user"></i>
-    </span>
-    <span class="icon is-small is-right">
-      <i class="fas fa-check"></i>
-    </span>
-  </div>
-</div>
+        <b-field label="Password">
+            <b-input v-model.trim="password" type="password"
+                placeholder="Password "
+                icon-pack="fas"
+                icon="lock">
+                password-reveal>
+            </b-input>
+        </b-field>
 
-</div>
-</div>
+
 <div class="field">
   <div class="control">
     <label class="checkbox">
@@ -96,17 +76,19 @@ export default {
   methods: {
     register: function() {
       // firebase create user
+    
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(function(user) {
           console.log("account created");
-        })
+                this.createChatkit()
+        }.bind(this))
         .catch(err => {
           this.printerr = err.message;
-        });
-
-      //add to firestore and vuex
+        });  
+    },
+    createChatkit:function(){
       createUser(
         this.username,
         this.name,
@@ -115,8 +97,6 @@ export default {
       );
       this.success();
       this.open();
-
-      this.$router.replace("login");
     },
     confirmCustom() {
       this.$dialog.confirm({
@@ -158,7 +138,9 @@ export default {
       const loadingComponent = this.$loading.open({
         container: this.isFullPage ? null : this.$refs.element.$el
       });
-      setTimeout(() => loadingComponent.close(), 1000);
+      setTimeout(() =>{ loadingComponent.close();
+                        this.$router.replace("login");
+      }, 1000);
     }
   }
 };

@@ -2,27 +2,23 @@
     <div id="login">
         <div id="loginimg"></div>
         <form>
-<div class="field">
-  <p class="control has-icons-left has-icons-right">
-    <input v-model="email" class="input" type="email" placeholder="Email">
-    <span class="icon is-small is-left">
-      <i class="fas fa-envelope"></i>
-    </span>
-    <span class="icon is-small is-right">
-      <i class="fas fa-check"></i>
-    </span>
-  </p>
-</div>
-<div class="field">
-  <p class="control has-icons-left">
-    <input v-model="password" class="input" type="password" placeholder="Password">
-    <span class="icon is-small is-left">
-      <i class="fas fa-lock"></i>
-    </span>
-  </p>
-</div>
+        <b-field >
+            <b-input v-model="email" placeholder="Email"
+                type="email"
+                icon="email">
+            </b-input>
+        </b-field>
 
-<div class="field is-grouped">
+        <b-field >
+            <b-input v-model="password" type="password"
+                placeholder="Password "
+                icon-pack="fas"
+                icon="lock">
+                password-reveal>
+            </b-input>
+        </b-field>
+
+        <div class="field is-grouped">
   <div class="control">
     <button @click.prevent="signin" :class="styleButton">Login</button>
   </div>
@@ -37,82 +33,78 @@
 </template>
 
 <script>
-import firebase from 'firebase'
-import {addCurrentUser} from '../user.js'
-import {chatSignin , getAllUsers ,getFriends} from '../chat.js'
+import firebase from "firebase";
+import { addCurrentUser } from "../user.js";
+import { signin, chatSignin, getAllUsers, getFriends } from "../chat.js";
 export default {
-name:'login',
-data:function(){
-  return{
-  email:'',
-  password:'',
-  printerr:'',
-  flag:false,
-  isFullPage: true,
-  styleButton:{
-    button : true,
-    'is-link' : true,
-    'is-loading' : false 
-  }
-  }
-},
- beforeRouteEnter(to, from, next) {
-    getAllUsers()
+  name: "login",
+  data: function() {
+    return {
+      email: "",
+      password: "",
+      printerr: "",
+      flag: false,
+      isFullPage: true,
+      styleButton: {
+        button: true,
+        "is-link": true,
+        "is-loading": false
+      }
+    };
+  },
+  beforeRouteEnter(to, from, next) {
+    getAllUsers();
     next();
   },
-methods:{
-
-  signin:function()
-  {
-    //Firebase sigin
-    firebase.auth()
-          .signInWithEmailAndPassword(this.email, this.password)
-          .then( user => { 
-            this.flag = true             
-            chatSignin(this.email)
-            this.flag = false
-            this.$store.commit("setFirebaseUser",user)
-            this.open();
-             this.$router.replace("dashboard/settings");
-          },).catch(
-          error => {
-            this.printerr=error.message
-            console.log(error.message)
-          })
-          
-         
-   },
-open() {
-                const loadingComponent = this.$loading.open({
-                    container: this.isFullPage ? null : this.$refs.element.$el
-                })
-                setTimeout(() => loadingComponent.close(), 1000)
-            }
-        }
-,
-
-}
+  methods: {
+    signin: function() {
+      //Firebase sigin
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(user => {
+          this.flag = true;
+          signin(this.email);
+          this.flag = false;
+          this.$store.commit("setFirebaseUser", user);
+          this.open();
+        })
+        .catch(error => {
+          this.printerr = error.message;
+          console.log(error.message);
+        });
+    },
+    open() {
+      const loadingComponent = this.$loading.open({
+        container: this.isFullPage ? null : this.$refs.element.$el
+      });
+      setTimeout(() => {
+        loadingComponent.close();
+        this.$router.replace("dashboard/settings");
+      }, 1000);
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-#login{
-    display: grid;
-    grid-template-columns: 60% 40%;
-    height: 100vh;
+#login {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  height: 100vh;
 }
 
-form{
-    padding: 100px;
-h1{
-  color: red;
-  
-}
+form {
+  padding: 100px;
+  h1 {
+    color: red;
+  }
 }
 
-#loginimg{
-    background: url('../assets/loginimage.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
+#loginimg {
+  background: url("../assets/loginimage.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 </style>
 
