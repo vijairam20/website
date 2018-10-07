@@ -98,7 +98,7 @@
 </template>
 
 <script>
-export var isPublic;
+export var myVar = 'isPublic';
 export default {
     data() {
             return {

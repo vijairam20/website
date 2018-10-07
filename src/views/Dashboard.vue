@@ -1,5 +1,7 @@
 <template>
-    <div id="dashboard">
+	<h1 v-model="isTheTheme">
+	<template v-if="isTheTheme">
+	<div id="dashboard">
         <nav>
             <router-link to="/dashboard/chat"><i class="fas fa-comment fa-3x"></i></router-link>
             <router-link to="/dashboard/search"><i class="fas fa-search fa-3x"></i></router-link>
@@ -10,13 +12,35 @@
             <router-view></router-view>
         </div>
     </div>
+	</template>
+	<template v-else>
+	<div id="dashboard-light">
+        <nav>
+            <router-link to="/dashboard/chat"><i class="fas fa-comment fa-3x"></i></router-link>
+            <router-link to="/dashboard/search"><i class="fas fa-search fa-3x"></i></router-link>
+            <router-link to="/dashboard/settings"><i class="fas fa-cog fa-3x"></i></router-link>
+            <router-link to="" @click.native="confirmSignOut"><i class="fas fa-sign-out-alt fa-3x"></i></router-link>
+        </nav>
+        <div>
+            <router-view></router-view>
+        </div>
+    </div>
+	</template>
+	</h1>
 </template>
 
 <script>
 import {signout} from '../user.js'
 import Settings from './Settings.vue'
 export default {
+
 name:'Dashboard',
+data: function(){
+	return {
+		isTheTheme : true,
+	}
+
+},
 methods:{
     logout:function(){
         this.$toast.open('Signed Out From Your Account!')
@@ -68,14 +92,7 @@ mounted:function(){
 	height: 100vh;
 	width: 100%;
 	min-width: 100vw;
-	background-image: linear-gradient(
-		to left,
-		#1f0c43,
-		#26062d,
-		#22031c,
-		#18010d,
-		#000000
-	);
+	background-image: radial-gradient(circle, #a8eb12, #00bf72, #008793, #004d7a, #051937);
 	text-align: center;
 }
 nav {
@@ -100,5 +117,6 @@ nav {
 		#000000
 	);
 	text-align: center;
+	color: #000000;
 }
 </style>
