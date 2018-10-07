@@ -14,14 +14,8 @@
 
 <script>
 import {signout} from '../user.js'
-import { isPublic } from './Dashboard.vue'
+import Settings from './Settings.vue'
 export default {
-    data:function(){
-        return{
-            isTheTheme : isPublic,
-
-        }
-    },
 name:'Dashboard',
 methods:{
     logout:function(){
@@ -43,60 +37,68 @@ methods:{
 },
 
 mounted:function(){
-// if(this.$store.firebaseUser.additionalUserInfo.isNewUser){
-//       this.$toast.open({
-//                     message: `Your User ID is ${this.$store.state.currentUserDetails.custom_data.key}`,
-//                     type: 'is-info'
-//                 })
-// }
+	//Settings.data() will return an object having all the variables from that page.
 }
 
 }
 </script>
 
 <style lang="scss" scoped>
-#dashboard{
-    overflow-y: hidden ;
-    display: grid;
-    grid-template-columns: 5% 95% ;
-    height: 100vh;
-    width: 100% ;
-    min-width: 100vw;
-    background-image: linear-gradient(to left, #1f0c43, #26062d, #22031c, #18010d, #000000);
-    text-align: center;
-    
+#dashboard {
+	overflow-y: hidden;
+	display: grid;
+	grid-template-columns: 5% 95%;
+	height: 100vh;
+	width: 100%;
+	min-width: 100vw;
+	background-image: linear-gradient(
+		to left,
+		#1f0c43,
+		#26062d,
+		#22031c,
+		#18010d,
+		#000000
+	);
+	text-align: center;
 }
-
-#dashboard-light{
-    overflow-y: hidden ;
-    display: grid;
-    grid-template-columns: 5% 95% ;
-    height: 100vh;
-    width: 100% ;
-    min-width: 100vw;
-    background-image: linear-gradient(to left, #1f0c43, #26062d, #22031c, #18010d, #000000);
-    text-align: center;
+#dashboard-light {
+	overflow-y: hidden;
+	display: grid;
+	grid-template-columns: 5% 95%;
+	height: 100vh;
+	width: 100%;
+	min-width: 100vw;
+	background-image: linear-gradient(
+		to left,
+		#1f0c43,
+		#26062d,
+		#22031c,
+		#18010d,
+		#000000
+	);
+	text-align: center;
 }
-
-nav{
-    height: 100vh;
-    padding: 0.5em;
-    display: flex;
-    flex-direction: column;
-    background-color: black;
-    justify-content: space-around;
-    color: rgb(145, 53, 53)!important;
+nav {
+	height: 100vh;
+	padding: 0.5em;
+	display: flex;
+	flex-direction: column;
+	background-color: black;
+	justify-content: space-around;
+	color: rgb(145, 53, 53) !important;
 }
-
-#back-settings{ 
-    min-width: 100vw;
-    height: 100vh;
-    //background-image: radial-gradient(circle, #1f0c43, #2d062f, #2c071f, #260b14, #1c0f0f);
-    //background-image: linear-gradient(to left top, #1f0c43, #26062d, #22031c, #18010d, #000000);
-    //background-color: darken($color: rgba(0, 0, 0, 0.90), $amount: 80%);
-   //background-color: white;
-   background-image: linear-gradient(to left, #1f0c43, #26062d, #22031c, #18010d, #000000);
-   text-align: center;
+#back-settings {
+	min-width: 100vw;
+	height: 100vh;
+	// background-image: radial-gradient(circle, #1f0c43, #2d062f, #2c071f, #260b14, #1c0f0f); // background-image: linear-gradient(to left top, #1f0c43, #26062d, #22031c, #18010d, #000000); // background-color: darken($color: rgba(0, 0, 0, 0.90), $amount: 80%); // background-color: white;
+	background-image: linear-gradient(
+		to left,
+		#1f0c43,
+		#26062d,
+		#22031c,
+		#18010d,
+		#000000
+	);
+	text-align: center;
 }
-
 </style>
