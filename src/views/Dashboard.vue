@@ -1,5 +1,5 @@
 <template>
-	<h1 v-model="isTheTheme">
+<h1>
 	<template v-if="isTheTheme">
 	<div id="dashboard">
         <nav>
@@ -12,57 +12,71 @@
             <router-view></router-view>
         </div>
     </div>
-	</template>
-	<template v-else>
-	<div id="dashboard-light">
-        <nav>
-            <router-link to="/dashboard/chat"><i class="fas fa-comment fa-3x"></i></router-link>
-            <router-link to="/dashboard/search"><i class="fas fa-search fa-3x"></i></router-link>
-            <router-link to="/dashboard/settings"><i class="fas fa-cog fa-3x"></i></router-link>
-            <router-link to="" @click.native="confirmSignOut"><i class="fas fa-sign-out-alt fa-3x"></i></router-link>
-        </nav>
-        <div>
-            <router-view></router-view>
-        </div>
-    </div>
-	</template>
+</template>
+<template v-else>
+<div id="dashboard-light">
+	<nav>
+		<router-link to="/dashboard/chat"><i class="fas fa-comment fa-3x"></i></router-link>
+		<router-link to="/dashboard/search"><i class="fas fa-search fa-3x"></i></router-link>
+		<router-link to="/dashboard/settings"><i class="fas fa-cog fa-3x"></i></router-link>
+		<router-link to="" @click.native="confirmSignOut"><i class="fas fa-sign-out-alt fa-3x"></i></router-link>
+	</nav>
+	<div>
+		<router-view></router-view>
+	</div>
+</div>
+</template>
 	</h1>
 </template>
 
 <script>
-import {signout} from '../user.js'
+import {
+	signout
+} from '../user.js'
 import Settings from './Settings.vue'
 export default {
 
-name:'Dashboard',
-data: function(){
-	return {
-		isTheTheme : true,
+	name: 'Dashboard',
+	data: function() {
+		return {
+			isTheTheme: true,
+		}
+
+	},
+	methods: {
+		logout: function() {
+			this.$toast.open('Signed Out From Your Account!')
+			signout()
+			this.$router.push('/login')
+		},
+		confirmSignOut: function() {
+			this.$dialog.confirm({
+				title: 'Sign Out',
+				message: 'Are you sure you want to <b>sign out</b> from this account?',
+				confirmText: 'Sign Out',
+				type: 'is-danger',
+				hasIcon: true,
+				onConfirm: () => this.logout()
+			})
+		},
+		updateTheme: function() {
+			if (this.isTheTheme == true) {
+				this.isTheTheme = false;
+				console.log("1");
+			} else {
+				this.isTheTheme = true;
+				console.log("2");
+			}
+		}
+	},
+
+	mounted: function() {
+		//Settings.data() will return an object having all the variables from that page.
+		var vm = this;
+		vm.$on("updatetheme", function(value) {
+			vm.isTheTheme = value;
+		});
 	}
-
-},
-methods:{
-    logout:function(){
-        this.$toast.open('Signed Out From Your Account!')
-        signout()
-        this.$router.push('/login')
-    }
-    ,
-    confirmSignOut :function() {
-                this.$dialog.confirm({
-                    title: 'Sign Out',
-                    message: 'Are you sure you want to <b>sign out</b> from this account?',
-                    confirmText: 'Sign Out',
-                    type: 'is-danger',
-                    hasIcon: true,
-                    onConfirm: () => this.logout()
-                })
-},
-},
-
-mounted:function(){
-	//Settings.data() will return an object having all the variables from that page.
-}
 
 }
 </script>
@@ -92,7 +106,14 @@ mounted:function(){
 	height: 100vh;
 	width: 100%;
 	min-width: 100vw;
-	background-image: radial-gradient(circle, #a8eb12, #00bf72, #008793, #004d7a, #051937);
+	background-image: radial-gradient(
+		circle,
+		#a8eb12,
+		#00bf72,
+		#008793,
+		#004d7a,
+		#051937
+	);
 	text-align: center;
 }
 nav {

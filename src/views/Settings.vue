@@ -1,66 +1,67 @@
 <template>
-    <div>
-        <h1>Settings</h1>
-    <nav class="level">
-  <div class="level-item has-text-centered">
-    <div>
-      <b-taglist attached class="true">
-          <b-tag type = "is-dark" size = "is-large">UserID</b-tag>
-          <b-tag type = "is-info" size = "is-large">{{this.$store.state.currentUserDetails.custom_data.key}}</b-tag>
-      </b-taglist>
-    </div>
-  </div>
-  <div class="level-item has-text-centered">
-    <div>
-    <b-taglist attached class="true">
-          <b-tag type = "is-dark" size = "is-large">E-mail</b-tag>
-          <b-tag type = "is-info" size = "is-large">{{this.$store.state.currentUserDetails.custom_data.email}}</b-tag>
-      </b-taglist>
-    </div>
-  </div>
-  <div class="level-item has-text-centered">
-    <div>
-        <b-taglist attached class="true">
-          <b-tag type = "is-dark" size = "is-large">UserName</b-tag>
-          <b-tag type = "is-info" size = "is-large">{{this.$store.state.currentUser.id}}</b-tag>
-      </b-taglist>
-    </div>
-  </div>
-  <div class="level-item has-text-centered">
-    <div>
-        <b-taglist attached class="true">
-          <b-tag type = "is-dark" size = "is-large">Friends</b-tag>
-          <b-tag type = "is-info" size = "is-large">{{this.$store.state.friends.length}}</b-tag>
-      </b-taglist>
-    </div>
-  </div>
-  
-</nav>
-    <div class="options">
-        <br><br>
-        <b-tooltip label="Discoverable Mode lets other users find you.">
-     <b-field>Discoverable Mode
-        <b-switch v-model="isSwitchedCustom"  class="Toggle" type="is-info" size="is-medium" true-value="On"  false-value="Off" > 
-            {{isSwitchedCustom}}
-        </b-switch>
-        </b-field>
-     </b-tooltip>
-        <br><br>Choose Your Theme :
-        <b-tooltip label="Pick your theme. More on their way !" position="is-right">
-        <b-dropdown v-model="isPublic" hoverable type="is-info">
-        <button class="button is-primary is-info" type="button" slot="trigger">
+<div>
+	<h1>Settings</h1>
+	<nav class="level">
+		<div class="level-item has-text-centered">
+			<div>
+				<b-taglist attached class="true">
+					<b-tag type="is-dark" size="is-large">UserID</b-tag>
+					<b-tag type="is-info" size="is-large">{{this.$store.state.currentUserDetails.custom_data.key}}</b-tag>
+				</b-taglist>
+			</div>
+		</div>
+		<div class="level-item has-text-centered">
+			<div>
+				<b-taglist attached class="true">
+					<b-tag type="is-dark" size="is-large">E-mail</b-tag>
+					<b-tag type="is-info" size="is-large">{{this.$store.state.currentUserDetails.custom_data.email}}</b-tag>
+				</b-taglist>
+			</div>
+		</div>
+		<div class="level-item has-text-centered">
+			<div>
+				<b-taglist attached class="true">
+					<b-tag type="is-dark" size="is-large">UserName</b-tag>
+					<b-tag type="is-info" size="is-large">{{this.$store.state.currentUser.id}}</b-tag>
+				</b-taglist>
+			</div>
+		</div>
+		<div class="level-item has-text-centered">
+			<div>
+				<b-taglist attached class="true">
+					<b-tag type="is-dark" size="is-large">Friends</b-tag>
+					<b-tag type="is-info" size="is-large">{{this.$store.state.friends.length}}</b-tag>
+				</b-taglist>
+			</div>
+		</div>
+
+	</nav>
+	<div class="options">
+		<br><br>
+		<b-tooltip label="Discoverable Mode lets other users find you.">
+			<b-field>Discoverable Mode
+				<b-switch v-model="isSwitchedCustom" class="Toggle" type="is-info" size="is-medium" true-value="On" false-value="Off">
+					{{isSwitchedCustom}}
+				</b-switch>
+			</b-field>
+		</b-tooltip>
+		<br><br>Choose Your Theme :
+		<b-tooltip label="Pick your theme. More on their way !" position="is-right">
+			<b-dropdown v-model="isPublic" hoverable type="is-info">
+				<button class="button is-primary is-info" type="button" slot="trigger">
             <template v-if="isPublic">
                 <b-icon icon="earth"></b-icon>
                 <span>Dark</span>
-            </template>
-            <template v-else>
-                <b-icon icon="account-multiple"></b-icon>
-                <span>Light</span>
-            </template>
+</template>
+<template v-else>
+<b-icon icon="account-multiple">
+</b-icon>
+<span>Light</span>
+</template>
             <b-icon icon="menu-down"></b-icon>
         </button>
 
-        <b-dropdown-item :value="true">
+        <b-dropdown-item v-on:click="updateTheme(true);">
             <div class="media">
                 <b-icon class="media-left" icon="earth"></b-icon>
                 <div class="media-content">
@@ -70,7 +71,7 @@
             </div>
         </b-dropdown-item>
 
-        <b-dropdown-item :value="false">
+        <b-dropdown-item v-on:click="updateTheme(false);">
             <div class="media">
                 <b-icon class="media-left" icon="account-multiple"></b-icon>
                 <div class="media-content">
@@ -100,54 +101,62 @@
 <script>
 export var myVar = 'isPublic';
 export default {
-    data() {
-            return {
-                isSwitchedCustom : 'On',
-                isPublic: true,  
-            }
-        },
-       
+	data() {
+		return {
+			isSwitchedCustom: 'On',
+			isPublic: true,
+			isTheTheme: true
+		}
+	},
+	methods: {
+		updateTheme: function(value) {
+			this.$parent.$emit("updatetheme", value);
+			this.isTheTheme = value;
+			console.log("3");
+		}
+	}
 }
 </script>
 
 <style lang="scss" scoped>
-h1,p{
-    //TODO:Change Font Family
-      font-family: 'Montserrat', sans-serif;
-      color: white;
-      font-size: 3em;
-}
-#Head
-{
-    font-size: 2.5em;
-    font-weight: bolder;
-}
-#settings{
-$fc : black;
-$bg : white;
-    h1{
-        color: $fc;
-        text-align: center;
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 600;
-        font-size: 2em;
-    }
-    width: 100%;
-    //background: lighten($color: black, $amount: 20%);
-    background-color: $bg;
-    height: 100vh;
+h1,
+p {
+	//TODO:Change Font Family
+	font-family: "Montserrat", sans-serif;
+	color: white;
+	font-size: 3em;
 }
 
-.options{
-    color : #eeeeee;
-    font-size: 1.5em;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: 600;
-
+#Head {
+	font-size: 2.5em;
+	font-weight: bolder;
 }
 
- .tag {
-        cursor: pointer;
-    }
+#settings {
+	$fc: black;
+	$bg: white;
+	h1 {
+		color: $fc;
+		text-align: center;
+		font-family: "Montserrat", sans-serif;
+		font-weight: 600;
+		font-size: 2em;
+	}
+	width: 100%;
+	//background: lighten($color: black, $amount: 20%);
+	background-color: $bg;
+	height: 100vh;
+}
+
+.options {
+	color: #eeeeee;
+	font-size: 1.5em;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	font-weight: 600;
+}
+
+.tag {
+	cursor: pointer;
+}
 </style>
 
