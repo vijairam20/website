@@ -32,7 +32,7 @@ export default {
 
 <style lang="scss" scoped>
 #home{
-height: 140vh;
+height: 160vh;
 background-color: #eeeeee;
 
 }

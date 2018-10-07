@@ -98,6 +98,7 @@
 </template>
 
 <script>
+export var isPublic;
 export default {
     data() {
             return {

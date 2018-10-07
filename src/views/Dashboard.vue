@@ -14,7 +14,14 @@
 
 <script>
 import {signout} from '../user.js'
+import { isPublic } from './Dashboard.vue'
 export default {
+    data:function(){
+        return{
+            isTheTheme : isPublic,
+
+        }
+    },
 name:'Dashboard',
 methods:{
     logout:function(){
@@ -58,6 +65,17 @@ mounted:function(){
     background-image: linear-gradient(to left, #1f0c43, #26062d, #22031c, #18010d, #000000);
     text-align: center;
     
+}
+
+#dashboard-light{
+    overflow-y: hidden ;
+    display: grid;
+    grid-template-columns: 5% 95% ;
+    height: 100vh;
+    width: 100% ;
+    min-width: 100vw;
+    background-image: linear-gradient(to left, #1f0c43, #26062d, #22031c, #18010d, #000000);
+    text-align: center;
 }
 
 nav{
