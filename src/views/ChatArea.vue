@@ -31,9 +31,9 @@
                 size="is-small">
             </b-icon></button>	
             </p>
-            <!-- <p class="control">
-                <p-attachment/>
-            </p> -->
+            <p class="control">
+                <button @click="record" class="button is-link"><b-icon icon="microphone" icon-pack="fas"></b-icon></button>
+            </p>
             <p class="control">
                 <button class="button is-link" @click="upload"><i class="fas fa-paperclip"></i></button>
             </p>
@@ -52,6 +52,7 @@ import messagec from "@/components/message.vue";
 import pattachment from "@/components/p-attachment.vue";
 import { stat } from "fs";
 import { getUserByID } from "../user.js";
+import {dictate} from "../speech.js"
 export default {
   name: "chatArea",
   beforeRouteUpdate(to, from, next) {
@@ -145,25 +146,30 @@ export default {
         component: pattachment,
         hasModalCard: false
       });
-    }
+    },
+     record:function(){
+    console.log("record")
+    this.message=dictate()
+  }
   },
   updated: function() {
     this.scrollToEnd();
-  }
+  },
+ 
 };
 </script>
 
 <style lang="scss" scoped>
 #chatarea {
   display: grid;
-  background-image: linear-gradient(
-    to left,
-    #1f0c43,
-    #26062d,
-    #22031c,
-    #18010d,
-    #000000
-  );
+  // background-image: linear-gradient(
+  //   to left,
+  //   #1f0c43,
+  //   #26062d,
+  //   #22031c,
+  //   #18010d,
+  //   #000000
+  // );
   min-width: 100%;
   height: 100vh;
   grid-template-rows: 10% 80% 10%;
