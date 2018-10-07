@@ -47,9 +47,9 @@
 		</b-tooltip>
 		<br><br>Choose Your Theme :
 		<b-tooltip label="Pick your theme. More on their way !" position="is-right">
-			<b-dropdown v-model="isPublic" hoverable type="is-info">
+			<b-dropdown v-model="isTheTheme" hoverable type="is-info">
 				<button class="button is-primary is-info" type="button" slot="trigger">
-            <template v-if="isPublic">
+            <template v-if="isTheTheme">
                 <b-icon icon="earth"></b-icon>
                 <span>Dark</span>
 </template>
@@ -61,7 +61,7 @@
             <b-icon icon="menu-down"></b-icon>
         </button>
 
-        <b-dropdown-item v-on:click="updateTheme(true);">
+        <b-dropdown-item :value="value" v-on:click="updateTheme(true);">
             <div class="media">
                 <b-icon class="media-left" icon="earth"></b-icon>
                 <div class="media-content">
