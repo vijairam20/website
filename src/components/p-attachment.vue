@@ -21,6 +21,7 @@
                <button class="button is-link" @click="sendAttachment">send</button>
             </div>
             <div v-if="isAttachment">
+                <!--TODO: Display files details -->
                 <button class="button is-link" @click="sendAttachment">send</button>
             </div>
     </div> 
