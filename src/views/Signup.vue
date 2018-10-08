@@ -4,8 +4,12 @@
 	</div>
 	<form>
 
+		<b-field label="Username">
+			<b-input v-model.trim="name" value="name" icon-pack="fas" icon="user" placeholder="Username"></b-input>
+		</b-field>
+
 		<b-field label="Name">
-			<b-input v-model.trim="name" value="name" icon="face" placeholder="Name"></b-input>
+			<b-input v-model.trim="username" value="name" icon="face" placeholder="Name"></b-input>
 		</b-field>
 
 		<b-field label="Email">
@@ -13,22 +17,23 @@
 			</b-input>
 		</b-field>
 
-		<b-field label="Username">
-			<b-input v-model.trim="username" value="username" icon-pack="fas" icon="user" placeholder="Username"></b-input>
-		</b-field>
-
 		<b-field label="Password">
-			<b-input v-model.trim="password" type="password" placeholder="Password " icon-pack="fas" icon="lock" password-reveal>
+			<b-input v-model.trim="password" type="password" placeholder="Password " icon-pack="fas" icon="lock">
+				password-reveal>
 			</b-input>
 		</b-field>
+
 
 		<div class="field">
 			<div class="control">
 				<label class="checkbox">
-      				<input type="checkbox">I agree to the <a href="#" @click="confirmCustom">terms and conditions</a>
-    			</label>
+      <input type="checkbox">
+      I agree to the <a href="#" @click="confirmCustom">terms and conditions</a>
+    </label>
 			</div>
 		</div>
+
+
 
 		<div class="field is-grouped">
 			<div class="control">
@@ -46,9 +51,13 @@
 </template>
 
 <script>
+import firebase from "firebase";
 import {
-	firebase
-} from "firebase";
+	createUser
+} from "../chat.js";
+import {
+	addUser
+} from "../user.js";
 export default {
 	name: "signup",
 	data: function() {

@@ -83,7 +83,7 @@
         </b-dropdown>
      </b-tooltip>
         <br><br><br><br>
-     <b-dropdown hoverable>
+     <!-- <b-dropdown hoverable>
             <button class="button is-info" slot="trigger">
                 <span>Hover me!</span>
                 <b-icon icon="menu-down"></b-icon>
@@ -92,71 +92,98 @@
             <b-dropdown-item>Action</b-dropdown-item>
             <b-dropdown-item>Another action</b-dropdown-item>
             <b-dropdown-item>Something else</b-dropdown-item>
-        </b-dropdown>
-    </div>
+        </b-dropdown> -->
+	<b-field style="margin-top : 0.5em">
+	<button @click="changePassword"class="button is-danger" style="font-size: 0.8em"><b>Reset Password</b></button>
+    </b-field>
+	</div>
 
     </div>
 </template>
 
 <script>
-export var myVar = 'isPublic';
+import { auth } from "../firebaseConfig.js";
+export var myVar = "isPublic";
 export default {
-	data() {
-		return {
-			isSwitchedCustom: 'On',
-			isPublic: true,
-			isTheTheme: true
+  data() {
+    return {
+      isSwitchedCustom: "On",
+      isPublic: true,
+      isTheTheme: true
+    };
+  },
+  methods: {
+    updateTheme: function(value) {
+      this.$parent.$emit("updatetheme", value);
+      this.isTheTheme = value;
+      console.log("3");
+    },
+    changePassword: function() {
+      this.$dialog.confirm({
+        title: "Reset Password",
+        message: "Are you sure you want to <b>change</b> your password?",
+        confirmText: "Change",
+        type: "is-danger",
+        hasIcon: true,
+        onConfirm: () => {
+          auth
+            .sendPasswordResetEmail(this.$store.state.currentUserDetails.custom_data.email)
+            .then(() =>{ 
+			  console.log("sent")
+            })
+            .catch(function(error) {
+              console.log(error)
+            });
+			this.$toast.open({
+                    message: 'Check Your Mail for Reset Password',
+                    type: 'is-success'
+                })
 		}
-	},
-	methods: {
-		updateTheme: function(value) {
-			this.$parent.$emit("updatetheme", value);
-			this.isTheTheme = value;
-			console.log("3");
-		}
-	}
-}
+      });
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
 h1,
 p {
-	//TODO:Change Font Family
-	font-family: "Montserrat", sans-serif;
-	color: white;
-	font-size: 3em;
+  //TODO:Change Font Family
+  font-family: "Montserrat", sans-serif;
+  color: white;
+  font-size: 3em;
 }
 
 #Head {
-	font-size: 2.5em;
-	font-weight: bolder;
+  font-size: 2.5em;
+  font-weight: bolder;
 }
 
 #settings {
-	$fc: black;
-	$bg: white;
-	h1 {
-		color: $fc;
-		text-align: center;
-		font-family: "Montserrat", sans-serif;
-		font-weight: 600;
-		font-size: 2em;
-	}
-	width: 100%;
-	//background: lighten($color: black, $amount: 20%);
-	background-color: $bg;
-	height: 100vh;
+  $fc: black;
+  $bg: white;
+  h1 {
+    color: $fc;
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-size: 2em;
+  }
+  width: 100%;
+  //background: lighten($color: black, $amount: 20%);
+  background-color: $bg;
+  height: 100vh;
 }
 
 .options {
-	color: #eeeeee;
-	font-size: 1.5em;
-	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-	font-weight: 600;
+  color: #eeeeee;
+  font-size: 1.5em;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 600;
 }
 
 .tag {
-	cursor: pointer;
+  cursor: pointer;
 }
 </style>
 

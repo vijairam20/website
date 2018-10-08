@@ -31,8 +31,16 @@
                 size="is-small">
             </b-icon></button>	
             </p>
-            <p class="control">
-                <button @click="record" class="button is-link"><b-icon icon="microphone" icon-pack="fas"></b-icon></button>
+
+            <p v-if="recording" class="control">
+                <button @click="record" class="button is-danger is-loading">
+                 
+                </button>
+            </p>
+            <p v-else class="control">
+                <button @click="record" class="button is-link">
+                  <b-icon  icon="microphone" icon-pack="fas">
+                </b-icon></button>
             </p>
             <p class="control">
                 <button class="button is-link" @click="upload"><i class="fas fa-paperclip"></i></button>
@@ -52,7 +60,6 @@ import messagec from "@/components/message.vue";
 import pattachment from "@/components/p-attachment.vue";
 import { stat } from "fs";
 import { getUserByID } from "../user.js";
-import {dictate} from "../speech.js"
 export default {
   name: "chatArea",
   beforeRouteUpdate(to, from, next) {
@@ -69,7 +76,9 @@ export default {
       messages: [],
       message: "",
       status: "",
-      currentRoom: ""
+      currentRoom: "",
+      recording : false,
+     
     };
   },
   watch: {},
@@ -148,8 +157,17 @@ export default {
       });
     },
      record:function(){
-    console.log("record")
-    this.message=dictate()
+    
+    window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+    const recognition = new SpeechRecognition();
+    this.recording = true 
+    recognition.start();
+	  recognition.onresult = (event) => {
+    const speechToText = event.results[0][0].transcript;
+		console.log(speechToText);
+    this.message = speechToText
+    this.recording = false 
+	};
   }
   },
   updated: function() {
