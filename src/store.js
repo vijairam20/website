@@ -5,11 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-      currentUser : {
-        customData: {
-          key: null
-        }
-      }
+      currentUser :''
       ,usersList : '' ,
       currentUserDetails:'',
       rooms:'',

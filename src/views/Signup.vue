@@ -72,28 +72,14 @@ export default {
 	},
 	methods: {
 		register: function() {
-			// firebase create user
-
-			firebase
-				.auth()
-				.createUserWithEmailAndPassword(this.email, this.password)
-				.then(function(user) {
-					console.log("account created");
-					this.createChatkit()
-				}.bind(this))
-				.catch(err => {
-					this.printerr = err.message;
-				});
-		},
-		createChatkit: function() {
-			createUser(
-				this.username,
-				this.name,
-				this.email,
-				Math.ceil(Math.random() * 100) + 1
-			);
-			this.success();
-			this.open();
+			var createUser = firebase.functions().httpsCallable("createUser");
+			createUser({text: "hello"})
+			.then((result) => {
+				success();
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 		},
 		confirmCustom() {
 			this.$dialog.confirm({
