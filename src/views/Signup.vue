@@ -4,40 +4,28 @@
 	</div>
 	<form>
 
-		<b-field label="Username">
-			<b-input v-model.trim="name" value="name" icon-pack="fas" icon="user" placeholder="Username"></b-input>
-		</b-field>
-
 		<b-field label="Name">
-			<b-input v-model.trim="username" value="name" icon="face" placeholder="Name"></b-input>
+			<b-input v-model.trim="name" value="name" icon-pack="fas" icon="user" placeholder="Name"></b-input>
 		</b-field>
 
-		<b-field label="Email">
-			<b-input v-model.trim="email" placeholder="Email" type="email" icon="email">
+		<b-field label="EmailID">
+			<b-input v-model.trim="email" value="email" icon="email" type="email" placeholder="Email ID"></b-input>
+		</b-field>
+
+		<b-field label="Username">
+			<b-input id="usernameid" v-model.trim="username" value="username" placeholder="Username" icon="face">
 			</b-input>
 		</b-field>
 
 		<b-field label="Password">
-			<b-input v-model.trim="password" type="password" placeholder="Password " icon-pack="fas" icon="lock">
+			<b-input v-model.trim="password" value="password" type="password" placeholder="Password" icon-pack="fas" icon="lock">
 				password-reveal>
 			</b-input>
 		</b-field>
 
-
-		<div class="field">
-			<div class="control">
-				<label class="checkbox">
-      <input type="checkbox">
-      I agree to the <a href="#" @click="confirmCustom">terms and conditions</a>
-    </label>
-			</div>
-		</div>
-
-
-
 		<div class="field is-grouped">
 			<div class="control">
-				<button @click.prevent="register" class="button is-link">Submit</button>
+				<button @click.prevent="confirmTOS" class="button is-link">Sign Up</button>
 			</div>
 			<div class="control">
 				<router-link tag=button class="button is-text" to="/">Cancel</router-link>
@@ -51,13 +39,12 @@
 </template>
 
 <script>
-import firebase from "firebase";
 import {
-	createUser
-} from "../chat.js";
-import {
-	addUser
-} from "../user.js";
+	firebase
+} from "@/firebaseConfig.js";
+import _ from "underscore";
+import axios from "axios";
+import Chatkit from "@pusher/chatkit-server";
 export default {
 	name: "signup",
 	data: function() {
@@ -67,23 +54,35 @@ export default {
 			username: "",
 			printerr: "",
 			name: "",
+			usernameValid: false,
 			isFullPage: true
 		};
 	},
 	methods: {
 		register: function() {
-			var createUser = firebase.functions().httpsCallable("createUser");
-			createUser({text: "hello"})
-			.then((result) => {
-				success();
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+			var vm = this;
+			if (this.usernameValid) {
+				const chatkit = new Chatkit.default({
+					instanceLocator: "v1:us1:8e862fe0-1264-46d3-9c2a-ee84030cbfe0",
+					key: "1a0f59d5-a1f6-49b6-a5eb-ec10b28e5593:ufU+fTEZWiHvFb6m8c60N45rhKRSnYeIWyBPryTW39w=",
+				});
+				chatkit.createUser({
+						id: vm.username,
+						name: vm.name,
+					})
+					.then(() => {
+						console.log('User created successfully');
+					}).catch((err) => {
+						console.log(err);
+					});
+			} else {
+				this.$toast.open("Username is invalid!");
+			}
 		},
-		confirmCustom() {
+		confirmTOS() {
+			var vm = this;
 			this.$dialog.confirm({
-				title: "Privacy Politics",
+				title: "Terms Of Service",
 				message: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         Fusce id fermentum quam. Proin sagittis,
                         nibh id hendrerit imperdiet, elit sapien laoreet elit,
@@ -107,8 +106,8 @@ export default {
 				cancelText: "Disagree",
 				confirmText: "Agree",
 				type: "is-success",
-				onConfirm: () =>
-					this.$toast.open("Check the relevant option to continue.")
+				onConfirm: () => vm.register(),
+				onReject: () => this.$toast.open("You must agree to the Terms Of Service")
 			});
 		},
 		success() {
@@ -125,6 +124,37 @@ export default {
 				loadingComponent.close();
 				this.$router.replace("login");
 			}, 1000);
+		}
+	},
+	watch: {
+		username: function(value, oldValue) {
+			document.getElementById("usernameid").classList.remove("is-success");
+			document.getElementById("usernameid").classList.remove("is-danger");
+			document.getElementById("usernameid").setCustomValidity("Checking availability...");
+			this.usernameValid = false;
+			var vm = this;
+			if (value.length >= 6) {
+				firebase.firestore().collection("users").doc(value).get()
+					.then((doc) => {
+						if (doc.exists) {
+							document.getElementById("usernameid").classList.add("is-danger");
+							document.getElementById("usernameid").classList.remove("is-success");
+							document.getElementById("usernameid").setCustomValidity("Username not available!");
+						} else {
+							vm.usernameValid = true;
+							document.getElementById("usernameid").classList.add("is-success");
+							document.getElementById("usernameid").classList.remove("is-danger");
+							document.getElementById("usernameid").setCustomValidity("");
+						}
+					})
+					.catch((err) => {
+						console.log(err);
+					});
+			} else {
+				document.getElementById("usernameid").classList.add("is-danger");
+				document.getElementById("usernameid").classList.remove("is-success");
+				document.getElementById("usernameid").setCustomValidity("Username too small!");
+			}
 		}
 	}
 };
