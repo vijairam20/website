@@ -1,3 +1,4 @@
+import store from './store'
 const Chatkit = require("@pusher/chatkit-server");
 const chatkit = new Chatkit.default({
 	instanceLocator: "v1:us1:8e862fe0-1264-46d3-9c2a-ee84030cbfe0",
@@ -6,18 +7,19 @@ const chatkit = new Chatkit.default({
 import {
 	firebase
 } from "./firebaseConfig";
-
-export const createUser = function (username, name, newemail, newkey) {
-	return chatkit.createUser({
+//TODO:CREATE USER
+export const createChatkitUser = function (username, name, newemail, newkey) {
+	 chatkit.createUser({
 		id: username,
 		name: name
 	})
 		.then(() => {
-			console.log("User created successfully");
-			firebase.auth();
+			console.log("Chakit account created");
 		}).catch((err) => {
 			console.log(err);
 		});
+
+	
 };
 
 export const chatSignin = function (newemail) {

@@ -1,4 +1,4 @@
-import {auth} from './firebaseConfig'
+import {auth , users} from './firebaseConfig'
 import  store from './store'
 
 export const signout = function(){
@@ -16,4 +16,19 @@ export const getUserByID = function(reqid){
         } 
     }
     return 'none'
+}
+
+export const addUserToFirestore = function(newemail, newusername, newname, newid){
+    users.doc(newusername).set({
+        name: newname,
+        id :  newid,
+        email : newemail,
+        username : newusername
+    }).then(function() {
+        console.log(`${newusername} is added to firestore`);
+    })
+    .catch(function(error) {
+        console.error("Error writing document: ", error);
+    });
+    
 }

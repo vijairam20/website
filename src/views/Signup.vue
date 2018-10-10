@@ -40,11 +40,14 @@
 
 <script>
 import {
-	firebase
+	firebase , auth
 } from "@/firebaseConfig.js";
 import _ from "underscore";
+import {createChatkitUser} from "../chat.js";
+import {addUserToFirestore} from "../user.js"
 import axios from "axios";
 import Chatkit from "@pusher/chatkit-server";
+
 export default {
 	name: "signup",
 	data: function() {
@@ -59,24 +62,22 @@ export default {
 		};
 	},
 	methods: {
-		register: function() {
+		register: async function() {
 			var vm = this;
 			if (this.usernameValid) {
-				const chatkit = new Chatkit.default({
-					instanceLocator: "v1:us1:8e862fe0-1264-46d3-9c2a-ee84030cbfe0",
-					key: "1a0f59d5-a1f6-49b6-a5eb-ec10b28e5593:ufU+fTEZWiHvFb6m8c60N45rhKRSnYeIWyBPryTW39w=",
-				});
-				chatkit.createUser({
-						id: vm.username,
-						name: vm.name,
-					})
-					.then(() => {
-						console.log('User created successfully');
-					}).catch((err) => {
-						console.log(err);
-					});
-			} else {
-				this.$toast.open("Username is invalid!");
+				auth.createUserWithEmailAndPassword(vm.email, vm.password)
+				.then(()=>{
+					console.log("Firebase account created");
+					let userid = _.random(10,1000);
+					createChatkitUser(vm.username,vm.name,vm.email,userid);
+					addUserToFirestore(vm.email,vm.username,vm.name,userid)
+					this.open()
+					this.success()
+					}).catch(function(error) {
+			vm.printerr = error.message;
+	  });
+			 } else {
+			 	this.$toast.open("Username is invalid!");
 			}
 		},
 		confirmTOS() {
@@ -133,6 +134,7 @@ export default {
 			document.getElementById("usernameid").setCustomValidity("Checking availability...");
 			this.usernameValid = false;
 			var vm = this;
+			
 			if (value.length >= 6) {
 				firebase.firestore().collection("users").doc(value).get()
 					.then((doc) => {
