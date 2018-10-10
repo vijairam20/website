@@ -34,8 +34,8 @@
 
 <script>
 import firebase from "firebase";
-import { addCurrentUser } from "../user.js";
-import { signin, chatSignin, getAllUsers, getFriends } from "../chat.js";
+import { addCurrentUser} from "../user.js";
+import { signin} from "../chat.js";
 export default {
   name: "login",
   data: function() {
@@ -43,7 +43,6 @@ export default {
       email: "",
       password: "",
       printerr: "",
-      flag: false,
       isFullPage: true,
       styleButton: {
         button: true,
@@ -52,10 +51,6 @@ export default {
       }
     };
   },
-  beforeRouteEnter(to, from, next) {
-    getAllUsers();
-    next();
-  },
   methods: {
     signin: function() {
       //Firebase sigin
@@ -63,11 +58,10 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(user => {
-          this.flag = true;
+          this.open()
           signin(this.email);
-          this.flag = false;
           this.$store.commit("setFirebaseUser", user);
-          this.open();
+         
         })
         .catch(error => {
           this.printerr = error.message;

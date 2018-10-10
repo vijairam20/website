@@ -6,7 +6,7 @@
 			<div>
 				<b-taglist attached class="true">
 					<b-tag type="is-dark" size="is-large">UserID</b-tag>
-					<b-tag type="is-info" size="is-large">{{this.$store.state.currentUserDetails.custom_data.key}}</b-tag>
+					<b-tag type="is-info" size="is-large">{{this.$store.state.currentUserDetails.id}}</b-tag>
 				</b-taglist>
 			</div>
 		</div>
@@ -14,7 +14,7 @@
 			<div>
 				<b-taglist attached class="true">
 					<b-tag type="is-dark" size="is-large">E-mail</b-tag>
-					<b-tag type="is-info" size="is-large">{{this.$store.state.currentUserDetails.custom_data.email}}</b-tag>
+					<b-tag type="is-info" size="is-large">{{this.$store.state.currentUserDetails.email}}</b-tag>
 				</b-taglist>
 			</div>
 		</div>
@@ -22,7 +22,7 @@
 			<div>
 				<b-taglist attached class="true">
 					<b-tag type="is-dark" size="is-large">UserName</b-tag>
-					<b-tag type="is-info" size="is-large">{{this.$store.state.currentUser.id}}</b-tag>
+					<b-tag type="is-info" size="is-large">{{this.$store.state.currentUserDetails.username}}</b-tag>
 				</b-taglist>
 			</div>
 		</div>

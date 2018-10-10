@@ -1,11 +1,13 @@
 import store from './store'
+import { ChatManager, TokenProvider } from '@pusher/chatkit'
+const axios = require('axios');
 const Chatkit = require("@pusher/chatkit-server");
 const chatkit = new Chatkit.default({
 	instanceLocator: "v1:us1:8e862fe0-1264-46d3-9c2a-ee84030cbfe0",
 	key: "1a0f59d5-a1f6-49b6-a5eb-ec10b28e5593:ufU+fTEZWiHvFb6m8c60N45rhKRSnYeIWyBPryTW39w=",
 });
 import {
-	firebase
+	users
 } from "./firebaseConfig";
 //TODO:CREATE USER
 export const createChatkitUser = function (username, name, newemail, newkey) {
@@ -22,21 +24,13 @@ export const createChatkitUser = function (username, name, newemail, newkey) {
 	
 };
 
-export const chatSignin = function (newemail) {
-	let users = store.state.usersList;
-
-	for (let user of users) {
-		if (user.custom_data.email === newemail) {
-			console.log("current user added");
-			store.commit("setCurrentUserDetails", user);
-		}
-	}
+export const chatSignin = function () {
 
 	const chatManager = new ChatManager({
-		instanceLocator: "v1:us1:9aeb69cb-d766-4077-a17f-7dd5d2af01a7",
-		userId: store.state.currentUserDetails.id,
+		instanceLocator: "v1:us1:8e862fe0-1264-46d3-9c2a-ee84030cbfe0",
+		userId: store.state.currentUserDetails.username,
 		tokenProvider: new TokenProvider({
-			url: "https://us1.pusherplatform.io/services/chatkit_token_provider/v1/9aeb69cb-d766-4077-a17f-7dd5d2af01a7/token"
+			url: "https://us1.pusherplatform.io/services/chatkit_token_provider/v1/8e862fe0-1264-46d3-9c2a-ee84030cbfe0/token"
 		})
 	});
 
@@ -50,7 +44,7 @@ export const chatSignin = function (newemail) {
 				.then((res) => {
 					store.commit("setRooms", res);
 					getFriends();
-					authenticateUser(currentUser.id);
+				//	authenticateUser(currentUser.id);
 				}).catch((err) => {
 					console.log(err);
 				});
@@ -173,12 +167,23 @@ export const deleteRoom = function (room) {
 };
 
 export const signin = function (email) {
-	chatkit.getUsers()
-		.then((res) => {
-			store.commit("setUsersList", res);
-			chatSignin(email);
+	// chatkit.getUsers()
+	// 	.then((res) => {
+	// 		store.commit("setUsersList", res);
+	// 		chatSignin(email);
 
-		}).catch((err) => {
-			console.log(err);
-		});
+	// 	}).catch((err) => {
+	// 		console.log(err);
+	// 	});
+
+	var emailquery =  users.where("email", "==", email);
+    emailquery.get() // Trying to get all the groups
+    .then( function(snapshot){
+        snapshot.forEach(function(doc){
+				console.log(doc.id);
+				store.commit("setCurrentUserDetails", doc.data());
+				chatSignin()
+            })
+        })
+    
 };
