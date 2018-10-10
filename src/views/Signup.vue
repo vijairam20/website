@@ -5,7 +5,7 @@
 	<form>
 
 		<b-field label="Name">
-			<b-input v-model.trim="name" value="name" icon-pack="fas" icon="user" placeholder="Name"></b-input>
+			<b-input v-model.trim="name" value="name" icon="face" placeholder="Name"></b-input>
 		</b-field>
 
 		<b-field label="EmailID">
@@ -13,7 +13,7 @@
 		</b-field>
 
 		<b-field label="Username">
-			<b-input id="usernameid" v-model.trim="username" value="username" placeholder="Username" icon="face">
+			<b-input id="usernameid" v-model.trim="username" value="username" placeholder="Username" icon-pack="fas" icon="user">
 			</b-input>
 		</b-field>
 
