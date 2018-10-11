@@ -7,7 +7,7 @@ const chatkit = new Chatkit.default({
 	key: "1a0f59d5-a1f6-49b6-a5eb-ec10b28e5593:ufU+fTEZWiHvFb6m8c60N45rhKRSnYeIWyBPryTW39w=",
 });
 import {
-	users
+	firebase ,users , db 
 } from "./firebaseConfig";
 //TODO:CREATE USER
 export const createChatkitUser = function (username, name, newemail, newkey) {
@@ -69,19 +69,9 @@ const authenticateUser = function (username) {
 		});
 };
 
-export const getAllUsers = function () {
-	chatkit.getUsers()
-		.then((res) => {
-			store.commit("setUsersList", res);
-
-		}).catch((err) => {
-			console.log(err);
-		});
-};
-
 export const addFriend = function (friend) {
 	store.state.currentUser.createRoom({
-		name: `${store.state.currentUserDetails.id + friend}`,
+		name: `${store.state.currentUserDetails.username + friend}`,
 		private: true,
 		addUserIds: [friend]
 	}).then(room => {
@@ -91,6 +81,13 @@ export const addFriend = function (friend) {
 		.catch(err => {
 			console.log(`Error creating room ${err}`);
 		});
+	users.doc(store.state.currentUserDetails.username).update({
+		friends: firebase.firestore.FieldValue.arrayUnion(friend)
+	});
+	users.doc(friend).update({
+		friends: firebase.firestore.FieldValue.arrayUnion(store.state.currentUserDetails.friend)
+	});
+	
 };
 
 export const isNotCurrentUser = function (user) {
@@ -142,12 +139,14 @@ export const getFriends = function () {
 	store.commit("setFriends", friendsList);
 };
 
-export const isFriend = function (friend) {
-	let existingFriends = store.state.friends;
-	for (var i = 0; i < existingFriends.length; i++) {
-		console.log(existingFriends[i]);
-		if (existingFriends[i] === friend) {
-			return true;
+export const isFriend =  function (friend) {
+	let friends = store.state.currentUserDetails.friends;
+	if(friends.length == 0 ){
+		return false;
+	}
+	for(var i = 0 ; i < friends.length ; i++){
+		if(friends[i] === friend){
+			return true ;
 		}
 	}
 	return false;
@@ -167,20 +166,13 @@ export const deleteRoom = function (room) {
 };
 
 export const signin = function (email) {
-	// chatkit.getUsers()
-	// 	.then((res) => {
-	// 		store.commit("setUsersList", res);
-	// 		chatSignin(email);
-
-	// 	}).catch((err) => {
-	// 		console.log(err);
-	// 	});
-
+	
 	var emailquery =  users.where("email", "==", email);
     emailquery.get() // Trying to get all the groups
     .then( function(snapshot){
         snapshot.forEach(function(doc){
 				console.log(doc.id);
+				localStorage.setItem("username",doc.id);
 				store.commit("setCurrentUserDetails", doc.data());
 				chatSignin()
             })

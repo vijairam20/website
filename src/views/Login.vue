@@ -54,6 +54,8 @@ export default {
   methods: {
     signin: function() {
       //Firebase sigin
+      //this.$store.commit("setEmail",this.email);
+      localStorage.setItem("email",this.email);
       firebase
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
@@ -75,7 +77,7 @@ export default {
       setTimeout(() => {
         loadingComponent.close();
         this.$router.replace("dashboard/settings");
-      }, 1000);
+      }, 5000);
     }
   }
 };

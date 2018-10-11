@@ -5,12 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-      currentUser :''
-      ,usersList : '' ,
+      currentUser :'',
       currentUserDetails:'',
       rooms:'',
       friends:'',
-      firebaseUser:''
+      firebaseUser:'',
+      email:''
   },
   mutations: {
         setCurrentUserDetails(state,userDetails)
@@ -18,10 +18,7 @@ export default new Vuex.Store({
           state.currentUserDetails = userDetails 
         }
         ,
-        setUsersList(state,users){
-          state.usersList = users
-        }
-        ,setCurrentUser(state,user){
+        setCurrentUser(state,user){
           state.currentUser = user 
         },
         setFriends(state,friends){
@@ -32,6 +29,9 @@ export default new Vuex.Store({
         },
         setFirebaseUser(state,user){
           state.firebaseUser = user 
+        },
+        setEmail(state,email){
+          state.email = email 
         }
   },
   actions: {

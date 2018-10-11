@@ -34,6 +34,8 @@ import {
 	signout
 } from '../user.js'
 import Settings from './Settings.vue'
+import { create } from 'domain';
+import {users} from '../firebaseConfig.js'
 export default {
 
 	name: 'Dashboard',
@@ -76,12 +78,33 @@ export default {
 		vm.$on("updatetheme", function(value) {
 			vm.isTheTheme = value;
 		});
-	}
-
+	},
+	created :  function(){
+		var vm = this 
+		let email = localStorage.getItem("email")
+users.where("email", "==", email)
+    .onSnapshot(function(snapshot) {
+        snapshot.docChanges().forEach(function(change) {
+            if (change.type === "added") {
+                console.log("User added: ", change.doc.data());
+            }
+            if (change.type === "modified") {
+				console.log("Modified user: ", change.doc.data());
+				vm.$store.commit("setCurrentUserDetails",doc.data());
+            }
+            if (change.type === "removed") {
+                console.log("Removed city: ", change.doc.data());
+            }
+        });
+    });
+}
 }
 </script>
 
 <style lang="scss" scoped>
+h1{
+	margin: 0 ;
+}
 #dashboard {
 	overflow-y: hidden;
 	display: grid;
@@ -103,7 +126,7 @@ export default {
 	overflow-y: hidden;
 	display: grid;
 	grid-template-columns: 5% 95%;
-	height: 100vh;
+	min-height: 100vh;
 	width: 100%;
 	min-width: 100vw;
 	background-image: radial-gradient(
@@ -123,7 +146,7 @@ nav {
 	flex-direction: column;
 	background-color: black;
 	justify-content: space-around;
-	color: rgb(145, 53, 53) !important;
+	color: rgb(145, 53, 53) ;
 }
 #back-settings {
 	min-width: 100vw;

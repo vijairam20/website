@@ -17,6 +17,6 @@ const db =  firebase.firestore()
 const users = db.collection("users")
 
 export {
-	firebase,
+	firebase, db ,
 	auth , users 
 };

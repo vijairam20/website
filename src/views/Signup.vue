@@ -62,7 +62,7 @@ export default {
 		};
 	},
 	methods: {
-		register: async function() {
+		register:  function() {
 			var vm = this;
 			if (this.usernameValid) {
 				auth.createUserWithEmailAndPassword(vm.email, vm.password)

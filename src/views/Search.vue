@@ -7,7 +7,6 @@
         <div id="cta">
         <input v-model.number="id" placeholder="User Id..." class="input is-rounded" v-on:keyup.13="searchUser" type="search">
         <button @click="searchUser" class="btn btn-6 btn-6f"><i class="fas fa-search"></i> Search</button>
-        <!-- <button v-show="isresult" @click="addUser" class="btn btn-6 btn-6f"><i class = "fas fa-plus"></i></button> -->
         </div> 
         <div v-show=toshow class="cta2">
         <div v-if="isresult" class="result">
@@ -25,8 +24,8 @@
 </template>
 
 <script>
-import {getUserByID} from '../user.js'
-import {getAllUsers ,addFriend ,isFriend, getFriends} from '../chat.js'
+import { addFriend ,isFriend, getFriends} from '../chat.js'
+import {users} from '../firebaseConfig.js'
 import user from "@/components/user.vue"
 export default {
     name : 'Search',
@@ -45,44 +44,50 @@ export default {
     },
     methods:{
         searchUser : function(){
-            let userid = getUserByID(this.id)
-            if(userid == 'none'){
+            var friendquery =  users.where("id", "==", this.id);
+    friendquery.get() 
+    .then( (snapshot)=>{
+        snapshot.forEach((doc)=>{
+                this.displayUser(doc.data().username,doc.data().email);
+})
+        })            
+            },
+        
+         displayUser : function(username , email){
+            
+            if(!username){
                 this.result = 'none'
                 this.toshow = true ;
                 this.isresult = false ; 
              }
             else{
-            this.result = userid[0]
-            this.friend = userid[1]
-            this.toshow = true 
-            this.isresult = true
+            this.result = email ;
+            this.friend = username ;
+            this.toshow = true ;
+            this.isresult = true ;
             }
         },
         addUser: function(){
             
             console.log(this.friend)
-            console.log(isFriend(this.friend)) 
-            if(isFriend(this.friend)){
+            if(this.friend === this.$store.state.currentUserDetails.username){
+                 this.$toast.open({message:`WHY Rahul WHY`,type:'is-danger'})
+            }
+            else if(isFriend(this.friend)){
                 this.$toast.open({message:`User is already a friend`,type:'is-danger'})
             }
-            //TODO:Possible easter
-            // else if(this.friend === this.$store.state.currentUser.id){
-            //     this.$toast.open({message:`WHY WHY WHY`,type:'is-danger'})
-            // }
             else{
             addFriend(this.friend)
             this.$toast.open({message:`User ${this.friend} added to friends list`,type:'is-success'})
-            getFriends()
             }
             this.toshow = false
             this.result = false 
             this.friend=''
         }
     }
+
     ,
-    created :function(){
-        getAllUsers()
-    }
+   
 }
 </script>
 
