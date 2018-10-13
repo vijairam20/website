@@ -15,8 +15,10 @@ firebase.firestore().settings(settings);
 var auth = firebase.auth();
 const db =  firebase.firestore()
 const users = db.collection("users")
+var storage = firebase.storage()
+
 
 export {
 	firebase, db ,
-	auth , users 
+	auth , users , storage 
 };

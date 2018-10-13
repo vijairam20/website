@@ -81,7 +81,6 @@ export default {
             this.$toast.open({message:`User ${this.friend} added to friends list`,type:'is-success'})
             }
             this.toshow = false
-            this.result = false 
             this.friend=''
         }
     }

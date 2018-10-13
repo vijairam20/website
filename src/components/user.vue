@@ -1,6 +1,6 @@
 <template>
 <div id="user">
-    <avatar :username=name></avatar>
+    <avatar :username=name :src=link></avatar>
     <h1>{{name}}</h1>
     <!-- <div id="data">
     <h1>{{name}}</h1>
@@ -10,6 +10,7 @@
 
 <script>
 import Avatar from "vue-avatar";
+import { users , storage } from "../firebaseConfig.js"
 export default {
 name:'user',
 components:{
@@ -17,12 +18,21 @@ components:{
 },
 data:function(){
     return {
-   
+   link : ''
     }
 },props:{
-    name:String
+    name:String,
+},created:function(){
+     var profilepic = storage.ref().child("profilepicture").child(this.name);
+     profilepic.getDownloadURL().then((url)=>{
+                  console.log(url);
+                  this.link = url ;
+              }).catch()
 }
 }
+
+
+
 </script>
 
 <style style="scss" scoped>

@@ -75,10 +75,11 @@ computed:{
         background-color: white;
         height: 100%;
         display: grid;
-        grid-template-rows: 10% 
+        grid-template-rows: 12.5% 
     }
 
     h1{
+        margin: auto 0 ;
         font-size: 2em;
     }
 

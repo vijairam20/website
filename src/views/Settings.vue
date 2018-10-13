@@ -30,7 +30,8 @@
 			<div>
 				<b-taglist attached class="true">
 					<b-tag type="is-dark" size="is-large">Friends</b-tag>
-					<b-tag type="is-info" size="is-large">{{this.$store.state.friends.length}}</b-tag>
+          <!-- TODO: check friends -->
+					<b-tag type="is-info" size="is-large">{{this.$store.state.currentUserDetails.friends.length}}</b-tag>
 				</b-taglist>
 			</div>
 		</div>
@@ -96,21 +97,31 @@
 	<b-field style="margin-top : 0.5em">
 	<button @click="changePassword"class="button is-danger" style="font-size: 0.8em"><b>Reset Password</b></button>
     </b-field>
+    <!--TODO:ADD profile picture--> 
+	<b-field style="margin-top : 0.5em">
+	<button @click="addProfilePic"class="button is-link" style="font-size: 0.8em"><b>Add Profile picture</b></button>
+    </b-field>
 	</div>
 
     </div>
 </template>
 
 <script>
-import { auth } from "../firebaseConfig.js";
+import { auth , profileRef} from "../firebaseConfig.js";
+import profilepicture from "@/components/profilepicture.vue";
+
 export var myVar = "isPublic";
 export default {
   data() {
     return {
       isSwitchedCustom: "On",
       isPublic: true,
-      isTheTheme: true
+      isTheTheme: true,
+      value:''
     };
+  },
+  components:{
+    profilepicture
   },
   methods: {
     updateTheme: function(value) {
@@ -139,6 +150,13 @@ export default {
                     type: 'is-success'
                 })
 		}
+      });
+    },
+    addProfilePic: function(){
+      this.$modal.open({
+        parent: this,
+        component: profilepicture ,
+        hasModalCard: false
       });
     }
   }

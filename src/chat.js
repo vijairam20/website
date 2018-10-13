@@ -90,6 +90,11 @@ export const addFriend = function (friend) {
 	
 };
 
+export const addProfilePicToStorage = function(photourl){
+	users.doc(store.state.currentUserDetails.username).update({
+		url : photourl
+	})
+}
 export const isNotCurrentUser = function (user) {
 	if (user.id == store.state.currentUser.id) {
 		return false;
