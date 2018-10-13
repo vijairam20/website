@@ -11,7 +11,7 @@
             </a>
 
             <b-dropdown-item @click.native="deleteroom">Delete</b-dropdown-item>
-            <b-dropdown-item>Another action</b-dropdown-item>
+            <b-dropdown-item @click.native="showUserInfo">User info</b-dropdown-item>
             <b-dropdown-item>Something else</b-dropdown-item>
         </b-dropdown>
         </div>
@@ -19,7 +19,7 @@
        <div id="area">
           
            <ul id="chatmessages">
-               <messagec v-for="message in messages" :key="message.id" :text="message.text" :sender="message.sender.id" :attachment="message.attachment"></messagec>
+               <message v-for="message in messages" :key="message.id" :text="message.text" :sender="message.sender.id" :attachment="message.attachment"></message>
             </ul>
         </div>
        <div id="cta">
@@ -56,10 +56,11 @@
 <script>
 import { getRoomByFriend, findAttachment, deleteRoom } from "../chat.js";
 import user from "@/components/user.vue";
-import messagec from "@/components/message.vue";
+import message from "@/components/message.vue";
 import pattachment from "@/components/p-attachment.vue";
 import { stat } from "fs";
 import { getUserByID } from "../user.js";
+import userinfo from '../components/userinfo.vue';
 export default {
   name: "chatArea",
   beforeRouteUpdate(to, from, next) {
@@ -78,14 +79,14 @@ export default {
       status: "",
       currentRoom: "",
       recording : false,
-     
     };
   },
   watch: {},
   components: {
     user,
-    messagec,
-    "p-attachment": pattachment
+    message,
+    "p-attachment": pattachment,
+    userinfo
   },
   computed: {
     username: function() {
@@ -168,6 +169,15 @@ export default {
     this.message = speechToText
     this.recording = false 
 	};
+  }
+  ,
+  showUserInfo: function(){
+     this.$modal.open({
+                    parent: this,
+                    component: userinfo ,
+                    hasModalCard: true ,
+                    props:{name : this.friend},
+                })
   }
   },
   updated: function() {
