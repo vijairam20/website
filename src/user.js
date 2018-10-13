@@ -13,7 +13,8 @@ export const addUserToFirestore = function(newemail, newusername, newname, newid
         name: newname,
         id :  newid,
         email : newemail,
-        username : newusername
+        username : newusername ,
+        friends : 0 
     }).then(function() {
         console.log(`${newusername} is added to firestore`);
     })
