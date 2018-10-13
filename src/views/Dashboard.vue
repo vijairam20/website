@@ -107,7 +107,6 @@ h1{
 	margin: 0 ;
 }
 #dashboard {
-	overflow-y: hidden;
 	display: grid;
 	grid-template-columns: 5% 95%;
 	height: 100vh;

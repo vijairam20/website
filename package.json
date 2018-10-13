@@ -14,9 +14,11 @@
     "firebase": "^5.4.2",
     "lodash": "^4.17.11",
     "underscore": "^1.9.1",
+    "v-bar": "^3.0.0",
     "vue": "^2.5.17",
     "vue-avatar": "^2.1.6",
     "vue-router": "^3.0.1",
+    "vuebar": "0.0.20",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
