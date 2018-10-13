@@ -3,7 +3,7 @@
     <div class="text">
     <h1>{{text}}</h1>
     <div class="attachment" v-if = "isAttachment">
-        <h1>{{filename}}</h1>
+        <!-- <h1>{{filename}}</h1> -->
         <button @click = "openInNewTab"><i class="fas fa-arrow-circle-down"></i></button>
     </div>
     </div>
@@ -56,6 +56,9 @@ if(!(this.attachment === "none")){
         return false
     },
     filename:function(){
+        if(!this.link.file.name){
+            return "no file name"
+        }
         return this.link.file.name
     }
 },methods:{
