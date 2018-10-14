@@ -1,8 +1,31 @@
 <template>
 <div id="user">
+    <avatar :username=name  :src=userdata.url :size="150" class="centerprofile"></avatar>
+    <h1 class="centre">
+        <br><br>
+    <b-taglist attached class="true">
+                    <b-tag type="is-dark" size="is-medium">UserID</b-tag>
+                    <b-tag type="is-info" size="is-medium">{{userdata.id}}</b-tag>
+                </b-taglist>
+    <b-taglist attached class="true">
+                    <b-tag type="is-dark" size="is-medium">E-mail</b-tag>
+                    <b-tag type="is-info" size="is-medium">{{userdata.email}}</b-tag>
+                </b-taglist>
+    <b-taglist attached class="true">
+                    <b-tag type="is-dark" size="is-medium">UserName</b-tag>
+                    <b-tag type="is-info" size="is-medium">{{name}}</b-tag>
+                </b-taglist>
+    <!--<b-taglist attached class="true">
+                    <b-tag type="is-dark" size="is-medium">Friends</b-tag>
+                    <b-tag type="is-info" size="is-medium">{{userdata.Friends.length}}</b-tag>
+                </b-taglist>-->
+    <b-taglist attached class="true">
+                    <b-tag type="is-dark" size="is-medium">ContactName</b-tag>
+                    <b-tag type="is-info" size="is-medium">{{name}}</b-tag>
+                </b-taglist>
+    </h1>
     <h1>{{name}}</h1>
     <h1>{{userdata.email}}</h1>
-    <avatar :username=name :src=userdata.url :size="100"></avatar>
     <h1>{{userdata.id}}</h1>
     <h1>{{userdata.name}}</h1>
 </div>
@@ -25,9 +48,9 @@ export default {
     },
     props: {
         name: String,
-        userdata : Object
+        userdata: Object
     },
-  
+
 };
 </script>
 
@@ -43,5 +66,15 @@ export default {
 
 h1 {
     text-align: center;
+}
+
+.centre {
+    justify-content: center;
+    
+}
+
+.centerprofile {
+    display: flex;
+    justify-content: center;
 }
 </style>
