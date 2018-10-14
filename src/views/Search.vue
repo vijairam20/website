@@ -44,10 +44,11 @@ export default {
     },
     methods:{
         searchUser : function(){
-            var friendquery =  users.where("id", "==", this.id);
+            var friendquery =  users.where("username", "==", this.id);
     friendquery.get() 
     .then( (snapshot)=>{
         snapshot.forEach((doc)=>{
+            console.log(doc);
                 this.displayUser(doc.data().username,doc.data().email);
 })
         })            

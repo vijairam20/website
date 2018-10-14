@@ -18,9 +18,9 @@
        </div>
        <div id="area">
           
-           <ul id="chatmessages">
+           <div id="chatmessages">
                <message v-for="message in messages" :key="message.id" :text="message.text" :sender="message.sender.id" :attachment="message.attachment"></message>
-            </ul>
+            </div>
         </div>
        <div id="cta">
         <b-field grouped>	   
@@ -234,6 +234,25 @@ export default {
   float: bottom;
   min-width: 100%;
   font-size: 1.05em;
+}
+#chatarea::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+    background-color: red;
+} 
+
+#chatarea::-webkit-scrollbar-thumb {
+    background-color: #000000;
+}
+.scrollbar
+{
+	margin-left: 30px;
+	float: left;
+	height: 300px;
+	width: 65px;
+	background: #F5F5F5;
+	overflow-y: scroll;
+	margin-bottom: 25px;
 }
 .al {
   display: flex;
