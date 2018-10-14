@@ -148,8 +148,15 @@ export default {
             console.log(`User ${user.name} came online`);
           },
           onUserWentOffline: user => {
-            this.status = "OFFLINE";
+            this.status = "";
             console.log(`User ${user.name} went offline`);
+          },
+          onUserStartedTyping : user =>{
+            this.status = "typing...";
+            console.log(`User ${user.name} started typing`)
+          },
+          onUserStoppedTyping : user =>{
+            this.status = "ONLINE"
           }
         },
         messageLimit: 40

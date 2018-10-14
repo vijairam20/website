@@ -59,12 +59,6 @@ const router = new Router({
 					component: () =>
 						import('./views/Settings.vue')
 				},
-				{
-					name: 'speech',
-					path: 'speech',
-					component: () =>
-						import('./views/Speech.vue')
-				},
 			],
 			meta: {
 				requiresAuth: true
