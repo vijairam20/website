@@ -34,122 +34,6 @@ import {
 } from '../firebaseConfig.js'
 import user from "@/components/user.vue"
 export default {
-<<<<<<< HEAD
-    name : 'Search',
-    components:{
-        user
-    },
-    data:function(){
-        return{
-            id:'',
-            result : '',
-            friend : '',
-            toshow : false,
-            isresult:false,
-            isFriend:false
-        }
-    },
-    methods:{
-        searchUser : function(){
-            var friendquery =  users.where("username", "==", this.id);
-    friendquery.get() 
-    .then( (snapshot)=>{
-        snapshot.forEach((doc)=>{
-            console.log(doc);
-                this.displayUser(doc.data().username,doc.data().email);
-})
-        })            
-            },
-        
-         displayUser : function(username , email){
-            
-            if(!username){
-                this.result = 'none'
-                this.toshow = true ;
-                this.isresult = false ; 
-             }
-            else{
-            this.result = email ;
-            this.friend = username ;
-            this.toshow = true ;
-            this.isresult = true ;
-            }
-        },
-        addUser: function(){
-            
-            console.log(this.friend)
-            if(this.friend === this.$store.state.currentUserDetails.username){
-                 this.$toast.open({message:`WHY Rahul WHY`,type:'is-danger'})
-            }
-            else if(isFriend(this.friend)){
-                this.$toast.open({message:`User is already a friend`,type:'is-danger'})
-            }
-            else{
-            addFriend(this.friend)
-            this.$toast.open({message:`User ${this.friend} added to friends list`,type:'is-success'})
-            }
-            this.toshow = false
-            this.friend=''
-        }
-    }
-||||||| merged common ancestors
-    name : 'Search',
-    components:{
-        user
-    },
-    data:function(){
-        return{
-            id:'',
-            result : '',
-            friend : '',
-            toshow : false,
-            isresult:false,
-            isFriend:false
-        }
-    },
-    methods:{
-        searchUser : function(){
-            var friendquery =  users.where("id", "==", this.id);
-    friendquery.get() 
-    .then( (snapshot)=>{
-        snapshot.forEach((doc)=>{
-                this.displayUser(doc.data().username,doc.data().email);
-})
-        })            
-            },
-        
-         displayUser : function(username , email){
-            
-            if(!username){
-                this.result = 'none'
-                this.toshow = true ;
-                this.isresult = false ; 
-             }
-            else{
-            this.result = email ;
-            this.friend = username ;
-            this.toshow = true ;
-            this.isresult = true ;
-            }
-        },
-        addUser: function(){
-            
-            console.log(this.friend)
-            if(this.friend === this.$store.state.currentUserDetails.username){
-                 this.$toast.open({message:`WHY Rahul WHY`,type:'is-danger'})
-            }
-            else if(isFriend(this.friend)){
-                this.$toast.open({message:`User is already a friend`,type:'is-danger'})
-            }
-            else{
-            addFriend(this.friend)
-            this.$toast.open({message:`User ${this.friend} added to friends list`,type:'is-success'})
-            }
-            this.toshow = false
-            this.friend=''
-        }
-    }
-=======
 	name: 'Search',
 	components: {
 		user
@@ -230,7 +114,6 @@ export default {
 	}
 
 	,
->>>>>>> bde8c6ac8cd003961d26eb90cdb52d54e3607e56
 
 }
 </script>
