@@ -89,16 +89,16 @@ export default {
         users.where("email", "==", email)
             .onSnapshot(function (snapshot) {
                 snapshot.docChanges().forEach(function (change) {
-                    if (change.type === "added") {
-                        console.log("User added: ", change.doc.data());
-                    }
+                    // if (change.type === "added") {
+                    //     console.log("User added: ", change.doc.data());
+                    // }
                     if (change.type === "modified") {
                         console.log("Modified user: ", change.doc.data());
-                        vm.$store.commit("setCurrentUserDetails", doc.data());
+                        vm.$store.commit("setCurrentUserDetails", change.doc.data());
                     }
-                    if (change.type === "removed") {
-                        console.log("Removed city: ", change.doc.data());
-                    }
+                    // if (change.type === "removed") {
+                    //     console.log("Removed city: ", change.doc.data());
+                    // }
                 });
             });
     }

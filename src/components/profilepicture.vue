@@ -17,7 +17,7 @@
         <img class="preview" :src="imageData">
         <button class="button is-link" @click="uploadProfilePicture">Upload Profile Picture</button>
     </div>
-  
+
 </div>
 </template>
 
@@ -26,7 +26,7 @@ import {
     storage
 } from "../firebaseConfig.js";
 import {
-  addProfilePicToStorage
+    addProfilePicToStorage
 } from "../chat.js"
 export default {
     data: function () {
@@ -42,23 +42,23 @@ export default {
         uploadProfilePicture: function () {
             var profilepic = storage.ref().child("profilepicture").child(this.$store.state.currentUserDetails.username)
             profilepic.put(this.file)
-            .then((data) => {
-                this.file = "";
-                this.imageData = "";
-                this.files = "";
-                this.isAttachment = false ;
-                 this.$toast.open({
-                    message: 'Profile Picture added',
-                    type: 'is-success'
+                .then((data) => {
+                    this.file = "";
+                    this.imageData = "";
+                    this.files = "";
+                    this.isAttachment = false;
+                    this.$toast.open({
+                        message: 'Profile Picture added',
+                        type: 'is-success'
+                    })
+                    profilepic.getDownloadURL().then((link) => {
+                        console.log(link);
+                        addProfilePicToStorage(link)
+                    }).catch()
                 })
-              profilepic.getDownloadURL().then((link)=>{
-                  console.log(link);
-                  addProfilePicToStorage(link)
-              }).catch()
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+                .catch((err) => {
+                    console.log(err);
+                });
 
         },
         findAttachments: function (files) {

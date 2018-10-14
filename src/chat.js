@@ -40,7 +40,11 @@ export const chatSignin = function () {
 		connectionTimeout: 60000
 	});
 
-	chatManager.connect()
+	chatManager.connect({
+		onAddedToRoom: room => {
+			getRooms();
+		  }
+	})
 		.then(currentUser => {
 			console.log("Successful connection", currentUser);
 			store.commit("setCurrentUser", currentUser);
@@ -91,7 +95,7 @@ export const addFriend = function (friend) {
 		friends: firebase.firestore.FieldValue.arrayUnion(friend)
 	});
 	users.doc(friend).update({
-		friends: firebase.firestore.FieldValue.arrayUnion(store.state.currentUserDetails.friend)
+		friends: firebase.firestore.FieldValue.arrayUnion(store.state.currentUserDetails.username)
 	});
 
 };
@@ -113,6 +117,7 @@ export const getRooms = function () {
 	})
 		.then((res) => {
 			store.commit("setRooms", res);
+			getFriends();
 		}).catch((err) => {
 			console.log(err);
 		});
