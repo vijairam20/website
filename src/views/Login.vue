@@ -13,7 +13,7 @@
             <b-input v-model="password" type="password"
                 placeholder="Password "
                 icon-pack="fas"
-                icon="lock">
+                icon="lock"
                 password-reveal>
             </b-input>
         </b-field>

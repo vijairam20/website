@@ -18,7 +18,7 @@
 		</b-field>
 
 		<b-field label="Password">
-			<b-input v-model.trim="password" value="password" type="password" placeholder="Password" icon-pack="fas" icon="lock">
+			<b-input v-model.trim="password" value="password" type="password" placeholder="Password" icon-pack="fas" icon="lock"
 				password-reveal>
 			</b-input>
 		</b-field>

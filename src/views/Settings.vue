@@ -31,7 +31,7 @@
 				<b-taglist attached class="true">
 					<b-tag type="is-dark" size="is-large">Friends</b-tag>
           <!-- TODO: check friends -->
-				<!--	<b-tag type="is-info" size="is-large">{{this.$store.state.currentUserDetails.friends.length}}</b-tag>-->
+					<b-tag type="is-info" size="is-large">{{friendslength}}</b-tag>
 				</b-taglist>
 			</div>
 		</div>
@@ -158,6 +158,14 @@ export default {
         component: profilepicture ,
         hasModalCard: false
       });
+    }
+  },computed:{
+    friendslength : function(){
+      if(this.$store.state.currentUserDetails.friends){
+      return this.$store.state.currentUserDetails.friends.length
+      }else{
+        return 0 ;
+      }
     }
   }
 };

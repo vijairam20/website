@@ -1,8 +1,8 @@
 <template>
    <div id="chatarea"  class="slide-right">
-       <div id="status">
+       <div id="status">          
            
-       <h1><user :name="username"></user></h1>
+       <h1><user :name="userid"></user></h1>
        <h1>{{status}}</h1>
        <div class="al">
         <b-dropdown>
@@ -61,10 +61,12 @@ import pattachment from "@/components/p-attachment.vue";
 import { stat } from "fs";
 import { getUserByID } from "../user.js";
 import userinfo from '../components/userinfo.vue';
+import {users} from '../firebaseConfig.js'
 export default {
   name: "chatArea",
   beforeRouteUpdate(to, from, next) {
     this.initialize(to.params.id);
+    
     next();
   },
   created: function() {
@@ -79,9 +81,11 @@ export default {
       status: "",
       currentRoom: "",
       recording : false,
+      userdata  : null,
+      userid : ""
     };
   },
-  watch: {},
+ 
   components: {
     user,
     message,
@@ -115,13 +119,17 @@ export default {
       messageDisplay.scrollTop = messageDisplay.scrollHeight;
     },
     initialize: function(id) {
+      this.userid = id;
+      console.log(id)
+      this.fetchUserData(id)
+      this.friend = id ;
       this.messages = [];
       this.message = "";
       this.roomId = 0;
+      this.userdata = null ;
 
       let room = getRoomByFriend(id);
       this.friend = this.$route.params.id;
-      console.log(this.friend);
       this.currentRoom = room;
       let currentUser = this.$store.state.currentUser;
       currentUser.subscribeToRoom({
@@ -175,10 +183,21 @@ export default {
      this.$modal.open({
                     parent: this,
                     component: userinfo ,
-                    hasModalCard: true ,
-                    props:{name : this.friend},
+                    hasModalCard: false ,
+                    props:{name : this.userdata.username , userdata : this.userdata},
                 })
-  }
+  },
+  fetchUserData : function (username) {
+        console.log("data received")
+        users.doc(username).get().then((doc) => {
+            this.userdata = doc.data() ;
+            this.userid = username;
+            
+        }).catch((err) => {
+            console.log(err)
+        })
+
+    }
   },
   updated: function() {
     this.scrollToEnd();
@@ -200,7 +219,7 @@ export default {
   // );
   min-width: 100%;
   height: 100vh;
-  grid-template-rows: 10% 80% 10%;
+  grid-template-rows: 12.5% 77.5% 10%;
   overflow: hidden;
 }
 #cta {

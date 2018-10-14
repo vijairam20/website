@@ -40,7 +40,7 @@ export default {
       let myRoom = getRoomByFriend(this.$route.params.id);
       currentUser
         .sendMessage({
-          text: "see1",
+          text: this.file.name,
           roomId: myRoom.id,
           attachment: {
             file: this.file,

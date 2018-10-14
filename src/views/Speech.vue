@@ -32,10 +32,7 @@ Sed felis eget velit aliquet sagittis. In est ante in nibh mauris cursus. Vestib
         </h2>  </div>
 </template>
 <script>
-import Vuebar from 'vuebar';
-import { exportDefaultDeclaration } from 'babel-types';
-Vue.use(Vuebar);
-exportDefaultDeclaration
+
 </script>
 
 <style lang="scss" scoped>
