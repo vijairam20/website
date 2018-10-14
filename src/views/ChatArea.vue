@@ -24,26 +24,26 @@
         </div>
        <div id="cta">
         <b-field grouped>	   
-            <input v-model="message" placeholder="Chat..." class="input is-rounded" type = "search" v-on:keyup.13="sendMessage"/>	           
+            <input icon-pack= "fas" icon="fa-laugh-wink" v-model="message" placeholder="Chat..." class="input is-rounded" type = "search" v-on:keyup.13="sendMessage"/>	           
             <p class="control">	            
-                <button @click="sendMessage" class="button is-link"><b-icon
+                <button @click="sendMessage" class="button is-link is-rounded"><b-icon
                 icon="send"
                 size="is-small">
             </b-icon></button>	
             </p>
 
             <p v-if="recording" class="control">
-                <button @click="record" class="button is-danger is-loading">
+                <button @click="record" class="button is-danger is-loading is-rounded">
                  
                 </button>
             </p>
             <p v-else class="control">
-                <button @click="record" class="button is-link">
+                <button @click="record" class="button is-link is-rounded">
                   <b-icon  icon="microphone" icon-pack="fas">
                 </b-icon></button>
             </p>
             <p class="control">
-                <button class="button is-link" @click="upload"><i class="fas fa-paperclip"></i></button>
+                <button class="button is-link is-rounded" @click="upload"><i class="fas fa-paperclip"></i></button>
             </p>
           	
                         

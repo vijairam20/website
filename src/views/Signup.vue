@@ -25,7 +25,7 @@
 
 		<div class="field is-grouped">
 			<div class="control">
-				<button @click.prevent="confirmTOS" class="button is-link">Sign Up</button>
+				<button id="signupbutton" @click.prevent="confirmTOS" class="button is-link">Sign Up</button>
 			</div>
 			<div class="control">
 				<router-link tag=button class="button is-text" to="/">Cancel</router-link>
@@ -63,6 +63,7 @@ export default {
 	},
 	methods: {
 		register:  function() {
+			document.getElementById("signupbutton").disabled = true;
 			var vm = this;
 			if (this.usernameValid) {
 				auth.createUserWithEmailAndPassword(vm.email, vm.password)
@@ -70,14 +71,16 @@ export default {
 					console.log("Firebase account created");
 					let userid = _.random(10,1000);
 					createChatkitUser(vm.username,vm.name,vm.email,userid);
-					addUserToFirestore(vm.email,vm.username,vm.name,userid)
-					this.open()
-					this.success()
+					addUserToFirestore(vm.email,vm.username,vm.name,userid);
+					this.open();
+					this.success();
 					}).catch(function(error) {
 			vm.printerr = error.message;
+			document.getElementsByClassName("control").disabled = false;
 	  });
 			 } else {
-			 	this.$toast.open("Username is invalid!");
+				 this.$toast.open("Username is invalid!");
+				 document.getElementById("signupbutton").disabled = false;
 			}
 		},
 		confirmTOS() {
@@ -134,7 +137,7 @@ export default {
 			document.getElementById("usernameid").setCustomValidity("Checking availability...");
 			this.usernameValid = false;
 			var vm = this;
-			
+
 			if (value.length >= 6) {
 				firebase.firestore().collection("users").doc(value).get()
 					.then((doc) => {
