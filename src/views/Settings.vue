@@ -31,7 +31,7 @@
 				<b-taglist attached class="true">
 					<b-tag type="is-dark" size="is-large">Friends</b-tag>
           <!-- TODO: check friends -->
-					<b-tag type="is-info" size="is-large">{{this.$store.state.currentUserDetails.friends.length}}</b-tag>
+				<!--	<b-tag type="is-info" size="is-large">{{this.$store.state.currentUserDetails.friends.length}}</b-tag>-->
 				</b-taglist>
 			</div>
 		</div>
