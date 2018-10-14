@@ -399,6 +399,7 @@ nav a {
 nav a:hover,
 nav a:focus {
 	outline: none;
+
 }
 
 .cl-effect-11 a {

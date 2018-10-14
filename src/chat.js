@@ -31,7 +31,8 @@ export const chatSignin = function () {
 		userId: store.state.currentUserDetails.username,
 		tokenProvider: new TokenProvider({
 			url: "https://us1.pusherplatform.io/services/chatkit_token_provider/v1/8e862fe0-1264-46d3-9c2a-ee84030cbfe0/token"
-		})
+		}),
+		connectionTimeout : 60000
 	});
 
 	chatManager.connect()

@@ -6,7 +6,6 @@
             <router-link to="/dashboard/chat"><i class="fas fa-comment fa-3x"></i></router-link>
             <router-link to="/dashboard/search"><i class="fas fa-search fa-3x"></i></router-link>
             <router-link to="/dashboard/settings"><i class="fas fa-cog fa-3x"></i></router-link>
-			<router-link to="/dashboard/speech">S</router-link>
             <router-link to="" @click.native="confirmSignOut"><i class="fas fa-sign-out-alt fa-3x"></i></router-link>
         </nav>
         <div>
