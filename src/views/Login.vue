@@ -20,7 +20,7 @@
 
         <div class="field is-grouped">
   <div class="control">
-    <button @click.prevent="signin" :class="styleButton">Login</button>
+    <button id="loginbutton" @click.prevent="signin" :class="styleButton">Login</button>
   </div>
   <div class="control">
     <router-link tag=button class = "button is-text" to="/">Cancel</router-link>
@@ -28,7 +28,7 @@
 </div>
 <h1>{{printerr}}</h1>
 </form>
-       
+
     </div>
 </template>
 
@@ -53,7 +53,8 @@ export default {
   },
   methods: {
     signin: function() {
-      //Firebase sigin
+	  //Firebase sigin
+	  document.getElementById("loginbutton").disabled = true;
       //this.$store.commit("setEmail",this.email);
       localStorage.setItem("email",this.email);
       firebase
@@ -63,10 +64,11 @@ export default {
           this.open()
           signin(this.email);
           this.$store.commit("setFirebaseUser", user);
-         
+
         })
         .catch(error => {
-          this.printerr = error.message;
+		  this.printerr = error.message;
+		  document.getElementById("loginbutton").disabled = false;
           console.log(error.message);
         });
     },
@@ -85,22 +87,22 @@ export default {
 
 <style lang="scss" scoped>
 #login {
-  display: grid;
-  grid-template-columns: 60% 40%;
-  height: 100vh;
+	display: grid;
+	grid-template-columns: 60% 40%;
+	height: 100vh;
 }
 
 form {
-  padding: 100px;
-  h1 {
-    color: red;
-  }
+	padding: 100px;
+	h1 {
+		color: red;
+	}
 }
 
 #loginimg {
-  background: url("../assets/loginimage.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+	background: url("../assets/loginimage.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 </style>
 

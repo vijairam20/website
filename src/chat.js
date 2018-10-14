@@ -1,17 +1,22 @@
-import store from './store'
-import { ChatManager, TokenProvider } from '@pusher/chatkit'
-const axios = require('axios');
+import store from "./store";
+import {
+	ChatManager,
+	TokenProvider
+} from "@pusher/chatkit";
+const axios = require("axios");
 const Chatkit = require("@pusher/chatkit-server");
 const chatkit = new Chatkit.default({
 	instanceLocator: "v1:us1:8e862fe0-1264-46d3-9c2a-ee84030cbfe0",
 	key: "1a0f59d5-a1f6-49b6-a5eb-ec10b28e5593:ufU+fTEZWiHvFb6m8c60N45rhKRSnYeIWyBPryTW39w=",
 });
 import {
-	firebase ,users , db 
+	firebase,
+	users,
+	db
 } from "./firebaseConfig";
 //TODO:CREATE USER
 export const createChatkitUser = function (username, name, newemail, newkey) {
-	 chatkit.createUser({
+	chatkit.createUser({
 		id: username,
 		name: name
 	})
@@ -21,7 +26,7 @@ export const createChatkitUser = function (username, name, newemail, newkey) {
 			console.log(err);
 		});
 
-	
+
 };
 
 export const chatSignin = function () {
@@ -32,7 +37,7 @@ export const chatSignin = function () {
 		tokenProvider: new TokenProvider({
 			url: "https://us1.pusherplatform.io/services/chatkit_token_provider/v1/8e862fe0-1264-46d3-9c2a-ee84030cbfe0/token"
 		}),
-		connectionTimeout : 60000
+		connectionTimeout: 60000
 	});
 
 	chatManager.connect()
@@ -45,7 +50,7 @@ export const chatSignin = function () {
 				.then((res) => {
 					store.commit("setRooms", res);
 					getFriends();
-				//	authenticateUser(currentUser.id);
+					//	authenticateUser(currentUser.id);
 				}).catch((err) => {
 					console.log(err);
 				});
@@ -88,14 +93,14 @@ export const addFriend = function (friend) {
 	users.doc(friend).update({
 		friends: firebase.firestore.FieldValue.arrayUnion(store.state.currentUserDetails.friend)
 	});
-	
+
 };
 
-export const addProfilePicToStorage = function(photourl){
+export const addProfilePicToStorage = function (photourl) {
 	users.doc(store.state.currentUserDetails.username).update({
-		url : photourl
-	})
-}
+		url: photourl
+	});
+};
 export const isNotCurrentUser = function (user) {
 	if (user.id == store.state.currentUser.id) {
 		return false;
@@ -145,14 +150,14 @@ export const getFriends = function () {
 	store.commit("setFriends", friendsList);
 };
 
-export const isFriend =  function (friend) {
-	let friends = store.state.currentUserDetails.friends;
-	if(friends.length == 0 ){
+export const isFriend = function (friend) {
+	var friends = store.state.currentUserDetails.friends || null;
+	if (friends == null || friends.length == 0) {
 		return false;
 	}
-	for(var i = 0 ; i < friends.length ; i++){
-		if(friends[i] === friend){
-			return true ;
+	for (var i = 0; i < friends.length; i++) {
+		if (friends[i] === friend) {
+			return true;
 		}
 	}
 	return false;
@@ -172,16 +177,16 @@ export const deleteRoom = function (room) {
 };
 
 export const signin = function (email) {
-	
-	var emailquery =  users.where("email", "==", email);
-    emailquery.get() // Trying to get all the groups
-    .then( function(snapshot){
-        snapshot.forEach(function(doc){
+
+	var emailquery = users.where("email", "==", email);
+	emailquery.get() // Trying to get all the groups
+		.then(function (snapshot) {
+			snapshot.forEach(function (doc) {
 				console.log(doc.id);
-				localStorage.setItem("username",doc.id);
+				localStorage.setItem("username", doc.id);
 				store.commit("setCurrentUserDetails", doc.data());
-				chatSignin()
-            })
-        })
-    
+				chatSignin();
+			});
+		});
+
 };
